@@ -1,62 +1,43 @@
+
 @font-face {
-    font-family: "RubikBlack";
-    src: url("/assets/fonts/Rubik/static/Rubik-Black.ttf") format("truetype");
+    font-family: "UncutBold";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Bold.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikBlackItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-BlackItalic.ttf") format("truetype");
+    font-family: "UncutBoldOblique";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-BoldOblique.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikBold";
-    src: url("/assets/fonts/Rubik/static/Rubik-Bold.ttf") format("truetype");
+    font-family: "UncutMedium";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Medium.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikBoldItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-BoldItalic.ttf") format("truetype");
+    font-family: "UncutMediumOblique";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-MediumOblique.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikExtraBold";
-    src: url("/assets/fonts/Rubik/static/Rubik-ExtraBold.ttf") format("truetype");
+    font-family: "UncutRegular";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Regular.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikExtraBoldItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-ExtraBoldItalic.ttf") format("truetype");
+    font-family: "UncutRegularOblique";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-RegularOblique.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-Italic.ttf") format("truetype");
+    font-family: "UncutSemibold";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Semibold.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikLight";
-    src: url("/assets/fonts/Rubik/static/Rubik-Light.ttf") format("truetype");
+    font-family: "UncutSemiboldOblique";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-SemiboldOblique.otf") format("truetype");
 }
 @font-face {
-    font-family: "RubikLightItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-LightItalic.ttf") format("truetype");
-}
-@font-face {
-    font-family: "RubikMedium";
-    src: url("/assets/fonts/Rubik/static/Rubik-Medium.ttf") format("truetype");
-}
-@font-face {
-    font-family: "RubikMediumItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-MediumItalic.ttf") format("truetype");
-}
-@font-face {
-    font-family: "RubikRegular";
-    src: url("/assets/fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
-}
-@font-face {
-    font-family: "RubikSemiBold";
-    src: url("/assets/fonts/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
-}
-@font-face {
-    font-family: "RubikSemiBoldItalic";
-    src: url("/assets/fonts/Rubik/static/Rubik-SemiBoldItalic.ttf") format("truetype");
+    font-family: "UncutVF";
+    src: url("/assets/fonts/uncut-sans/Uncut-Sans-VF.ttf") format("truetype");
 }
 
 * {
-    font-family: "RubikRegular", sans-serif;
+    font-family: "UncutRegular", sans-serif;
 }
 
 #zoomIn,
