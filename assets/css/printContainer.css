@@ -1,0 +1,37 @@
+.printDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4rem;
+    margin-right: 4rem;
+    margin-bottom: 1rem;
+}
+
+.printDivContent {
+    display: flex;
+    align-items: center;
+    /* font-family: 'RalewayC', sans-serif; */
+    padding-top: 30px;
+    width: 100%;
+}
+
+.printDivContentText {
+    flex-grow: 1; 
+    font-family: 'RubikLightItalic', sans-serif;
+}
+
+.printButtonDiv {
+    display: flex; 
+    height: 100%; 
+    margin-left: 12px
+}
+.printButtonDivContent {
+    margin-left: auto; 
+    display: flex; 
+    align-items: center;
+}
+.printIcon {
+    height: 18px; /* Altura del ícono */
+}
+.hiddenDiv {
+    display: none;
+}

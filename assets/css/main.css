@@ -1,0 +1,73 @@
+@font-face {
+    font-family: "RubikBlack";
+    src: url("/assets/fonts/Rubik/static/Rubik-Black.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikBlackItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-BlackItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikBold";
+    src: url("/assets/fonts/Rubik/static/Rubik-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikBoldItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikExtraBold";
+    src: url("/assets/fonts/Rubik/static/Rubik-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikExtraBoldItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-ExtraBoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikLight";
+    src: url("/assets/fonts/Rubik/static/Rubik-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikLightItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-LightItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikMedium";
+    src: url("/assets/fonts/Rubik/static/Rubik-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikMediumItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-MediumItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikRegular";
+    src: url("/assets/fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikSemiBold";
+    src: url("/assets/fonts/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RubikSemiBoldItalic";
+    src: url("/assets/fonts/Rubik/static/Rubik-SemiBoldItalic.ttf") format("truetype");
+}
+
+* {
+    font-family: "RubikRegular", sans-serif;
+}
+
+#zoomIn,
+#zoomOut,
+#printPage,
+#viewLessBtn,
+#viewMoreBtn {
+    border: none !important;
+}
+
+#zoomIn,
+#zoomOut {
+    background-color: transparent !important;
+}

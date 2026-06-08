@@ -1,0 +1,154 @@
+@media (max-width: 768px) {
+
+    .mobilePickerDivContent {
+        display: none
+    }
+
+    .mobilePickerPanel {
+        position: absolute;
+        z-index: 600;
+        bottom: 0;
+        width: 100%;
+        height: 273px;
+        background: white;
+    }
+
+    .mobilePickerChoose {
+        position: relative;
+        height: 60px;
+        color: #999;
+    }
+
+    .pickerTitle {
+        margin: 0;
+        line-height: 60px;
+        font-weight: normal;
+        text-align: center;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .mobilePickerText {
+        position: relative;
+        top: 20px;
+        padding-right: 10px;
+    }
+
+    .wheelWrapperDiv {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .wheelScrollbar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 8px;
+        /* Ancho del scrollbar */
+        height: 100%;
+        background: #ccc;
+        border-radius: 4px;
+    }
+
+    .wheel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        pointer-events: none;
+        /* Asegura que no interfiera con los clics */
+    }
+
+    .wheel::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        pointer-events: none;
+        /* Asegura que no interfiera con los clics */
+    }
+
+    .wheel {
+        flex: 1;
+        height: 173px;
+        overflow-y: scroll;
+        /* Make sure to have overflow-y in scroll modus */
+        -webkit-overflow-scrolling: touch;
+        /* Use touch for iOS */
+        scrollbar-width: thin;
+        /* For some browsers this make the scrollbar thin */
+    }
+
+    .mobilePickerFooter {}
+
+    .confirm,
+    .cancel {
+        position: absolute;
+        top: 6px;
+        padding: 16px;
+        font-size: 14px;
+        color: #fec03c;
+        /* Color de fondo al pasar el mouse */
+        font-family: "RalewayBold", sans-serif;
+    }
+
+    .confirm {
+        right: 0;
+    }
+
+    .cancel {
+        left: 0;
+    }
+
+    .mainVisNavTab {
+        width: 100%;
+    }
+
+    .navTabOverview {
+        margin-top: 3px !important;
+    }
+
+    h2.accordion-header.partnerHeader {
+        .accordion-button2 {
+            margin-top: 0px;
+        }
+    }
+
+    .triangleIcon {
+        margin-left: auto;
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s ease;
+        transform: rotate(-90deg);
+    }
+
+    .accordion-button2[aria-expanded="true"] .triangleIcon {
+        transform: rotate(-90deg);
+    }
+
+    .accordion-button2[aria-expanded="false"] .triangleIcon {
+        transform: rotate(-90deg);
+    }
+
+    .africaTriangle {
+        display: flex;
+    }
+
+    .navTabMobile {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        align-items: center;
+    }
+
+    .controlToggle {
+        order: 2;
+        display: none;
+        margin-top: 0px;
+        margin-bottom: 6px;
+    }
+}

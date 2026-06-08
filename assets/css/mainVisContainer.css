@@ -1,0 +1,404 @@
+.mainVisDiv {
+    display: flex;
+    box-sizing: border-box;
+    border: 0.5px solid #d7d7d7;
+    border-radius: 10px;
+    padding: 20px;
+    justify-content: space-between;
+    margin: 0 60px 0 60px;
+    box-sizing: border-box;
+    /* Borders do not override */
+    height: 640px;
+    
+}
+
+/* Adjust the third column (right panel) */
+.first-col {
+    /* flex: 1; Without it, navbar doesnt take much space */
+    /* Flex 1--> Allow it to take up proportional space */
+    max-width: 25%; /* Limit its width */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+#map {
+    flex: 2; /* Allow it to take up proportional space */
+    position: relative;
+    overflow: hidden;
+    margin-left: 8px;
+}
+.right.bilateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1; /* Allow it to take up proportional space */
+    max-width: 25%; /* Limit its width */
+    height: 100%; /* Full height of the parent */
+    overflow: hidden; /* Prevent overflow */
+    padding: 10px; /* Add some padding */
+}
+.third-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allow it to take up proportional space */
+    height: 100%; /* Full height of the parent */
+    overflow: hidden; /* Prevent overflow */
+    padding: 10px; /* Add some padding */
+}
+.card.partnership.expanded {
+    flex-grow: 1; /* Allow it to grow and fill available space */
+    overflow-y: auto; /* Enable vertical scrolling for content */
+    padding: 1rem; /* Add some padding */
+    border: none;
+}
+
+.btnZoom {
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.btnZoom button img {
+    width: 30px;
+    height: 30px;
+}
+
+.mainVisNavTab {
+    width: 250px;
+}
+
+.navTabOverview {
+    margin-top: 0px !important;
+}
+
+h2.accordion-header.partnerHeader {
+    .accordion-button2 {
+        font-size: 14pt;
+        font-weight: normal;
+        font-family: "RubikMedium", sans-serif;
+        color: #252525;
+        justify-content: space-between;
+        /* Esto separa los elementos a los extremos */
+    }
+
+    #africaButton {
+        font-size: 14pt;
+        font-weight: normal;
+        font-family: "RubikMedium", sans-serif;
+        color: #252525;
+        justify-content: space-between;
+        /* Esto separa los elementos a los extremos */
+    }
+}
+
+.triangleIcon {
+    margin-left: auto;
+    /* Puts the triangle at the extreme right */
+    width: 16px;
+    /* Adjust the size */
+    height: 16px;
+    transition: transform 0.3s ease;
+    transform: rotate(-90deg);
+}
+
+.accordion-button2[aria-expanded="true"] .triangleIcon {
+    transform: rotate(-90deg);
+}
+
+.accordion-button2[aria-expanded="false"] .triangleIcon {
+    transform: rotate(-90deg);
+}
+
+.africaTriangle {
+    display: none;
+}
+
+.accordion-body .accordionBilateral {
+    border: black solid 0.5px;
+    padding: 0.75rem 0.75rem;
+}
+
+.customScroll {
+    max-height: 100%;
+    overflow-y: auto;
+    margin-top: 0;
+}
+
+.customScrollAccordion {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.customScroll {
+    overflow-x: hidden;
+}
+
+.customScroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.customScroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.customScroll::-webkit-scrollbar-track {
+    background: #ccc;
+}
+
+.cardSubtitle {
+    font-size: 11pt;
+    padding: 0px;
+    padding-bottom: 8px;
+    margin: 0px;
+    font-family: "RalewayItalic", sans-serif;
+}
+
+.accordion {
+    height: 100%;
+    padding: 0px;
+    width: 450px;
+    margin-bottom: 0px;
+}
+
+#africaButton,
+.accordion-button2 {
+    display: flex;
+    box-shadow: none;
+    width: 100%;
+    background-color: #ffdc94;
+    padding: 18.5px;
+    border: none;
+    border-radius: 2.9px !important;
+    font-size: 10pt !important;
+    text-align: left;
+    outline: none;
+    height: 50px;
+    font-family: "RalewayMedium", sans-serif;
+}
+
+.accordion-button2:focus,
+.accordion-button2.active {
+    background-color: #2b7e3d !important;
+    font-family: "RalewayBold", sans-serif !important;
+    font-weight: bold !important;
+    box-shadow: none !important;
+}
+
+#africaButton:not(:focus),
+.accordion-button2:not(:focus) {
+    background-color: #a8d5ba;
+}
+
+#africaButton:not(:focus).active {
+    background-color: #2b7e3d;
+}
+
+.list-group-item.btn-outline-dark.countrySelect {
+    color: #757575;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration-color 0.3s;
+    padding-left: 0px;
+    padding-top: 0px;
+    margin: 0px;
+    font-size: 10pt;
+}
+
+.list-group-item.btn-outline-dark.countrySelect:hover {
+    color: #2b7e3d;
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-underline-offset: 10px;
+}
+
+.line {
+    width: 100%;
+    height: 3px;
+    background-color: #2b7e3d;
+    margin-bottom: 14px;
+}
+
+.accordion-body .accordionMultilateral {
+    border: black solid 0.5px;
+    padding: 0.75rem 0.75rem;
+}
+
+.listPartners {
+    font-size: 16pt;
+    font-family: "RalewayN", sans-serif;
+}
+
+.listPartners {
+    .list-group-item {
+        font-size: 30pt;
+        font-family: "RalewayN", sans-serif;
+    }
+}
+
+.card-title.listPartners {
+    font-weight: bold;
+    /* font-family: "RalewayN", sans-serif; */
+    font-size: 15pt;
+}
+
+.card.partnership {
+    display: flex;
+    border: 1px solid lightgray;
+    border-radius: 7px;
+    padding: 0px 10px 10px 10px;
+    /* width: 140px; */
+}
+.card-body.partner {
+    margin: 0;
+    padding: 2px;
+    border: none;
+    border-bottom: #252525 solid 0.5px;
+    margin-right: 10px;
+
+    padding: 15px 10px 15px 0px !important;
+}
+
+.card-body.partner:last-child {
+    border-bottom: none;
+    margin-bottom: 0px !important;
+}
+
+.project,
+.access,
+.year,
+.areasCoop,
+.trendLabel,
+p.flagshipProjects.span,
+.flagshipProjects,
+.cardLink {
+    font-family: "RubikLight";
+    font-size: "11pt";
+    padding-bottom: 0px;
+}
+
+.webIcon {
+    height: 20px;
+}
+
+.cardLink {
+    text-decoration: none;
+    color: "#0071BC";
+}
+
+.list-group-item.blocSelect {
+    color: #757575;
+    text-decoration: none;
+    transition: color 0.3s, text-decoration-color 0.3s;
+    padding-left: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    font-size: 10pt;
+}
+
+.list-group-item.blocSelect:hover {
+    color: #2b7e3d;
+    text-decoration: underline;
+    text-decoration-color: #2b7e3d;
+    text-underline-offset: 4px;
+}
+
+.navTabMobile {
+    display: none;
+}
+
+.controlsDiv {
+    position: absolute;
+    top: 0px;
+    right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    align-items: flex-end;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.controlsDiv * {
+    pointer-events: auto;
+}
+
+.controlToggle {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 3px 5px 3px 5px;
+    border-radius: 7px;
+    border: 1pt solid #fff;
+    margin-top: 6px;
+}
+
+.labelToggle {
+    font-size: 14px;
+    color: #000;
+    margin: 0px;
+    margin-right: 12px;
+    font-family: "RalewayN", sans-serif;
+    margin-left: 12px;
+}
+
+.toggleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    /* Fondo gris para el contenedor del toggle */
+    padding: 3px;
+    border-radius: 20px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.toggleButton {
+    width: 16px;
+    height: 16px;
+    background-color: #f2f2f2;
+    /* Verde cuando está inactivo */
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.toggleContainer.active .toggleButton {
+    background-color: #4b4b4b;
+    /* Amarillo cuando está activo */
+    transform: translateX(18px);
+    /* Mueve el botón a la derecha */
+}
+
+.btn.btn-outline-dark.aresCoop {
+    font-size: 9pt;
+    padding: 2px 10px
+}
+.tooltip {
+    position: absolute;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 3px;
+    font-size: 10pt;
+  }
+  .tooltipTitle {
+    font-size: 13pt;
+    margin-top: 0px;
+  }
+  p.tooltipText {
+    font-size: 11pt;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  .matrixVarList {
+    list-style-type: disc; /* Use bullet points */
+    padding-left: 20px; /* Add padding to align bullets */
+    margin: 0; /* Optional: Adjust margin */
+}
