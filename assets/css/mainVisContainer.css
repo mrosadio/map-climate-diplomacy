@@ -11,6 +11,17 @@
     height: 640px;
     
 }
+@media (min-width: 768px) {
+    .climate-diplomacy-map .diplomacy-map-nav {
+        width: calc(126px + var(--bs-gutter-x));
+        flex: 0 0 auto;
+    }
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
 /* Adjust the third column (right panel) */
 .first-col {
