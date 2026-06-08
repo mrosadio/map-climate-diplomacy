@@ -36,7 +36,7 @@ funds, and add qualitative caveats.
 | Source | Link | Notes |
 |--------|----------|-------|
 | IMF | [link](https://data.imf.org/datasets/IMF.STA:IMTS) | ... |
-| World Bank | [link] https://data.worldbank.org/country/1W | ... |
+| World Bank | [link](https://data.worldbank.org/country/1W) | ... |
 
 Last updated: April 2025
 
