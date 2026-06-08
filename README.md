@@ -11,8 +11,8 @@
 ## Research Context
 
 Africa's energy transition is at a critical crossroads, with financing as a 
-central challenge. Three major actors — China, the European Union, and Gulf 
-states — play leading but distinct roles. This database maps trade, investment, 
+central challenge. Three major actors, China, the European Union, and Gulf 
+states, play leading but distinct roles. This database maps trade, investment, 
 and flagship green projects between African countries and these actors, using 
 primary and secondary sources including the IMF, World Bank, OECD, Global 
 Gateway, China Global Investment Tracker, and Gulf Renewable Projects Tracker. 
@@ -33,15 +33,12 @@ funds, and add qualitative caveats.
 
 ## Data Sources
 
-| Source | Coverage | Notes |
+| Source | Link | Notes |
 |--------|----------|-------|
-| IMF | ... | ... |
-| World Bank | ... | ... |
-| OECD | ... | ... |
-| China Global Investment Tracker | ... | ... |
-| Gulf Renewable Projects Tracker | ... | ... |
+| IMF | [link](https://data.imf.org/datasets/IMF.STA:IMTS) | ... |
+| World Bank | [link] https://data.worldbank.org/country/1W | ... |
 
-Last updated: [date]
+Last updated: April 2025
 
 Known limitations: [what's missing or uncertain]
 
