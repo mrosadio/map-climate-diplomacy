@@ -1,5 +1,5 @@
 import { initializeDatabases } from './modules/dataManager.js';
-import { showAfricaOverview, showBilateral, showComparative } from './modules/navigation.js';
+import { showAfricaOverview, showBilateral, showComparative, selectPartner } from './modules/navigation.js';
 import { zoomIn, zoomOut } from './modules/setUpControls.js';
 import globals from './modules/globals.js';
 
@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Render Africa Overview map by default
         await showAfricaOverview();
+
+        selectPartner();
 
         // Show Bilateral partnership
         showBilateral();
