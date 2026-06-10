@@ -203,6 +203,23 @@ const globals = {
     "European Union": "<p>The EU blends European Investment Bank loans with budget‑backed guarantees to channel long‑tenor, lower‑risk capital into decentralised renewables, smart grids and agrotechnology, while exporting the EU’s stringent environmental, social and governance (ESG) rulebook. This ‘green‑industrial enabler’ model secures critical minerals and hydrogen corridors through rules‑based partnerships rather than asset control.</p> <p>The database used for this mapping highlights the EU’s structural investor profile: Despite a trade deficit of USD 10.6 billion with the six African countries, the EU channels USD 40 billion (1.9 % GDP) in foreign direct investment (FDI) into these economies. Six ‘flagship’ green projects (hydrogen, grids, climate‑smart agriculture, water) and two green‑manufacturing initiatives are recorded in the database, underscoring a transition‑focused approach with patient capital. The average ratios point to a stronger leverage effect on FDI than on the trade balance.</p>",
     "Gulf Countries": "<p>Gulf sovereign‑wealth funds supply patient equity and rapid bilateral deals for frontier projects such as mega-cities and green hydrogen. Under light regulations, capital tolerates early‑stage risk, anchors lenders and diversifies Gulf countries' economies. ESG compliance remains pragmatic. Project data for the six Gulf Cooperation Council (GCC) states mainly covers Saudi Arabia and the United Arab Emirates (UAE). Our dataset is therefore limited to Saudi Arabia and the UAE, and does not capture project details from the other GCC countries. </p> <p>While cumulative figures show a USD 20 billion trade deficit and USD 1.16 billion in foreign direct investment (FDI) (0.18 % of GDP), overseas finance is hard to track: Much flows through multilateral agencies, sovereign wealth funds or affiliated private developers with limited disclosure, while reporting is fragmented and weak governance reduces transparency. Six flagship projects target energy, green hydrogen, critical‑minerals mining and agrologistics. Only one green‑manufacturing project explicitly involves Saudi Arabia (green ammonia in Morocco). The database lists no stand‑alone UAE industrial investment. Their contributions are blended into the GCC aggregate, limiting data‑granularity.</p>"
   },
+  statStrip: {
+    tradeDeficit: {
+      "China": "USD 32 bn",
+      "European Union": "USD 10.6 bn",
+      "Gulf Countries": "USD 20 bn",
+    },
+    foreignInvest: {
+      "China": "USD 1.1 bn",
+      "European Union": "USD 40 bn",
+      "Gulf Countries": "USD 1.16 bn",
+    },
+    NProjects: {
+      "China": "6",
+      "European Union": "6",
+      "Gulf Countries": "6",
+    }
+  },
   keyDrivers: {
     China: "Resource Control & Economic Statecraft",
     EU: "Rules-Based Trade & Strategic Resilience",

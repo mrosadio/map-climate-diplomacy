@@ -8,8 +8,7 @@
     margin: 0 60px 0 60px;
     box-sizing: border-box;
     /* Borders do not override */
-    height: 640px;
-    
+    height: 640px;  
 }
 @media (min-width: 768px) {
     .climate-diplomacy-map .diplomacy-map-nav {
@@ -72,7 +71,7 @@ ul {
 .card.partnership.expanded {
     flex-grow: 1; /* Allow it to grow and fill available space */
     overflow-y: auto; /* Enable vertical scrolling for content */
-    padding: 1rem; /* Add some padding */
+    padding: 0.75rem; /* Add some padding */
     border: none;
 }
 
@@ -100,16 +99,13 @@ h2.accordion-header.partnerHeader {
     .accordion-button2 {
         font-size: 14pt;
         font-weight: normal;
-        /* font-family: "RubikMedium", sans-serif; */
         color: #252525;
         justify-content: space-between;
-        /* Esto separa los elementos a los extremos */
     }
 
     #africaButton {
         font-size: 14pt;
         font-weight: normal;
-        /* font-family: "RubikMedium", sans-serif; */
         color: #252525;
         justify-content: space-between;
         /* Esto separa los elementos a los extremos */
@@ -181,7 +177,6 @@ h2.accordion-header.partnerHeader {
     padding: 0px;
     padding-bottom: 8px;
     margin: 0px;
-    /* font-family: "RalewayItalic", sans-serif; */
 }
 
 .accordion {
@@ -204,13 +199,11 @@ h2.accordion-header.partnerHeader {
     text-align: left;
     outline: none;
     height: 50px;
-    /* font-family: "RalewayMedium", sans-serif; */
 }
 
 .accordion-button2:focus,
 .accordion-button2.active {
     background-color: #2b7e3d !important;
-    /* font-family: "RalewayBold", sans-serif !important; */
     font-weight: bold !important;
     box-shadow: none !important;
 }
@@ -264,8 +257,6 @@ h2.accordion-header.partnerHeader {
 }
 
 .card-title.listPartners {
-    /* font-weight: bold; */
-    /* font-family: "RalewayN", sans-serif; */
     font-size: 15pt;
 }
 
@@ -274,7 +265,6 @@ h2.accordion-header.partnerHeader {
     border: 1px solid lightgray;
     border-radius: 7px;
     padding: 0px 10px 10px 10px;
-    /* width: 140px; */
 }
 .card-body.partner {
     margin: 0;
@@ -282,7 +272,6 @@ h2.accordion-header.partnerHeader {
     border: none;
     border-bottom: #252525 solid 0.5px;
     margin-right: 10px;
-
     padding: 15px 10px 15px 0px !important;
 }
 
@@ -299,7 +288,6 @@ h2.accordion-header.partnerHeader {
 p.flagshipProjects.span,
 .flagshipProjects,
 .cardLink {
-    /* font-family: "RubikLight"; */
     font-size: "11pt";
     padding-bottom: 0px;
 }
@@ -370,7 +358,6 @@ p.flagshipProjects.span,
     color: #000;
     margin: 0px;
     margin-right: 12px;
-    /* font-family: "RalewayN", sans-serif; */
     margin-left: 12px;
 }
 
@@ -390,7 +377,6 @@ p.flagshipProjects.span,
     width: 16px;
     height: 16px;
     background-color: #f2f2f2;
-    /* Verde cuando está inactivo */
     border-radius: 50%;
     transition: background-color 0.3s, transform 0.3s;
 }
@@ -457,4 +443,29 @@ p.flagshipProjects.span,
   color: #000;
   border-bottom: 2px solid #000;
   font-weight: bold;
+}
+.statStrip {
+  display: flex;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statValue {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.statLabel {
+  font-family: 'UncutRegular' !important;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
 }

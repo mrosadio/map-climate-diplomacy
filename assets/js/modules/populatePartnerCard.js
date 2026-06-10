@@ -1,6 +1,7 @@
 import globals from "./globals.js";
 
-const { partnerDivStyle, databases, cooperation, keyDrivers, overviewText } = globals;
+const { partnerDivStyle, databases, cooperation, keyDrivers, overviewText, statStrip } =
+  globals;
 
 export function populatePartnerCard(selectedCountry) {
   console.log("selectedCountry", selectedCountry);
@@ -28,21 +29,21 @@ export function populatePartnerCard(selectedCountry) {
   console.log("reshapedData", reshapedData);
   const selectCountryData = reshapedData[selectedCountry];
   console.log("selectCountryData", selectCountryData);
-  const partnerText = overviewText[selectedCountry]
-  console.log('Consoling overviewtext', partnerText)
+  const partnerText = overviewText[selectedCountry];
+  console.log("Consoling overviewtext", partnerText);
   if (selectCountryData) {
-    const partnerSubTitle = document.createElement("h4");
-    partnerSubTitle.classList.add("cardSubtitle");
-    partnerSubTitle.innerHTML = `${selectCountryData.length} African partners`;
-    partnerDiv.appendChild(partnerSubTitle);
+    // const partnerSubTitle = document.createElement("h4");
+    // partnerSubTitle.classList.add("cardSubtitle");
+    // partnerSubTitle.innerHTML = `${selectCountryData.length} African partners`;
+    // partnerDiv.appendChild(partnerSubTitle);
 
     // Add Tabs here: Overview and african partners
-    const tabContainer = document.createElement("div");
-    tabContainer.classList.add("tabContainer");
-    tabContainer.innerHTML = `
+    const tabDiv = document.createElement("div");
+    tabDiv.classList.add("tabContainer");
+    tabDiv.innerHTML = `
         <div class="tabs">
             <button class="tab-btn active" data-tab="overview">Overview</button>
-            <button class="tab-btn" data-tab="partners">African Partners</button>
+            <button class="tab-btn" data-tab="partners">The ${selectCountryData.length} African Partners</button>
         </div>
         <div class="tab-content" id="overview">
             ${partnerText || "No overview available."}
@@ -52,21 +53,40 @@ export function populatePartnerCard(selectedCountry) {
         </div>
     `;
     // Tab switching
-    tabContainer.querySelectorAll(".tab-btn").forEach((btn) => {
+    tabDiv.querySelectorAll(".tab-btn").forEach((btn) => {
       btn.addEventListener("click", function () {
-        tabContainer
+        tabDiv
           .querySelectorAll(".tab-btn")
           .forEach((b) => b.classList.remove("active"));
-        tabContainer
+        tabDiv
           .querySelectorAll(".tab-content")
           .forEach((c) => c.classList.add("hidden"));
         this.classList.add("active");
-        tabContainer
+        tabDiv
           .querySelector(`#${this.dataset.tab}`)
           .classList.remove("hidden");
       });
     });
-    partnerDiv.appendChild(tabContainer);
+    // Add stat strip
+    const fdi = statStrip.foreignInvest[selectedCountry]
+    const statStripDiv = document.createElement("div");
+    statStripDiv.classList.add("statStrip");
+    statStripDiv.innerHTML = `
+        <div class="stat">
+            <span class="statValue">${fdi}</span>
+            <span class="statLabel">FDI</span>
+        </div>
+        <div class="stat">
+            <span class="statValue">${statStrip.tradeDeficit[selectedCountry]}</span>
+            <span class="statLabel">Trade deficit</span>
+        </div>
+        <div class="stat">
+            <span class="statValue">${statStrip.NProjects[selectedCountry]}</span>
+            <span class="statLabel">Flagship projects</span>
+        </div>
+    `;
+    partnerDiv.appendChild(statStripDiv);
+    partnerDiv.appendChild(tabDiv);
 
     selectCountryData.forEach((entry) => {
       console.log("Revising Entry in loop", entry["African Country"]);
