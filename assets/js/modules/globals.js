@@ -144,14 +144,14 @@ const globals = {
         return [globals.svgWidth / 3.5, globals.svgHeight / 1.5]
       }  // Create a function to dynamically calculate the values. In an object, you cannot reference other properties of the same object unless you use a function 
     },
-    EU: {
+    "European Union": {
       scale: 350,
       center: [20, 0],
       get translation() {
         return [globals.svgWidth / 1.5, globals.svgHeight / 1.43]
       }
     },
-    GCC: {
+    "Gulf Countries": {
       scale: 550,
       center: [20, 0],
       get translation() {
@@ -167,7 +167,7 @@ const globals = {
       Low: "#c8dac0",
       Moderate: "#739e69",
       High: "#3a653a",
-      default: "#d3d3d3"
+      default: "#red"
     },
     style: {
       strokeDefaultColor: "white",

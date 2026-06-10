@@ -77,9 +77,12 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
 export function drawBilateralMap(mergedData, selectedPartner) {
     // Normalize selectedPartner into a Set for efficient lookups
     // If selectedParter is a bloc partner, populate set with corresponding array in global.js
-    const selectedCountriesSet = selectedPartner === "EU"
+    console.log("selectedPartner received:", selectedPartner);
+    console.log("settings found:", mapDisplaySettings[selectedPartner]);
+    //console.log("partnerMap found:", partnerMap.get(selectedPartner));
+    const selectedCountriesSet = selectedPartner === "European Union"
         ? new Set(globals.EUCountries) // Populate with EU countries if selectedPartner is "EU"
-        : selectedPartner === "GCC"
+        : selectedPartner === "Gulf Countries"
             ? new Set(globals.GCCCountries) // Populate with GCC countries if selectedPartner is "GCC"
             : Array.isArray(selectedPartner)
                 ? new Set(selectedPartner) // Convert array to Set
@@ -88,6 +91,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
     // Import group data to use in filter function and other style globals
     const partnerMap = databases.bilateralPartnerMap;
+    console.log('Partner Map', partnerMap)
     const settings = mapDisplaySettings[selectedPartner];
     const colorMap = mapDisplaySettings.colors;
     const connectivityColor = mapDisplaySettings.connectivityColor;
@@ -117,9 +121,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
         .append("path")
         .attr("d", path)
         .attr("fill", d => {
-            if (selectedCountriesSet.has(d.properties.name)) {
-                return colorMap.nonAfricaPartner;
-            } else if (africanPartnersSet.has(d.properties.name)) {
+            if (africanPartnersSet.has(d.properties.name)) {
                 const partnerData = databases.reshapedBiData[selectedPartner].find(
                     partner => partner["African Country"] === d.properties.name
                 );
@@ -129,6 +131,9 @@ export function drawBilateralMap(mergedData, selectedPartner) {
                 }
                 return connectivityColor.default;
             } else {
+                if (["Senegal", "South Africa"].includes(d.properties.name)) {
+                    console.log("Not matched:", d.properties.name);
+                }
                 return colorMap.default;
             }
         })
