@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 
-const { partnerDivStyle, databases, cooperation, keyDrivers } = globals;
+const { partnerDivStyle, databases, cooperation, keyDrivers, overviewText } = globals;
 
 export function populatePartnerCard(selectedCountry) {
   console.log("selectedCountry", selectedCountry);
@@ -20,17 +20,6 @@ export function populatePartnerCard(selectedCountry) {
   biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
   partnerDiv.appendChild(biPartner);
 
-  //   const partnerSubTitle = document.createElement("h4");
-  //   partnerSubTitle.classList.add("cardSubtitle");
-  //   partnerSubTitle.innerHTML = `${partnerDivStyle.partnerSubtitleText}`;
-  //   partnerDiv.appendChild(partnerSubTitle);
-
-  // Add summary header:
-  //   const partnerSubTitle = document.createElement("h4");
-  //   partnerSubTitle.classList.add("cardSubtitle");
-  //   partnerSubTitle.innerHTML = `${selectCountryData.length} African partners`;
-  //   partnerDiv.appendChild(partnerSubTitle);
-
   // Crear el contenedor para el contenido con scroll
   const scrollDiv = document.createElement("div");
   scrollDiv.classList.add("customScroll"); // Se añade 'custom-scroll' aquí
@@ -39,11 +28,45 @@ export function populatePartnerCard(selectedCountry) {
   console.log("reshapedData", reshapedData);
   const selectCountryData = reshapedData[selectedCountry];
   console.log("selectCountryData", selectCountryData);
+  const partnerText = overviewText[selectedCountry]
+  console.log('Consoling overviewtext', partnerText)
   if (selectCountryData) {
     const partnerSubTitle = document.createElement("h4");
     partnerSubTitle.classList.add("cardSubtitle");
     partnerSubTitle.innerHTML = `${selectCountryData.length} African partners`;
     partnerDiv.appendChild(partnerSubTitle);
+
+    // Add Tabs here: Overview and african partners
+    const tabContainer = document.createElement("div");
+    tabContainer.classList.add("tabContainer");
+    tabContainer.innerHTML = `
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="partners">African Partners</button>
+        </div>
+        <div class="tab-content" id="overview">
+            ${partnerText || "No overview available."}
+        </div>
+        <div class="tab-content hidden" id="partners">
+            <!-- country cards -->
+        </div>
+    `;
+    // Tab switching
+    tabContainer.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        tabContainer
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        tabContainer
+          .querySelectorAll(".tab-content")
+          .forEach((c) => c.classList.add("hidden"));
+        this.classList.add("active");
+        tabContainer
+          .querySelector(`#${this.dataset.tab}`)
+          .classList.remove("hidden");
+      });
+    });
+    partnerDiv.appendChild(tabContainer);
 
     selectCountryData.forEach((entry) => {
       console.log("Revising Entry in loop", entry["African Country"]);
@@ -53,18 +76,6 @@ export function populatePartnerCard(selectedCountry) {
       partnerTitle.classList.add("card-title", "listPartners");
       partnerTitle.innerHTML = `${entry["African Country"]}`;
       partnershipCard.appendChild(partnerTitle);
-
-      // Project type
-      //const project = document.createElement("p");
-      //project.classList.add("card-text", "project", "mb-1");
-      //project.innerHTML = `Project type: ${entry["Type of Climate Finance Project"]}`;
-      //partnershipCard.appendChild(project);
-
-      // Year
-      //const year = document.createElement("p");
-      //year.classList.add("card-text", "year", "mb-1");
-      //year.innerHTML = `Year: ${entry.Year}`;
-      //partnershipCard.appendChild(year);
 
       // Icon
       const icon = document.createElement("img");
@@ -198,11 +209,10 @@ export function populatePartnerCard(selectedCountry) {
           );
           flagshipProjects.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
           //trendContainer.appendChild(flagshipProjects);
-                        partnershipCard.appendChild(flagshipProjects);
+          partnershipCard.appendChild(flagshipProjects);
         }
 
         partnershipCard.appendChild(trendContainer);
-
       }
       scrollDiv.appendChild(partnershipCard);
       partnerDiv.appendChild(scrollDiv);
@@ -359,7 +369,6 @@ export function populateLegend(selectedCountry) {
           trendButton.classList.add("btn-secondary");
           trendButton.innerHTML = `<span>Stable</span> <img src="/assets/img/icons/minus.svg" alt="Minus Icon" style="width: 12px; height: 12px;">`;
         }
-
         trendContainer.appendChild(trendButton);
         partnershipCard.appendChild(trendContainer);
       }
