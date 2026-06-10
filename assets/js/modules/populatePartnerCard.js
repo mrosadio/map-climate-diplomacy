@@ -113,12 +113,7 @@ export function populatePartnerCard(selectedCountry) {
           console.log("Area of cooperation", area);
 
           const tag = document.createElement("button");
-          tag.classList.add(
-            "btn",
-            "btn-outline-dark",
-            "aresCoop",
-            "ms-1"
-          );
+          tag.classList.add("btn", "btn-outline-dark", "aresCoop", "ms-1");
           tag.setAttribute("type", "button");
           tag.setAttribute("data-bs-toggle", "tooltip");
           tag.setAttribute("data-bs-placement", "right");
@@ -155,38 +150,45 @@ export function populatePartnerCard(selectedCountry) {
       );
       if (entry["Economic and Investment Trend"] !== "No data") {
         const trendContainer = document.createElement("div");
-        trendContainer.classList.add("card-text", "mb-1");
+        trendContainer.classList.add(
+          "d-flex",
+          "align-items-center",
+          "mb-1",
+          "gap-2",
+        );
 
         // Add the label text before the button
         const trendLabel = document.createElement("span");
-        trendLabel.classList.add("trendLabel", "me-2");
-        trendLabel.textContent = "Economic and investment trend:";
+        trendLabel.classList.add("trendLabel");
+        trendLabel.textContent = "Investment trend:";
         trendContainer.appendChild(trendLabel);
 
         const trendValue = entry["Economic and Investment Trend"];
-        const trendButton = document.createElement("button");
-        trendButton.classList.add(
-          "btn",
-          "btn-sm",
-          "d-flex",
-          "align-items-center",
-          "justify-content-between",
-        );
+        const trendIcon = document.createElement("img");
+        trendIcon.style.width = "24px";
+        trendIcon.style.height = "24px";
+        trendIcon.setAttribute("data-bs-toggle", "tooltip");
 
         // Set button color and icon based on the trend value
         if (trendValue === "Increase") {
-          trendButton.classList.add("btn-success");
-          trendButton.innerHTML = `<span>Increase</span> <img src="/assets/img/icons/arrow-up.svg" alt="Arrow Up" style="width: 12px; height: 12px;">`;
+          trendIcon.src = "/assets/img/icons/arrow-up.svg";
+          trendIcon.setAttribute("title", "Increasing");
+          trendIcon.style.filter =
+            "invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg)"; // green tint
         } else if (trendValue === "Decrease") {
-          trendButton.classList.add("btn-danger");
-          trendButton.innerHTML = `<span>Decrease</span> <img src="/assets/img/icons/arrow-down.svg" alt="Arrow Down" style="width: 12px; height: 12px;">`;
+          trendIcon.src = "/assets/img/icons/arrow-down.svg";
+          trendIcon.setAttribute("title", "Decreasing");
+          trendIcon.style.filter =
+            "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg)"; // red tint
         } else if (trendValue === "Stable") {
-          trendButton.classList.add("btn-secondary");
-          trendButton.innerHTML = `<span>Stable</span> <img src="/assets/img/icons/minus.svg" alt="Minus Icon" style="width: 12px; height: 12px;">`;
+          trendIcon.src = "/assets/img/icons/minus.svg";
+          trendIcon.setAttribute("title", "Stable");
+          trendIcon.style.filter = "invert(50%)"; // grey tint
         }
 
-        trendContainer.appendChild(trendButton);
-        // Add Number of Flagship Green Projects
+        new bootstrap.Tooltip(trendIcon);
+        trendContainer.appendChild(trendLabel);
+        trendContainer.appendChild(trendIcon); // Add Number of Flagship Green Projects
         if (entry["Number of Flagship Green Projects"] !== "No data") {
           const flagshipProjects = document.createElement("p");
           flagshipProjects.classList.add(
@@ -194,11 +196,13 @@ export function populatePartnerCard(selectedCountry) {
             "mb-1",
             "flagshipProjects",
           );
-          flagshipProjects.innerHTML = `<span class="flagshipProjects">No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
-          trendContainer.appendChild(flagshipProjects);
+          flagshipProjects.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
+          //trendContainer.appendChild(flagshipProjects);
+                        partnershipCard.appendChild(flagshipProjects);
         }
 
         partnershipCard.appendChild(trendContainer);
+
       }
       scrollDiv.appendChild(partnershipCard);
       partnerDiv.appendChild(scrollDiv);
