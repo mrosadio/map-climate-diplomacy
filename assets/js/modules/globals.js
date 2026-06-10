@@ -181,7 +181,7 @@ const globals = {
     paddingBottom: "10px",
     marginTop: "0px !importat",
     partnerSubtitleClass: "card-subTitle",
-    partnerSubtitleText: "Partnerships with African countries",
+    //partnerSubtitleText: "Partnerships with African countries",
     overviewSubtitleText: "Economic and investment connectivity with African countries",
     comparativeSubtitleText: "Comparative advantage of non-African countries",
     areasCoopDisplay: "flex",
