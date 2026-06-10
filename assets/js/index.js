@@ -28,9 +28,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.error("Africa Overview button not found in the DOM!");
         }
-
-
-
         
         // Attach event listeners to zoom buttons
         const zoomInButton = document.getElementById("zoomIn");

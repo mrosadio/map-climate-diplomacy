@@ -136,10 +136,6 @@ export function drawBilateralMap(mergedData, selectedPartner) {
         .attr("stroke-width", 0.5)
 }
 
-export function drawComparativeMap(geoJSONData, selectedPartner) {
-
-}
-
 function updateProjection(scale, center, translation) {
     projection = d3
         .geoNaturalEarth1()
