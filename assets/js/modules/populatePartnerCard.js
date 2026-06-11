@@ -8,12 +8,12 @@ export function populatePartnerCard(selectedCountry) {
   const partnerDiv = document.querySelector(".card");
   partnerDiv.innerHTML = "";
 
-  const biPartner = document.createElement("h2"); // bilateral partner
+  const biPartner = document.createElement("h4"); // bilateral partner
   biPartner.classList.add(
     "card-title",
     "card-title-fixed",
     "partner-select",
-    "h3",
+    "h4",
   );
   biPartner.innerHTML = `${selectedCountry} - Africa`;
   biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px
@@ -174,6 +174,7 @@ export function populatePartnerCard(selectedCountry) {
         partnershipCard.appendChild(areasTitleContainer);
       }
 
+      console.log('Entry of Investment connectivity', entry['Economic and Investment connectivity between African country and non-African partner'])
       // Economic and Investment Trend
       console.log(
         "Entry of Economic and Investment Trend",
@@ -268,12 +269,12 @@ export function populateLegend(selectedCountry) {
   biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
   partnerDiv.appendChild(biPartner);
 
-  const partnerSubTitle = document.createElement("h4");
+  const partnerSubTitle = document.createElement("h5");
   partnerSubTitle.classList.add("cardSubtitle");
   partnerSubTitle.innerHTML = `${partnerDivStyle.overviewSubtitleText}`;
   partnerDiv.appendChild(partnerSubTitle);
 
-  const driverText = document.createElement("h3");
+  const driverText = document.createElement("h4");
   driverText.classList.add("cardSubtitle");
   driverText.innerHTML = `Key drivers of interest: ${keyDrivers[selectedCountry]}`;
   partnerDiv.appendChild(driverText);
@@ -291,7 +292,7 @@ export function populateLegend(selectedCountry) {
       console.log("Revising Entry in loop", entry["African Country"]);
       const partnershipCard = document.createElement("div");
       partnershipCard.classList.add("card-body", "partner", "custom-scroll");
-      const partnerTitle = document.createElement("h5");
+      const partnerTitle = document.createElement("h6");
       partnerTitle.classList.add("card-title", "listPartners");
       partnerTitle.innerHTML = `${entry["African Country"]}`;
       partnershipCard.appendChild(partnerTitle);
@@ -410,12 +411,12 @@ export function populateComparativeCard(selectedCountry) {
   const partnerDiv = document.querySelector(".card");
   partnerDiv.innerHTML = "";
 
-  const biPartner = document.createElement("h2"); // bilateral partner
+  const biPartner = document.createElement("h3"); // bilateral partner
   biPartner.classList.add(
     "card-title",
     "card-title-fixed",
     "partner-select",
-    "h2",
+    "h3",
   );
   biPartner.innerHTML = `${selectedCountry}`;
   biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px

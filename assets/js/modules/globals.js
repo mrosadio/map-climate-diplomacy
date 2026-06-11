@@ -167,7 +167,7 @@ const globals = {
       Low: "#c8dac0",
       Moderate: "#739e69",
       High: "#3a653a",
-      default: "#red"
+      default: "#d3d3d3"
     },
     style: {
       strokeDefaultColor: "white",
