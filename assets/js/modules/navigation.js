@@ -1,9 +1,10 @@
 import { drawOverviewMap, drawBilateralMap } from "./drawMap.js";
+import { populatePartnerCard } from "./populatePartnerCard.js";
 import { addLegend } from "./addLegend.js";
 import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
 import {
-  populatePartnerCard,
+  populateCountryCard,
   expandPartnerCard,
   populateLegend,
   populateComparativeCard,
