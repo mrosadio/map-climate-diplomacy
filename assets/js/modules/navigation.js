@@ -96,26 +96,26 @@ export function showBilateral() {
   });
 }
 
-export function showComparative() {
-  document.querySelectorAll(".blocSelect").forEach((item) => {
-    item.addEventListener("click", async function () {
-      let selectedPartner = this.textContent.trim();
-      console.log("Selected Partner", selectedPartner);
-      console.log("Comparative data", databases.comparativeData);
-      try {
-        //await prepareComparativeData();
-        const mergedData = databases.mergedBilateralData;
-        drawBilateralMap(mergedData, selectedPartner);
-        // First deactive controls
-        const toggleButton = document.getElementById("toggleLabels");
-        console.log("Toggle button", toggleButton);
-        toggleButton.classList.remove("active");
-        //setupControls(mergedData)
-        populateComparativeCard(selectedPartner);
-        //expandPartnerCard();
-      } catch (error) {
-        console.error("Error preparing bilateral data:", error);
-      }
-    });
-  });
-}
+// export function showComparative() {
+//   document.querySelectorAll(".blocSelect").forEach((item) => {
+//     item.addEventListener("click", async function () {
+//       let selectedPartner = this.textContent.trim();
+//       console.log("Selected Partner", selectedPartner);
+//       console.log("Comparative data", databases.comparativeData);
+//       try {
+//         //await prepareComparativeData();
+//         const mergedData = databases.mergedBilateralData;
+//         drawBilateralMap(mergedData, selectedPartner);
+//         // First deactive controls
+//         const toggleButton = document.getElementById("toggleLabels");
+//         console.log("Toggle button", toggleButton);
+//         toggleButton.classList.remove("active");
+//         //setupControls(mergedData)
+//         populateComparativeCard(selectedPartner);
+//         //expandPartnerCard();
+//       } catch (error) {
+//         console.error("Error preparing bilateral data:", error);
+//       }
+//     });
+//   });
+// }

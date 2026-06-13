@@ -314,6 +314,11 @@ const globals = {
       Agriculture: "#F9E79F", // Pale gold
     },
   },
+  trendConfig = {
+    Increase: { src: "arrow-up.svg", title: "Increasing", filter: "invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg)" },
+    Decrease: { src: "arrow-down.svg", title: "Decreasing", filter: "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg)" },
+    Stable:   { src: "minus.svg", title: "Stable", filter: "invert(50%)" },
+  }
 };
 
 export default globals;
