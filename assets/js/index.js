@@ -1,5 +1,5 @@
 import { initializeDatabases } from './modules/dataManager.js';
-import { showAfricaOverview, showBilateral, showComparative, selectPartner } from './modules/navigation.js';
+import { showAfricaOverview, showBilateral, /*showComparative,*/ selectPartner } from './modules/navigation.js';
 import { zoomIn, zoomOut } from './modules/setUpControls.js';
 import globals from './modules/globals.js';
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         showBilateral();
 
         // Show comparative advantage
-        showComparative();
+        //showComparative();
 
         // Attach event listener to the Africa Overview button
         const africaButton = document.getElementById("africaButton");

@@ -8,7 +8,7 @@ const {
   overviewText,
   statStrip,
   partnerCountryText,
-  trendConfig
+  trendConfig,
 } = globals;
 
 export function populatePartnerCard(selectedPartner) {
@@ -48,10 +48,10 @@ export function populatePartnerCard(selectedPartner) {
             <button class="tab-btn active" data-tab="overview">Overview</button>
             <button class="tab-btn" data-tab="partners">The ${selectCountryData.length} African Partners</button>
         </div>
-        <div class="tab-content" id="overview">
+        <div class="tab-content mt-2 mb-2" id="overview">
             ${partnerText || "No overview available."}
         </div>
-        <div class="tab-content hidden" id="partners">
+        <div class="tab-content mt-2 mb-2 hidden" id="partners">
             <!-- country cards -->
         </div>
     `;
@@ -210,7 +210,7 @@ export function populateCountryCard(countryName, selectedPartner) {
 
   // Breadcrumb
   const breadCrumb = createBreadCrumb(selectedPartner);
-  partnerDiv.appendChild(breadcrumb);
+  partnerDiv.appendChild(breadCrumb);
 
   const title = createTitle(`${selectedPartner} - ${countryName}`);
   partnerDiv.appendChild(title);
@@ -221,7 +221,7 @@ export function populateCountryCard(countryName, selectedPartner) {
   console.log("Selected country data", selectedCountryData);
   //const scrollDiv = document.createElement("div");
   //scrollDiv.classList.add("customScroll"); // Se añade 'custom-scroll' aquí
-  if (!selectCountryData) {
+  if (!selectedCountryData) {
     partnerDiv.appendChild(
       Object.assign(document.createElement("p"), {
         textContent: "No data available for this country.",
@@ -237,17 +237,22 @@ export function populateCountryCard(countryName, selectedPartner) {
     engageText,
   );
   partnerDiv.appendChild(engagementDiv);
-  if (selectCountryData["Economic and Investment Trend"] !== "No data") {
-    const trendIndicator = createTrendIndicator(selectCountryData["Economic and Investment Trend"]);
-    partnerDiv.appendChild(trendContainer);
+  if (selectedCountryData["Economic and Investment Trend"] !== "No data") {
+    const trendIndicatorDiv = createTrendIndicator(
+      selectedCountryData["Economic and Investment Trend"],
+    );
+    engagementDiv.appendChild(trendIndicatorDiv);
   }
 
   // Investment section
   const investmentText =
     partnerCountryText[selectedPartner]["Investment"][countryName];
-  const investmentTextDiv = createTextSection("Green Investments", investmentText);
+  const investmentTextDiv = createTextSection(
+    "Green Investments",
+    investmentText,
+  );
   partnerDiv.appendChild(investmentTextDiv);
-  
+
   //const partnershipCard = document.createElement("div");
   //partnershipCard.classList.add("card-body", "partner", "custom-scroll");
 
@@ -269,14 +274,12 @@ export function populateCountryCard(countryName, selectedPartner) {
   //   : "View source";
 
   // Cooperation areas
-  const detailsCard = createDetailsCard(selectCountryData);
-  const scrollDiv = document.createElement("div");
-  scrollDiv.classList.add("customScroll");
-  scrollDiv.appendChild(detailsCard);
-  partnerDiv.appendChild(scrollDiv);
+  const detailsCard = createCooperationDiv(selectedCountryData);
+  //scrollDiv.classList.add("customScroll");
+  investmentTextDiv.appendChild(detailsCard);
 
-  scrollDiv.appendChild(partnershipCard);
-  partnerDiv.appendChild(scrollDiv);
+  //scrollDiv.appendChild(partnershipCard);
+  //partnerDiv.appendChild(scrollDiv);
 
   const tooltipTriggerList = [].slice.call(
     partnerDiv.querySelectorAll('[data-bs-toggle="tooltip"]'),
@@ -541,10 +544,10 @@ function createTitle(text) {
 }
 function createTextSection(title, text) {
   const container = document.createElement("div");
-  container.classList.add("tab-content");
+  container.classList.add("tab-content", "mt-2", "mb-2");
   container.innerHTML = `
-    <h3 class="card-title partner-select">${title}</h3>
-    <p>${text || "No text available."}</p>
+    <h5 class="card-title partner-select">${title}</h5>
+    ${text || "No text available."}
   `;
   return container;
 }
@@ -552,7 +555,7 @@ function createTrendIndicator(trendValue) {
   const trendDiv = document.createElement("div");
   trendDiv.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
 
-  const trendLabel = document.createElement("span");
+  const trendLabel = document.createElement("h6");
   trendLabel.classList.add("trendLabel");
   trendLabel.textContent = "Investment trend:";
 
@@ -565,7 +568,7 @@ function createTrendIndicator(trendValue) {
   trendIcon.src = `/assets/img/icons/${config.src}`;
   trendIcon.setAttribute("title", config.title);
   trendIcon.style.filter = config.filter;
-  
+
   // Set button color and icon based on the trend value
   new bootstrap.Tooltip(trendIcon);
   trendDiv.appendChild(trendLabel);
@@ -574,59 +577,65 @@ function createTrendIndicator(trendValue) {
   return trendDiv;
 }
 
-function createDetailsCard(selectCountryData) {
-  const card = document.createElement("div");
-  card.classList.add("card-body", "partner", "custom-scroll");
+function createCooperationDiv(selectCountryData) {
+  //const card = document.createElement("div");
+  //card.classList.add("card-body", "partner", "custom-scroll");
+  const areasCoopDiv = document.createElement("div");
+  areasCoopDiv.classList.add("card-text", "mb-1");
+  areasCoopDiv.style.display = partnerDivStyle.areasCoopDisplay;
+  areasCoopDiv.style.alignItems = partnerDivStyle.areasCoopAlignItems;
+  areasCoopDiv.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
+  areasCoopDiv.style.gap = partnerDivStyle.areasCoopGap;
 
   if (selectCountryData["Areas of Cooperation - Categories"] !== "No data") {
-    card.appendChild(createCooperationTags(selectCountryData["Areas of Cooperation - Categories"]));
-  }
-
-  return card;
-}
-areas = selectCountryData["Areas of Cooperation - Categories"]
-function createCooperationTags(areas) {
-
-  const areasCoopDiv = document.createElement("div");
-    areasCoopDiv.classList.add("card-text", "mb-1");
-    areasCoopDiv.style.display = partnerDivStyle.areasCoopDisplay;
-    areasCoopDiv.style.alignItems = partnerDivStyle.areasCoopAlignItems;
-    areasCoopDiv.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
-    areasCoopDiv.style.gap = partnerDiv.areasCoopGap;
-
     const areasTitle = document.createElement("h5");
     areasTitle.classList.add("card-text", "mb-1", "areasCoop");
-    areasTitle.style.paddingBottom = partnerDiv.areasCoopPaddinBottom;
-    areasTitle.style.marginBottom = partnerDiv.areasCoopMarginBottom;
-    areasTitle.style.marginRight = partnerDiv.areasCoopMarginRight;
+    areasTitle.style.paddingBottom = partnerDivStyle.areasCoopPaddinBottom;
+    areasTitle.style.marginBottom = partnerDivStyle.areasCoopMarginBottom;
+    areasTitle.style.marginRight = partnerDivStyle.areasCoopMarginRight;
     areasTitle.innerHTML = "Areas of cooperation:";
     areasCoopDiv.appendChild(areasTitle);
+    areasCoopDiv.appendChild(
+      createCooperationTags(
+        selectCountryData["Areas of Cooperation - Categories"],
+      ),
+    );
+  }
+  return areasCoopDiv;
+}
+function createCooperationTags(areas) {
+  const iconsRow = document.createElement("div");
+  iconsRow.classList.add("iconsRow");
+  iconsRow.style.display = "flex";
+  iconsRow.style.flexWrap = "wrap";
+  iconsRow.style.gap = "6px";
 
-    areas.forEach((area) => {
-      const tag = document.createElement("button");
-      tag.classList.add("btn", "btn-outline-dark", "aresCoop", "ms-1");
-      tag.setAttribute("type", "button");
-      tag.setAttribute("data-bs-toggle", "tooltip");
-      tag.setAttribute("data-bs-placement", "right");
-      tag.setAttribute("title", area);
-      tag.style.background = cooperation.color[area];
+  areas.forEach((area) => {
+    const tag = document.createElement("button");
+    tag.classList.add("btn", "btn-outline-dark", "aresCoop", "ms-1");
+    tag.setAttribute("type", "button");
+    tag.setAttribute("data-bs-toggle", "tooltip");
+    tag.setAttribute("data-bs-placement", "right");
+    tag.setAttribute("title", area);
+    tag.style.background = cooperation.color[area];
 
-      // Add icon
-      const iconPath = `/assets/img/icons/${
-        area
-          .toLowerCase()
-          .replace(/ /g, "-") // Replace spaces with hyphens
-          .replace(/\//g, "-") // Replace slashes with hyphens
-      }.svg`;
-      const icon = document.createElement("img");
-      icon.src = iconPath;
-      icon.alt = `${area} Icon`;
-      icon.style.width = "16px";
-      icon.style.height = "16px";
-      tag.appendChild(icon);
+    // Add icon
+    const iconPath = `/assets/img/icons/${
+      area
+        .toLowerCase()
+        .replace(/ /g, "-") // Replace spaces with hyphens
+        .replace(/\//g, "-") // Replace slashes with hyphens
+    }.svg`;
+    const icon = document.createElement("img");
+    icon.src = iconPath;
+    icon.alt = `${area} Icon`;
+    icon.style.width = "16px";
+    icon.style.height = "16px";
+    tag.appendChild(icon);
 
-      areasCoopDiv.appendChild(tag);
-
-      new bootstrap.Tooltip(tag);
-    });
+    iconsRow.appendChild(tag);
+    new bootstrap.Tooltip(tag);
+  });
+  //areasCoopDiv.appendChild(iconsRow);
+  return iconsRow;
 }

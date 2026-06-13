@@ -469,3 +469,8 @@ p.flagshipProjects.span,
   color: #666;
   text-align: center;
 }
+.iconsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}

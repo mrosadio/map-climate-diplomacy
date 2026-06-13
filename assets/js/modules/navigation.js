@@ -7,7 +7,7 @@ import {
   populateCountryCard,
   expandPartnerCard,
   populateLegend,
-  populateComparativeCard,
+  //populateComparativeCard,
 } from "./populatePartnerCard.js";
 import {
   prepareAfricaOverviewData,
