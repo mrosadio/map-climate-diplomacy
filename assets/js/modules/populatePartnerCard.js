@@ -18,25 +18,24 @@ export function populatePartnerCard(selectedPartner) {
 
   partnerDiv.appendChild(createPartnerHeader(selectedPartner));
 
-  const selectCountryData = reshapedData[selectedPartner];
+  const selectCountryData = databases.reshapedBiData[selectedPartner];
   console.log("selectCountryData", selectCountryData);
-  if (selectCountryData) {
-    // Add stat strip
-    partnerDiv.appendChild(createStatStrip(selectedPartner));
-    const tabDiv = createTabDiv(
-      selectCountryData,
-      overviewText[selectedPartner],
-    );
-    const partnersPane = tabDiv.querySelector("#partners");
-
-    const scrollDiv = document.createElement("div");
-    scrollDiv.classList.add("customScroll");
-
-    selectCountryData.forEach((entry) => {
-      scrollDiv.appendChild(createPartnershipMiniCard(entry));
-    });
+  if (!selectCountryData) {
+    initTooltips(partnerDiv);
+    return;
   }
+  // Add stat strip
+  partnerDiv.appendChild(createStatStrip(selectedPartner));
+  const tabDiv = createTabDiv(selectCountryData, overviewText[selectedPartner]);
+
+  const partnersPane = tabDiv.querySelector("#partners");
+  const scrollDiv = document.createElement("div");
+  scrollDiv.classList.add("customScroll");
+  selectCountryData.forEach((entry) => {
+    scrollDiv.appendChild(createPartnershipMiniCard(entry));
+  });
   partnersPane.appendChild(scrollDiv);
+
   partnerDiv.appendChild(tabDiv);
   initTooltips(partnerDiv);
 }
@@ -90,7 +89,7 @@ export function populateCountryCard(countryName, selectedPartner) {
   investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData));
   investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
   partnerDiv.appendChild(investmentTextDiv);
-  
+
   initTooltips(partnerDiv);
 }
 export function expandPartnerCard() {
