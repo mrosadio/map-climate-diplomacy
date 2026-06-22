@@ -283,13 +283,17 @@ h2.accordion-header.partnerHeader {
 .project,
 .access,
 .year,
-.areasCoop,
+/* p.card-text.areasCoop,
 .trendLabel,
-p.flagshipProjects.span,
+p.card-text.flagshipProjects.span, */
 .flagshipProjects,
 .cardLink {
     font-size: "11pt";
     padding-bottom: 0px;
+}
+
+p.trendLabel {
+
 }
 
 .areasCoop {

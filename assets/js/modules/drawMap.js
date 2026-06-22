@@ -1,5 +1,9 @@
 import globals from "./globals.js";
-import { populateLegend, populateCountryCard, populatePartnerCard } from "./populatePartnerCard.js";
+import {
+  //populateLegend,
+  populateCountryCard,
+  populatePartnerCard,
+} from "./populatePartnerCard.js";
 const {
   svgWidth,
   svgHeight,
@@ -352,7 +356,10 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
         currentAfricanPartnersData = [];
       }
       // Populate the right column with African partner data
-      populateLegend(selectedPartner, currentAfricanPartnersData);
+      if (selectedPartner) {
+        populateCountryCard(clickedCountry, selectedPartner);
+      }
+      //populateLegend(selectedPartner, currentAfricanPartnersData);
       // Change the color of the African partners based on connectivity level
       g.selectAll("path")
         .filter((d) => {

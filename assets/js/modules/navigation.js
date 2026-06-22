@@ -5,8 +5,8 @@ import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
 import {
   populateCountryCard,
-  expandPartnerCard,
-  populateLegend,
+  // expandPartnerCard,
+  //populateLegend,
   //populateComparativeCard,
 } from "./populatePartnerCard.js";
 import {
@@ -88,7 +88,7 @@ export function showBilateral() {
         toggleButton.classList.remove("active");
         setupControls(mergedData);
         populatePartnerCard(selectedPartner);
-        expandPartnerCard();
+        //expandPartnerCard();
       } catch (error) {
         console.error("Error preparing bilateral data:", error);
       }

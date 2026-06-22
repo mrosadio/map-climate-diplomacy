@@ -52,7 +52,6 @@ export function populateCountryCard(countryName, selectedPartner) {
   const selectedCountryData = databases.reshapedBiData[selectedPartner]?.find(
     (entry) => entry["African Country"] === countryName,
   );
-  console.log("Selected country data", selectedCountryData);
   if (!selectedCountryData) {
     partnerDiv.appendChild(
       Object.assign(document.createElement("p"), {
@@ -68,7 +67,7 @@ export function populateCountryCard(countryName, selectedPartner) {
     "Economic Engagement & Investment",
     engageText,
   );
-  partnerDiv.appendChild(engagementDiv);
+
   if (selectedCountryData["Economic and Investment Trend"] !== "No data") {
     engagementDiv.appendChild(
       createTrendIndicator(
@@ -76,7 +75,7 @@ export function populateCountryCard(countryName, selectedPartner) {
       ),
     );
   }
-
+  partnerDiv.appendChild(engagementDiv);
   // Investment section
   const investmentText =
     partnerCountryText[selectedPartner]["Investment"][countryName];
@@ -84,172 +83,175 @@ export function populateCountryCard(countryName, selectedPartner) {
     "Green Investments",
     investmentText,
   );
-  partnerDiv.appendChild(investmentTextDiv);
-
   investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData));
   investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
   partnerDiv.appendChild(investmentTextDiv);
 
   initTooltips(partnerDiv);
 }
-export function expandPartnerCard() {
-  const partnerDiv = document.querySelector(".card.partnership");
-  partnerDiv.classList.add("expanded");
-}
+// export function expandPartnerCard() {
+//   const partnerDiv = document.querySelector(".card.partnership");
+//   partnerDiv.classList.add("expanded");
+// }
 
-export function populateLegend(selectedCountry) {
-  console.log("selectedCountry", selectedCountry);
-  const partnerDiv = document.querySelector(".card");
-  partnerDiv.innerHTML = "";
+/* ------------------------------------------------------ */
+/* Rethink how to refactor and change functionality of it */
+/* ------------------------------------------------------ */
 
-  const biPartner = document.createElement("h2"); // bilateral partner
-  biPartner.classList.add(
-    "card-title",
-    "card-title-fixed",
-    "partner-select",
-    "h2",
-  );
-  biPartner.innerHTML = `${selectedCountry}`;
-  biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px
-  biPartner.style.paddingBottom = partnerDiv.paddingBottom; // Espacio entre el texto y la línea
-  biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
-  partnerDiv.appendChild(biPartner);
+// export function populateLegend(selectedCountry) {
+//   console.log("selectedCountry", selectedCountry);
+//   const partnerDiv = document.querySelector(".card");
+//   partnerDiv.innerHTML = "";
 
-  const partnerSubTitle = document.createElement("h5");
-  partnerSubTitle.classList.add("cardSubtitle");
-  partnerSubTitle.innerHTML = `${partnerDivStyle.overviewSubtitleText}`;
-  partnerDiv.appendChild(partnerSubTitle);
+//   const biPartner = document.createElement("h2"); // bilateral partner
+//   biPartner.classList.add(
+//     "card-title",
+//     "card-title-fixed",
+//     "partner-select",
+//     "h2",
+//   );
+//   biPartner.innerHTML = `${selectedCountry}`;
+//   biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px
+//   biPartner.style.paddingBottom = partnerDiv.paddingBottom; // Espacio entre el texto y la línea
+//   biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
+//   partnerDiv.appendChild(biPartner);
 
-  const driverText = document.createElement("h4");
-  driverText.classList.add("cardSubtitle");
-  driverText.innerHTML = `Key drivers of interest: ${keyDrivers[selectedCountry]}`;
-  partnerDiv.appendChild(driverText);
+//   const partnerSubTitle = document.createElement("h5");
+//   partnerSubTitle.classList.add("cardSubtitle");
+//   partnerSubTitle.innerHTML = `${partnerDivStyle.overviewSubtitleText}`;
+//   partnerDiv.appendChild(partnerSubTitle);
 
-  // Crear el contenedor para el contenido con scroll
-  const scrollDiv = document.createElement("div");
-  scrollDiv.classList.add("customScroll"); // Se añade 'custom-scroll' aquí
+//   const driverText = document.createElement("h4");
+//   driverText.classList.add("cardSubtitle");
+//   driverText.innerHTML = `Key drivers of interest: ${keyDrivers[selectedCountry]}`;
+//   partnerDiv.appendChild(driverText);
 
-  const reshapedData = databases.reshapedBiData;
-  console.log("reshapedData", reshapedData);
-  const selectCountryData = reshapedData[selectedCountry];
-  console.log("selectCountryData", selectCountryData);
-  if (selectCountryData) {
-    selectCountryData.forEach((entry) => {
-      console.log("Revising Entry in loop", entry["African Country"]);
-      const partnershipCard = document.createElement("div");
-      partnershipCard.classList.add("card-body", "partner", "custom-scroll");
-      const partnerTitle = document.createElement("h6");
-      partnerTitle.classList.add("card-title", "listPartners");
-      partnerTitle.innerHTML = `${entry["African Country"]}`;
-      partnershipCard.appendChild(partnerTitle);
+//   // Crear el contenedor para el contenido con scroll
+//   const scrollDiv = document.createElement("div");
+//   scrollDiv.classList.add("customScroll"); // Se añade 'custom-scroll' aquí
 
-      const areasTitleContainer = document.createElement("div");
-      areasTitleContainer.classList.add("card-text", "mb-1");
-      areasTitleContainer.style.display = partnerDivStyle.areasCoopDisplay;
-      areasTitleContainer.style.alignItems =
-        partnerDivStyle.areasCoopAlignItems;
-      areasTitleContainer.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
-      areasTitleContainer.style.gap = partnerDivStyle.areasCoopGap;
+//   const reshapedData = databases.reshapedBiData;
+//   console.log("reshapedData", reshapedData);
+//   const selectCountryData = reshapedData[selectedCountry];
+//   console.log("selectCountryData", selectCountryData);
+//   if (selectCountryData) {
+//     selectCountryData.forEach((entry) => {
+//       console.log("Revising Entry in loop", entry["African Country"]);
+//       const partnershipCard = document.createElement("div");
+//       partnershipCard.classList.add("card-body", "partner", "custom-scroll");
+//       const partnerTitle = document.createElement("h6");
+//       partnerTitle.classList.add("card-title", "listPartners");
+//       partnerTitle.innerHTML = `${entry["African Country"]}`;
+//       partnershipCard.appendChild(partnerTitle);
 
-      const areasTitle = document.createElement("span");
-      areasTitle.classList.add("card-text", "mb-1", "areasCoop");
-      areasTitle.style.paddingBottom = partnerDivStyle.areasCoopPaddinBottom;
-      areasTitle.style.marginBottom = partnerDivStyle.areasCoopMarginBottom;
-      areasTitle.style.marginRight = partnerDivStyle.areasCoopMarginRight;
-      areasTitle.innerHTML = "Areas of cooperation: ";
-      areasTitleContainer.appendChild(areasTitle);
+//       const areasTitleContainer = document.createElement("div");
+//       areasTitleContainer.classList.add("card-text", "mb-1");
+//       areasTitleContainer.style.display = partnerDivStyle.areasCoopDisplay;
+//       areasTitleContainer.style.alignItems =
+//         partnerDivStyle.areasCoopAlignItems;
+//       areasTitleContainer.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
+//       areasTitleContainer.style.gap = partnerDivStyle.areasCoopGap;
 
-      // Tag container
-      if (entry["Areas of Cooperation - Categories"] !== "No data") {
-        entry["Areas of Cooperation - Categories"].forEach((area) => {
-          console.log("Area of cooperation", area);
-          const tag = document.createElement("button");
-          tag.classList.add(
-            "btn",
-            "btn-outline-dark",
-            "aresCoop",
-            "ms-1",
-            "me-1",
-          );
-          tag.setAttribute("type", "button");
-          tag.setAttribute("data-bs-toggle", "tooltip");
-          tag.setAttribute("data-bs-placement", "right");
-          tag.setAttribute("title", area);
-          tag.style.background = cooperation.color[area];
+//       const areasTitle = document.createElement("span");
+//       areasTitle.classList.add("card-text", "mb-1", "areasCoop");
+//       areasTitle.style.paddingBottom = partnerDivStyle.areasCoopPaddinBottom;
+//       areasTitle.style.marginBottom = partnerDivStyle.areasCoopMarginBottom;
+//       areasTitle.style.marginRight = partnerDivStyle.areasCoopMarginRight;
+//       areasTitle.innerHTML = "Areas of cooperation: ";
+//       areasTitleContainer.appendChild(areasTitle);
 
-          // Add icon
-          const iconPath = `/assets/img/icons/${
-            area
-              .toLowerCase()
-              .replace(/ /g, "-") // Replace spaces with hyphens
-              .replace(/\//g, "-") // Replace slashes with hyphens
-          }.svg`;
-          const icon = document.createElement("img");
-          icon.src = iconPath;
-          icon.alt = `${area} Icon`;
-          icon.style.width = "16px";
-          icon.style.height = "16px";
-          icon.style.marginRight = "5px";
+//       // Tag container
+//       if (entry["Areas of Cooperation - Categories"] !== "No data") {
+//         entry["Areas of Cooperation - Categories"].forEach((area) => {
+//           console.log("Area of cooperation", area);
+//           const tag = document.createElement("button");
+//           tag.classList.add(
+//             "btn",
+//             "btn-outline-dark",
+//             "aresCoop",
+//             "ms-1",
+//             "me-1",
+//           );
+//           tag.setAttribute("type", "button");
+//           tag.setAttribute("data-bs-toggle", "tooltip");
+//           tag.setAttribute("data-bs-placement", "right");
+//           tag.setAttribute("title", area);
+//           tag.style.background = cooperation.color[area];
 
-          tag.appendChild(icon); // Add icon to the tag
-          tag.appendChild(document.createTextNode(area));
-          areasTitleContainer.appendChild(tag);
-          new bootstrap.Tooltip(tag);
-        });
-        //partnershipCard.appendChild(areasTitleContainer);
-      } else {
-        const noData = document.createElement("p");
-        noData.classList.add("card-text", "mb-1", "areasCoop");
-        noData.innerHTML = `No data available`;
-        areasTitleContainer.appendChild(noData);
-        areasTitleContainer.appendChild(noData);
-      }
-      if (entry["Economic and Investment Trend"] !== "No data") {
-        const trendContainer = document.createElement("div");
-        trendContainer.classList.add("card-text", "mb-1");
+//           // Add icon
+//           const iconPath = `/assets/img/icons/${
+//             area
+//               .toLowerCase()
+//               .replace(/ /g, "-") // Replace spaces with hyphens
+//               .replace(/\//g, "-") // Replace slashes with hyphens
+//           }.svg`;
+//           const icon = document.createElement("img");
+//           icon.src = iconPath;
+//           icon.alt = `${area} Icon`;
+//           icon.style.width = "16px";
+//           icon.style.height = "16px";
+//           icon.style.marginRight = "5px";
 
-        // Add the label text before the button
-        const trendLabel = document.createElement("span");
-        trendLabel.classList.add("trendLabel", "fw-bold", "me-2");
-        trendLabel.textContent = "Economic and investment trend:";
-        trendContainer.appendChild(trendLabel);
+//           tag.appendChild(icon); // Add icon to the tag
+//           tag.appendChild(document.createTextNode(area));
+//           areasTitleContainer.appendChild(tag);
+//           new bootstrap.Tooltip(tag);
+//         });
+//         //partnershipCard.appendChild(areasTitleContainer);
+//       } else {
+//         const noData = document.createElement("p");
+//         noData.classList.add("card-text", "mb-1", "areasCoop");
+//         noData.innerHTML = `No data available`;
+//         areasTitleContainer.appendChild(noData);
+//         areasTitleContainer.appendChild(noData);
+//       }
+//       if (entry["Economic and Investment Trend"] !== "No data") {
+//         const trendContainer = document.createElement("div");
+//         trendContainer.classList.add("card-text", "mb-1");
 
-        const trendValue = entry["Economic and Investment Trend"];
-        const trendButton = document.createElement("button");
-        trendButton.classList.add(
-          "btn",
-          "btn-sm",
-          "d-flex",
-          "align-items-center",
-          "justify-content-between",
-        );
+//         // Add the label text before the button
+//         const trendLabel = document.createElement("span");
+//         trendLabel.classList.add("trendLabel", "fw-bold", "me-2");
+//         trendLabel.textContent = "Economic and investment trend:";
+//         trendContainer.appendChild(trendLabel);
 
-        // Set button color and icon based on the trend value
-        if (trendValue === "Increase") {
-          trendButton.classList.add("btn-success");
-          trendButton.innerHTML = `<span>Increase</span> <img src="/assets/img/icons/arrow-up.svg" alt="Arrow Up" style="width: 12px; height: 12px;">`;
-        } else if (trendValue === "Decrease") {
-          trendButton.classList.add("btn-danger");
-          trendButton.innerHTML = `<span>Decrease</span> <img src="/assets/img/icons/arrow-down.svg" alt="Arrow Down" style="width: 12px; height: 12px;">`;
-        } else if (trendValue === "Stable") {
-          trendButton.classList.add("btn-secondary");
-          trendButton.innerHTML = `<span>Stable</span> <img src="/assets/img/icons/minus.svg" alt="Minus Icon" style="width: 12px; height: 12px;">`;
-        }
-        trendContainer.appendChild(trendButton);
-        partnershipCard.appendChild(trendContainer);
-      }
-      partnershipCard.appendChild(areasTitleContainer);
-      scrollDiv.appendChild(partnershipCard);
-      partnerDiv.appendChild(scrollDiv);
-    });
-  }
-  const tooltipTriggerList = [].slice.call(
-    partnerDiv.querySelectorAll('[data-bs-toggle="tooltip"]'),
-  );
-  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-    new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-}
+//         const trendValue = entry["Economic and Investment Trend"];
+//         const trendButton = document.createElement("button");
+//         trendButton.classList.add(
+//           "btn",
+//           "btn-sm",
+//           "d-flex",
+//           "align-items-center",
+//           "justify-content-between",
+//         );
+
+//         // Set button color and icon based on the trend value
+//         if (trendValue === "Increase") {
+//           trendButton.classList.add("btn-success");
+//           trendButton.innerHTML = `<span>Increase</span> <img src="/assets/img/icons/arrow-up.svg" alt="Arrow Up" style="width: 12px; height: 12px;">`;
+//         } else if (trendValue === "Decrease") {
+//           trendButton.classList.add("btn-danger");
+//           trendButton.innerHTML = `<span>Decrease</span> <img src="/assets/img/icons/arrow-down.svg" alt="Arrow Down" style="width: 12px; height: 12px;">`;
+//         } else if (trendValue === "Stable") {
+//           trendButton.classList.add("btn-secondary");
+//           trendButton.innerHTML = `<span>Stable</span> <img src="/assets/img/icons/minus.svg" alt="Minus Icon" style="width: 12px; height: 12px;">`;
+//         }
+//         trendContainer.appendChild(trendButton);
+//         partnershipCard.appendChild(trendContainer);
+//       }
+//       partnershipCard.appendChild(areasTitleContainer);
+//       scrollDiv.appendChild(partnershipCard);
+//       partnerDiv.appendChild(scrollDiv);
+//     });
+//   }
+//   const tooltipTriggerList = [].slice.call(
+//     partnerDiv.querySelectorAll('[data-bs-toggle="tooltip"]'),
+//   );
+//   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+//     new bootstrap.Tooltip(tooltipTriggerEl);
+//   });
+// }
+/* ------------------------------------------------------ */
 
 // export function populateComparativeCard(selectedCountry) {
 //   console.log("selectedCountry", selectedCountry);
@@ -417,28 +419,44 @@ function createTabDiv(selectCountryData, text) {
 }
 
 function createPartnershipMiniCard(entry) {
-  const partnershipCard = document.createElement("div");
-  partnershipCard.classList.add("card-body", "partner", "custom-scroll");
+  const card = document.createElement("div");
+  card.classList.add("card-body", "partner");
 
-  const partnerTitle = document.createElement("h6");
-  partnerTitle.classList.add("card-title", "listPartners");
-  partnerTitle.textContent = entry["African Country"];
-  partnershipCard.appendChild(partnerTitle);
+  //const header = document.createElement("div");
+  //header.classList.add("d-flex", "align-items-center", "gap-2", "mb-1");
+
+  const title = document.createElement("h6");
+  title.classList.add("card-title", "listPartners", "gap-2", "mb-1");
+  title.textContent = entry["African Country"];
+  card.appendChild(title);
+
+  if (entry["Economic and Investment Trend"] !== "No data") {
+    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
+  }
 
   if (entry["Areas of Cooperation - Categories"] !== "No data") {
-    partnershipCard.appendChild(createCooperationDiv(entry));
+    card.appendChild(createCooperationDiv(entry));
   }
 
   if (entry["Number of Flagship Green Projects"] !== "No data") {
-    const flagshipProjects = document.createElement("p");
-    flagshipProjects.classList.add("card-text", "mb-1", "flagshipProjects");
-    flagshipProjects.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
-    partnershipCard.appendChild(flagshipProjects);
+    const flagship = document.createElement("p");
+    flagship.classList.add("card-text", "mb-1", "flagshipProjects");
+    flagship.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
+    card.appendChild(flagship);
   }
 
-  partnershipCard.appendChild(createSourceLink(entry));
+  //card.appendChild(createSourceLink(entry));
 
-  return partnershipCard;
+  return card;
+}
+
+function createEmptyState() {
+  const empty = document.createElement("div");
+  empty.classList.add("empty-state");
+  empty.innerHTML = `
+    <p>Select a partner country from the map to explore Africa's energy transition financing relationships.</p>
+  `;
+  return empty;
 }
 function createSourceLink(entryOrData) {
   const link = document.createElement("a");
@@ -463,8 +481,8 @@ function createTrendIndicator(trendValue) {
   const trendDiv = document.createElement("div");
   trendDiv.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
 
-  const trendLabel = document.createElement("h6");
-  trendLabel.classList.add("trendLabel");
+  const trendLabel = document.createElement("p");
+  trendLabel.classList.add("trendLabel", "my-auto");
   trendLabel.textContent = "Investment trend:";
 
   const trendIcon = document.createElement("img");
@@ -496,7 +514,7 @@ function createCooperationDiv(selectCountryData) {
   areasCoopDiv.style.gap = partnerDivStyle.areasCoopGap;
 
   if (selectCountryData["Areas of Cooperation - Categories"] !== "No data") {
-    const areasTitle = document.createElement("h5");
+    const areasTitle = document.createElement("p");
     areasTitle.classList.add("card-text", "mb-1", "areasCoop");
     areasTitle.style.paddingBottom = partnerDivStyle.areasCoopPaddinBottom;
     areasTitle.style.marginBottom = partnerDivStyle.areasCoopMarginBottom;
