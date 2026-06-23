@@ -4,6 +4,7 @@ import {
   populateCountryCard,
   populatePartnerCard,
 } from "./populatePartnerCard.js";
+import { getCurrentPartner } from "./layout.js";
 const {
   svgWidth,
   svgHeight,
@@ -356,8 +357,9 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
         currentAfricanPartnersData = [];
       }
       // Populate the right column with African partner data
-      if (selectedPartner) {
-        populateCountryCard(clickedCountry, selectedPartner);
+      const partner = getCurrentPartner();
+      if (partner) {
+        populateCountryCard(countryName, partner);
       }
       //populateLegend(selectedPartner, currentAfricanPartnersData);
       // Change the color of the African partners based on connectivity level
