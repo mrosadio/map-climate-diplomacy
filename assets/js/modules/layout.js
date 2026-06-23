@@ -1,6 +1,6 @@
-import globals from "./globals";
-import { drawBilateralMap } from "./drawMap";
-import { populatePartnerOverview } from "./populatePartnerCard";
+import globals from "./globals.js";
+import { drawBilateralMap } from "./drawMap.js";
+import { populatePartnerOverview } from "./populatePartnerCard.js";
 
 const { databases } = globals;
 
@@ -190,4 +190,6 @@ function createAccordion(title, content) {
   });
   section.appendChild(row);
   section.appendChild(body);
+
+  return section;
 }

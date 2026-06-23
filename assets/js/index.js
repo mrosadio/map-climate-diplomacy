@@ -1,46 +1,36 @@
-import { initializeDatabases } from './modules/dataManager.js';
-import { showAfricaOverview, showBilateral, /*showComparative,*/ selectPartner } from './modules/navigation.js';
-import { zoomIn, zoomOut } from './modules/setUpControls.js';
-import globals from './modules/globals.js';
+import { initializeDatabases } from "./modules/dataManager.js";
+import { showAfricaOverview } from "./modules/navigation.js";
+import { initLayout, resetLayout } from "./modules/layout.js";
+import { zoomIn, zoomOut } from "./modules/setUpControls.js";
 
-const { databases } = globals;
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    // Initialize databases
+    await initializeDatabases();
 
-        // Initialize databases
-        await initializeDatabases();
+    // Render Africa Overview map by default
+    await showAfricaOverview();
 
-        // Render Africa Overview map by default
-        await showAfricaOverview();
+    // Show Bilateral partnership
+    initLayout();
 
-        selectPartner();
+    // Show comparative advantage
+    //showComparative();
 
-        // Show Bilateral partnership
-        showBilateral();
+    // Zoom controls
+    document.getElementById("zoomIn")?.addEventListener("click", zoomIn);
+    document.getElementById("zoomOut")?.addEventListener("click", zoomOut);
 
-        // Show comparative advantage
-        //showComparative();
+    // Africa overview button — redraws the default map
+    document
+      .getElementById("africaButton")
+      ?.addEventListener("click", showAfricaOverview);
 
-        // Attach event listener to the Africa Overview button
-        const africaButton = document.getElementById("africaButton");
-        if (africaButton) {
-            africaButton.addEventListener("click", showAfricaOverview);
-        } else {
-            console.error("Africa Overview button not found in the DOM!");
-        }
-        
-        // Attach event listeners to zoom buttons
-        const zoomInButton = document.getElementById("zoomIn");
-        const zoomOutButton = document.getElementById("zoomOut");
-
-        if (zoomInButton) {
-            zoomInButton.addEventListener("click", zoomIn);
-        }
-
-        if (zoomOutButton) {
-            zoomOutButton.addEventListener("click", zoomOut);
-        }
-    } catch (error) {
-        console.error("Error loading data or initializing visualizations:", error);
-    }
+    // Reset button — clears partner selection and returns panel to empty state
+    document
+      .getElementById("resetButton")
+      ?.addEventListener("click", resetLayout);
+  } catch (error) {
+    console.error("Error loading data or initializing visualizations:", error);
+  }
 });

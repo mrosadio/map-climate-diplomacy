@@ -11,6 +11,32 @@ const {
   trendConfig,
 } = globals;
 
+export function populatePartnerOverview(partnerName) {
+  const zone = document.querySelector(".partner-overview-zone");
+  if (!zone) return;
+  zone.innerHTML = "";
+
+  const title = document.createElement("p");
+  title.classList.add("partner-title");
+  title.textContent = partnerName;
+  zone.appendChild(title);
+
+  const text = globals.overviewText[partnerName];
+  const body = document.createElement("p");
+  body.classList.add("partner-subtitle");
+  body.textContent = text || "No overview available";
+  zone.appendChild(body);
+
+  zone.appendChild(createStatStrip(partnerName));
+
+  const hint = document.createElement("p");
+  hint.classList.add("hint");
+  hint.textContent = "Click a country on the map to see the bilateral detail →";
+  zone.appendChild(hint);
+
+  // African partners tab
+  zone.appendChild(createAfricanPartnersList(partnerName));
+}
 export function populatePartnerCard(selectedPartner) {
   console.log("selected Partner", selectedPartner);
   const partnerDiv = document.querySelector(".card");
