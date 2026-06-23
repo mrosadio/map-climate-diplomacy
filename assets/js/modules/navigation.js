@@ -3,12 +3,12 @@ import { populatePartnerCard } from "./populatePartnerCard.js";
 import { addLegend } from "./addLegend.js";
 import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
-import {
-  populateCountryCard,
-  // expandPartnerCard,
-  //populateLegend,
-  //populateComparativeCard,
-} from "./populatePartnerCard.js";
+// import {
+//   populateCountryCard,
+//   // expandPartnerCard,
+//   //populateLegend,
+//   //populateComparativeCard,
+// } from "./populatePartnerCard.js";
 import {
   prepareAfricaOverviewData,
   prepareBilateralData,
@@ -62,39 +62,39 @@ export async function showAfricaOverview() {
   }
 }
 
-export function selectPartner() {
-  document.querySelectorAll(".map-menu-item").forEach((item) => {
-    item.addEventListener("mouseover", function () {
-      this.classList.add("active");
-    });
-    item.addEventListener("mouseout", function () {
-      this.classList.remove("active");
-    });
-  });
-}
+// export function selectPartner() {
+//   document.querySelectorAll(".map-menu-item").forEach((item) => {
+//     item.addEventListener("mouseover", function () {
+//       this.classList.add("active");
+//     });
+//     item.addEventListener("mouseout", function () {
+//       this.classList.remove("active");
+//     });
+//   });
+// }
 
-export function showBilateral() {
-  document.querySelectorAll(".countrySelect").forEach((item) => {
-    item.addEventListener("click", async function () {
-      let selectedPartner = this.textContent.trim();
-      console.log("Selected Partner", selectedPartner);
-      try {
-        console.log("Merged data", databases.mergedBilateralData);
-        const mergedData = databases.mergedBilateralData;
-        drawBilateralMap(mergedData, selectedPartner);
-        // First deactive controls
-        const toggleButton = document.getElementById("toggleLabels");
-        console.log("Toggle button", toggleButton);
-        toggleButton.classList.remove("active");
-        setupControls(mergedData);
-        populatePartnerCard(selectedPartner);
-        //expandPartnerCard();
-      } catch (error) {
-        console.error("Error preparing bilateral data:", error);
-      }
-    });
-  });
-}
+// export function showBilateral() {
+//   document.querySelectorAll(".countrySelect").forEach((item) => {
+//     item.addEventListener("click", async function () {
+//       let selectedPartner = this.textContent.trim();
+//       console.log("Selected Partner", selectedPartner);
+//       try {
+//         console.log("Merged data", databases.mergedBilateralData);
+//         const mergedData = databases.mergedBilateralData;
+//         drawBilateralMap(mergedData, selectedPartner);
+//         // First deactive controls
+//         const toggleButton = document.getElementById("toggleLabels");
+//         console.log("Toggle button", toggleButton);
+//         toggleButton.classList.remove("active");
+//         setupControls(mergedData);
+//         populatePartnerCard(selectedPartner);
+//         //expandPartnerCard();
+//       } catch (error) {
+//         console.error("Error preparing bilateral data:", error);
+//       }
+//     });
+//   });
+// }
 
 // export function showComparative() {
 //   document.querySelectorAll(".blocSelect").forEach((item) => {
