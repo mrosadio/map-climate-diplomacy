@@ -3,7 +3,7 @@ import {
   //populateLegend,
   populateCountryCard,
   populatePartnerCard,
-} from "./populatePartnerCard.js";
+} from "./cards.js";
 import { getCurrentPartner } from "./layout.js";
 const {
   svgWidth,

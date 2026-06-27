@@ -1,6 +1,6 @@
 import globals from "./globals.js";
 import { drawBilateralMap } from "./drawMap.js";
-import { populatePartnerOverview } from "./populatePartnerCard.js";
+import { populatePartnerOverview } from "./cards.js";
 
 const { databases } = globals;
 
@@ -34,8 +34,9 @@ export function onPartnerSelect(partnerName) {
 export function resetLayout() {
   // reset state to zero. return to initial state
   currentPartner = null;
-  document.querySelectorAll(".countrySelect").forEach((item) => 
-    item.classList.remove("active"));
+  document
+    .querySelectorAll(".countrySelect")
+    .forEach((item) => item.classList.remove("active"));
   const zone = document.querySelector(".partner-overview-zone");
   if (zone) {
     zone.innerHTML = "";
@@ -43,10 +44,10 @@ export function resetLayout() {
   }
 }
 
-// so that drawMap.js can read selected partner 
-// and to avoid coupled js script 
+// so that drawMap.js can read selected partner
+// and to avoid coupled js script
 // drawMap.js calls this inside its click handler to know
-// which partner is active when a country is clicked 
+// which partner is active when a country is clicked
 export function getCurrentPartner() {
   return currentPartner;
 }
@@ -61,7 +62,7 @@ function renderSidebar() {
     const partnerName = item.querySelector(".label")?.textContent.trim();
     if (!partnerName) return;
 
-    // remove any existing eventlisteners that old code might 
+    // remove any existing eventlisteners that old code might
     // have attached - by cloning
     const freshItem = item.cloneNode(true);
     item.parentNode.replaceChild(freshItem, item);
@@ -72,14 +73,14 @@ function renderSidebar() {
     freshItem.addEventListener("mouseout", function () {
       this.classList.remove("hovered");
     });
-  })
+  });
 }
 // to build the right panel structure
-// the panel ahs 3 fixed zones stacked vertically 
+// the panel ahs 3 fixed zones stacked vertically
 // 1. navigation instructions - always visible
 // 2. partner overview zone - empty until a partner is selected
 //    then populated by populatePartnerOverview()
-// 3. Accordions - About and source, always visible 
+// 3. Accordions - About and source, always visible
 function renderPanel() {
   const card = document.querySelector(".card.partnership");
   if (!card) {
@@ -99,21 +100,25 @@ function renderPanel() {
   card.appendChild(overviewZone);
 
   // Zone 3: accordions
-  card.appendChild(createAccordion(
-    "About this dataset",
-    `Africa's energy transition is at a critical crossroads, with financing 
+  card.appendChild(
+    createAccordion(
+      "About this dataset",
+      `Africa's energy transition is at a critical crossroads, with financing 
      as a central challenge. Our database maps trade, investment, and flagship 
      green projects between African countries and three major actors: China, 
      the EU, and Gulf countries. We cross-check datasets, distinguish pledged 
-     from disbursed funds, and add qualitative caveats.`
-  ));
-  card.appendChild(createAccordion(
-    "Sources",
-    `<a href="#" class="source-link">IMF Database</a>
+     from disbursed funds, and add qualitative caveats.`,
+    ),
+  );
+  card.appendChild(
+    createAccordion(
+      "Sources",
+      `<a href="#" class="source-link">IMF Database</a>
      <a href="#" class="source-link">World Bank Database</a>
      <a href="#" class="source-link">China Global Investment Tracker</a>
-     <a href="#" class="source-link">Gulf Renewable Projects Tracker</a>`
-  ));
+     <a href="#" class="source-link">Gulf Renewable Projects Tracker</a>`,
+    ),
+  );
 }
 
 // ----- Builder helpers -----
@@ -137,9 +142,9 @@ function createNavigationSteps() {
   section.appendChild(label);
 
   const steps = [
-    "Select a foreign actor from the sidebar", 
+    "Select a foreign actor from the sidebar",
     "Click an African country on the map",
-    "Browse the bilateral detail sheet"
+    "Browse the bilateral detail sheet",
   ];
   steps.forEach((text, i) => {
     const row = document.createElement("div");
@@ -158,12 +163,12 @@ function createNavigationSteps() {
   return section;
 }
 
-// toggle logic lives inside the function 
+// toggle logic lives inside the function
 // no external state is needed because body and icon are captured
 // in the event listeners closure
 function createAccordion(title, content) {
   const section = document.createElement("div");
-  section.classList.add("panel-section")
+  section.classList.add("panel-section");
   const row = document.createElement("div");
   row.classList.add("accordion-row");
   row.style.cursor = "pointer";
