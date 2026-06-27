@@ -38,55 +38,36 @@ export function populatePartnerOverview(partnerName) {
   zone.appendChild(createAfricanPartnersList(partnerName));
 }
 
-// Called by navigation.js → showBilateral() (legacy path, kept for compatibility)
-// Fills .card.partnership with the tabbed partner overview
-// Once layout.js fully replaces showBilateral(), this can be removed
-export function populatePartnerCard(selectedPartner) {
-  console.log("selected Partner", selectedPartner);
-  const partnerDiv = document.querySelector(".card");
-  partnerDiv.innerHTML = "";
-
-  partnerDiv.appendChild(createPartnerHeader(selectedPartner));
-
-  const selectCountryData = databases.reshapedBiData[selectedPartner];
-  console.log("selectCountryData", selectCountryData);
-  if (!selectCountryData) {
-    initTooltips(partnerDiv);
-    return;
-  }
-  // Add stat strip
-  partnerDiv.appendChild(createStatStrip(selectedPartner));
-  const tabDiv = createTabDiv(selectCountryData, overviewText[selectedPartner]);
-
-  const partnersPane = tabDiv.querySelector("#partners");
-  const scrollDiv = document.createElement("div");
-  scrollDiv.classList.add("customScroll");
-  selectCountryData.forEach((entry) => {
-    scrollDiv.appendChild(createPartnershipMiniCard(entry));
-  });
-  partnersPane.appendChild(scrollDiv);
-
-  partnerDiv.appendChild(tabDiv);
-  initTooltips(partnerDiv);
-}
-
-export function populateCountryCard(countryName, selectedPartner, onPartnerSelect) {
+export function populateCountryCard(
+  countryName,
+  selectedPartner,
+  onPartnerSelect,
+) {
   console.log("selected Partner", selectedPartner);
   console.log("country name", countryName);
-  const partnerDiv = document.querySelector(".card");
-  partnerDiv.innerHTML = "";
+  // Write into the overview zone only — not the whole card.
+  // The navigation steps and accordions must stay intact so
+  // populatePartnerOverview can find the zone again when the user
+  // clicks back to a non-African partner.
+  const zone = document.querySelector(".partner-overview-zone");
+  if (!zone) {
+    console.error("populateCountryCard: .partner-overview-zone not found");
+    return;
+  }
+  zone.innerHTML = "";
 
   // Pass onPartnerSelect into createBreadCrumb so it can call back correctly.
   // If onPartnerSelect is not provided (legacy call), falls back to populatePartnerCard.
-  const backFn = onPartnerSelect || (() => populatePartnerCard(selectedPartner));
-  partnerDiv.appendChild(createBreadCrumb(selectedPartner));
-  partnerDiv.appendChild(createTitle(`${selectedPartner} - ${countryName}`));
+  const backFn =
+    onPartnerSelect || (() => populatePartnerOverview(selectedPartner));
+  zone.appendChild(createBreadCrumb(selectedPartner));
+  zone.appendChild(createTitle(`${selectedPartner} - ${countryName}`));
 
   const selectedCountryData = databases.reshapedBiData[selectedPartner]?.find(
     (entry) => entry["African Country"] === countryName,
   );
   if (!selectedCountryData) {
-    partnerDiv.appendChild(
+    zone.appendChild(
       Object.assign(document.createElement("p"), {
         textContent: "No data available for this country.",
       }),
@@ -108,7 +89,7 @@ export function populateCountryCard(countryName, selectedPartner, onPartnerSelec
       ),
     );
   }
-  partnerDiv.appendChild(engagementDiv);
+  zone.appendChild(engagementDiv);
   // Investment section
   const investmentText =
     partnerCountryText[selectedPartner]["Investment"][countryName];
@@ -118,9 +99,9 @@ export function populateCountryCard(countryName, selectedPartner, onPartnerSelec
   );
   investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData));
   investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
-  partnerDiv.appendChild(investmentTextDiv);
+  zone.appendChild(investmentTextDiv);
 
-  initTooltips(partnerDiv);
+  initTooltips(zone);
 }
 
 // --- partner overview panel helper ---
@@ -130,7 +111,7 @@ export function populateCountryCard(countryName, selectedPartner, onPartnerSelec
 function createAfricanPartnersList(partnerName) {
   const container = document.createElement("div");
   container.classList.add("partners-list");
- 
+
   const selectCountryData = databases.reshapedBiData[partnerName];
   if (!selectCountryData) return container;
 
@@ -138,14 +119,14 @@ function createAfricanPartnersList(partnerName) {
   label.classList.add("section-label");
   label.textContent = `${selectCountryData.length} African partners`;
   container.appendChild(label);
- 
+
   const scrollDiv = document.createElement("div");
   scrollDiv.classList.add("customScroll");
- 
+
   selectCountryData.forEach((entry) => {
     scrollDiv.appendChild(createPartnershipMiniCard(entry));
   });
- 
+
   container.appendChild(scrollDiv);
   return container;
 }
@@ -166,7 +147,9 @@ function createPartnershipMiniCard(entry) {
   card.appendChild(title);
 
   if (entry["Economic and Investment Trend"] !== "No data") {
-    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
+    card.appendChild(
+      createTrendIndicator(entry["Economic and Investment Trend"]),
+    );
   }
 
   if (entry["Areas of Cooperation - Categories"] !== "No data") {
@@ -237,7 +220,7 @@ function createBreadCrumb(selectedPartner) {
   breadcrumb.innerHTML = `<span class="back-link">← ${selectedPartner}</span>`;
   breadcrumb.querySelector(".back-link").style.cursor = "pointer";
   breadcrumb.querySelector(".back-link").addEventListener("click", () => {
-    populatePartnerCard(selectedPartner); // go back to partner view
+    d(selectedPartner); // go back to partner view
   });
   return breadcrumb;
 }
