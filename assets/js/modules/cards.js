@@ -37,6 +37,10 @@ export function populatePartnerOverview(partnerName) {
   // African partners tab
   zone.appendChild(createAfricanPartnersList(partnerName));
 }
+
+// Called by navigation.js → showBilateral() (legacy path, kept for compatibility)
+// Fills .card.partnership with the tabbed partner overview
+// Once layout.js fully replaces showBilateral(), this can be removed
 export function populatePartnerCard(selectedPartner) {
   console.log("selected Partner", selectedPartner);
   const partnerDiv = document.querySelector(".card");
@@ -66,12 +70,15 @@ export function populatePartnerCard(selectedPartner) {
   initTooltips(partnerDiv);
 }
 
-export function populateCountryCard(countryName, selectedPartner) {
+export function populateCountryCard(countryName, selectedPartner, onPartnerSelect) {
   console.log("selected Partner", selectedPartner);
   console.log("country name", countryName);
   const partnerDiv = document.querySelector(".card");
   partnerDiv.innerHTML = "";
 
+  // Pass onPartnerSelect into createBreadCrumb so it can call back correctly.
+  // If onPartnerSelect is not provided (legacy call), falls back to populatePartnerCard.
+  const backFn = onPartnerSelect || (() => populatePartnerCard(selectedPartner));
   partnerDiv.appendChild(createBreadCrumb(selectedPartner));
   partnerDiv.appendChild(createTitle(`${selectedPartner} - ${countryName}`));
 
@@ -115,263 +122,69 @@ export function populateCountryCard(countryName, selectedPartner) {
 
   initTooltips(partnerDiv);
 }
-// export function expandPartnerCard() {
-//   const partnerDiv = document.querySelector(".card.partnership");
-//   partnerDiv.classList.add("expanded");
-// }
 
-/* ------------------------------------------------------ */
-/* Rethink how to refactor and change functionality of it */
-/* ------------------------------------------------------ */
+// --- partner overview panel helper ---
 
-// export function populateLegend(selectedCountry) {
-//   console.log("selectedCountry", selectedCountry);
-//   const partnerDiv = document.querySelector(".card");
-//   partnerDiv.innerHTML = "";
+// build the scannable list of African partners shown in the overview zone
+// read-only -> no click-handlers. the map is the navigation element
+function createAfricanPartnersList(partnerName) {
+  const container = document.createElement("div");
+  container.classList.add("partners-list");
+ 
+  const selectCountryData = databases.reshapedBiData[partnerName];
+  if (!selectCountryData) return container;
 
-//   const biPartner = document.createElement("h2"); // bilateral partner
-//   biPartner.classList.add(
-//     "card-title",
-//     "card-title-fixed",
-//     "partner-select",
-//     "h2",
-//   );
-//   biPartner.innerHTML = `${selectedCountry}`;
-//   biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px
-//   biPartner.style.paddingBottom = partnerDiv.paddingBottom; // Espacio entre el texto y la línea
-//   biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
-//   partnerDiv.appendChild(biPartner);
-
-//   const partnerSubTitle = document.createElement("h5");
-//   partnerSubTitle.classList.add("cardSubtitle");
-//   partnerSubTitle.innerHTML = `${partnerDivStyle.overviewSubtitleText}`;
-//   partnerDiv.appendChild(partnerSubTitle);
-
-//   const driverText = document.createElement("h4");
-//   driverText.classList.add("cardSubtitle");
-//   driverText.innerHTML = `Key drivers of interest: ${keyDrivers[selectedCountry]}`;
-//   partnerDiv.appendChild(driverText);
-
-//   // Crear el contenedor para el contenido con scroll
-//   const scrollDiv = document.createElement("div");
-//   scrollDiv.classList.add("customScroll"); // Se añade 'custom-scroll' aquí
-
-//   const reshapedData = databases.reshapedBiData;
-//   console.log("reshapedData", reshapedData);
-//   const selectCountryData = reshapedData[selectedCountry];
-//   console.log("selectCountryData", selectCountryData);
-//   if (selectCountryData) {
-//     selectCountryData.forEach((entry) => {
-//       console.log("Revising Entry in loop", entry["African Country"]);
-//       const partnershipCard = document.createElement("div");
-//       partnershipCard.classList.add("card-body", "partner", "custom-scroll");
-//       const partnerTitle = document.createElement("h6");
-//       partnerTitle.classList.add("card-title", "listPartners");
-//       partnerTitle.innerHTML = `${entry["African Country"]}`;
-//       partnershipCard.appendChild(partnerTitle);
-
-//       const areasTitleContainer = document.createElement("div");
-//       areasTitleContainer.classList.add("card-text", "mb-1");
-//       areasTitleContainer.style.display = partnerDivStyle.areasCoopDisplay;
-//       areasTitleContainer.style.alignItems =
-//         partnerDivStyle.areasCoopAlignItems;
-//       areasTitleContainer.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
-//       areasTitleContainer.style.gap = partnerDivStyle.areasCoopGap;
-
-//       const areasTitle = document.createElement("span");
-//       areasTitle.classList.add("card-text", "mb-1", "areasCoop");
-//       areasTitle.style.paddingBottom = partnerDivStyle.areasCoopPaddinBottom;
-//       areasTitle.style.marginBottom = partnerDivStyle.areasCoopMarginBottom;
-//       areasTitle.style.marginRight = partnerDivStyle.areasCoopMarginRight;
-//       areasTitle.innerHTML = "Areas of cooperation: ";
-//       areasTitleContainer.appendChild(areasTitle);
-
-//       // Tag container
-//       if (entry["Areas of Cooperation - Categories"] !== "No data") {
-//         entry["Areas of Cooperation - Categories"].forEach((area) => {
-//           console.log("Area of cooperation", area);
-//           const tag = document.createElement("button");
-//           tag.classList.add(
-//             "btn",
-//             "btn-outline-dark",
-//             "aresCoop",
-//             "ms-1",
-//             "me-1",
-//           );
-//           tag.setAttribute("type", "button");
-//           tag.setAttribute("data-bs-toggle", "tooltip");
-//           tag.setAttribute("data-bs-placement", "right");
-//           tag.setAttribute("title", area);
-//           tag.style.background = cooperation.color[area];
-
-//           // Add icon
-//           const iconPath = `/assets/img/icons/${
-//             area
-//               .toLowerCase()
-//               .replace(/ /g, "-") // Replace spaces with hyphens
-//               .replace(/\//g, "-") // Replace slashes with hyphens
-//           }.svg`;
-//           const icon = document.createElement("img");
-//           icon.src = iconPath;
-//           icon.alt = `${area} Icon`;
-//           icon.style.width = "16px";
-//           icon.style.height = "16px";
-//           icon.style.marginRight = "5px";
-
-//           tag.appendChild(icon); // Add icon to the tag
-//           tag.appendChild(document.createTextNode(area));
-//           areasTitleContainer.appendChild(tag);
-//           new bootstrap.Tooltip(tag);
-//         });
-//         //partnershipCard.appendChild(areasTitleContainer);
-//       } else {
-//         const noData = document.createElement("p");
-//         noData.classList.add("card-text", "mb-1", "areasCoop");
-//         noData.innerHTML = `No data available`;
-//         areasTitleContainer.appendChild(noData);
-//         areasTitleContainer.appendChild(noData);
-//       }
-//       if (entry["Economic and Investment Trend"] !== "No data") {
-//         const trendContainer = document.createElement("div");
-//         trendContainer.classList.add("card-text", "mb-1");
-
-//         // Add the label text before the button
-//         const trendLabel = document.createElement("span");
-//         trendLabel.classList.add("trendLabel", "fw-bold", "me-2");
-//         trendLabel.textContent = "Economic and investment trend:";
-//         trendContainer.appendChild(trendLabel);
-
-//         const trendValue = entry["Economic and Investment Trend"];
-//         const trendButton = document.createElement("button");
-//         trendButton.classList.add(
-//           "btn",
-//           "btn-sm",
-//           "d-flex",
-//           "align-items-center",
-//           "justify-content-between",
-//         );
-
-//         // Set button color and icon based on the trend value
-//         if (trendValue === "Increase") {
-//           trendButton.classList.add("btn-success");
-//           trendButton.innerHTML = `<span>Increase</span> <img src="/assets/img/icons/arrow-up.svg" alt="Arrow Up" style="width: 12px; height: 12px;">`;
-//         } else if (trendValue === "Decrease") {
-//           trendButton.classList.add("btn-danger");
-//           trendButton.innerHTML = `<span>Decrease</span> <img src="/assets/img/icons/arrow-down.svg" alt="Arrow Down" style="width: 12px; height: 12px;">`;
-//         } else if (trendValue === "Stable") {
-//           trendButton.classList.add("btn-secondary");
-//           trendButton.innerHTML = `<span>Stable</span> <img src="/assets/img/icons/minus.svg" alt="Minus Icon" style="width: 12px; height: 12px;">`;
-//         }
-//         trendContainer.appendChild(trendButton);
-//         partnershipCard.appendChild(trendContainer);
-//       }
-//       partnershipCard.appendChild(areasTitleContainer);
-//       scrollDiv.appendChild(partnershipCard);
-//       partnerDiv.appendChild(scrollDiv);
-//     });
-//   }
-//   const tooltipTriggerList = [].slice.call(
-//     partnerDiv.querySelectorAll('[data-bs-toggle="tooltip"]'),
-//   );
-//   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-//     new bootstrap.Tooltip(tooltipTriggerEl);
-//   });
-// }
-/* ------------------------------------------------------ */
-
-// export function populateComparativeCard(selectedCountry) {
-//   console.log("selectedCountry", selectedCountry);
-//   const partnerDiv = document.querySelector(".card");
-//   partnerDiv.innerHTML = "";
-
-//   const biPartner = document.createElement("h3"); // bilateral partner
-//   biPartner.classList.add(
-//     "card-title",
-//     "card-title-fixed",
-//     "partner-select",
-//     "h3",
-//   );
-//   biPartner.innerHTML = `${selectedCountry}`;
-//   biPartner.style.borderBottom = partnerDivStyle.borderBottom; // Línea roja de 2px
-//   biPartner.style.paddingBottom = partnerDiv.paddingBottom; // Espacio entre el texto y la línea
-//   biPartner.style.marginTop = partnerDiv.marginTop; // Espacio entre el texto y la línea
-//   partnerDiv.appendChild(biPartner);
-
-//   const partnerSubTitle = document.createElement("h4");
-//   partnerSubTitle.classList.add("cardSubtitle");
-//   partnerSubTitle.innerHTML = `${partnerDivStyle.comparativeSubtitleText}`;
-//   partnerDiv.appendChild(partnerSubTitle);
-
-//   const comparativeData = databases.comparativeData;
-//   console.log("Comparative data", comparativeData);
-
-//   // Filter data for the selected country
-//   const selectCountryData = comparativeData.filter(
-//     (country) => country["Non-African Partner"] === selectedCountry,
-//   );
-//   console.log("Filtered Comparative Data:", selectCountryData);
-
-//   if (selectCountryData.length > 0) {
-//     selectCountryData.forEach((entry) => {
-//       const partnershipCard = document.createElement("div");
-//       partnershipCard.classList.add("card-body", "partner");
-//       // Iterate over keys of the country object
-//       Object.keys(entry).forEach((key) => {
-//         const value = entry[key];
-
-//         // Create a container for each variable
-//         const variableContainer = document.createElement("div");
-//         variableContainer.classList.add("card-body", "partner");
-
-//         // Check if the value is an array
-//         if (Array.isArray(value)) {
-//           // Create a list for array elements
-//           const listContainer = document.createElement("ul");
-//           listContainer.classList.add("matrixVarList");
-
-//           value.forEach((item) => {
-//             const listItem = document.createElement("li");
-//             listItem.classList.add("card-text", "mb-1");
-//             listItem.textContent = item;
-//             listContainer.appendChild(listItem);
-//           });
-
-//           variableContainer.innerHTML = `<h6 class="mb-1">${key}:</h6>`;
-//           variableContainer.appendChild(listContainer);
-//         } else {
-//           // If not an array, display the value directly
-//           variableContainer.innerHTML = `<h6>${key}:</h6>
-//                                                    ${value}`;
-//         }
-//         partnershipCard.appendChild(variableContainer);
-//       });
-//       partnerDiv.appendChild(partnershipCard);
-//     });
-//   } else {
-//     const noDataMessage = document.createElement("p");
-//     noDataMessage.classList.add("card-text", "no-data");
-//     noDataMessage.innerHTML = "No data available for the selected country.";
-//     partnerDiv.appendChild(noDataMessage);
-//   }
-// }
-
-// ----- Helper functions -----
-function initTooltips(container) {
-  const tooltipTriggerList = [].slice.call(
-    container.querySelectorAll('[data-bs-toggle="tooltip"]'),
-  );
-  tooltipTriggerList.forEach((el) => new bootstrap.Tooltip(el));
-}
-function createBreadCrumb(selectedPartner) {
-  const breadcrumb = document.createElement("p");
-  breadcrumb.classList.add("breadcrumb-nav");
-  breadcrumb.innerHTML = `<span class="back-link">← ${selectedPartner}</span>`;
-  breadcrumb.querySelector(".back-link").style.cursor = "pointer";
-  breadcrumb.querySelector(".back-link").addEventListener("click", () => {
-    populatePartnerCard(selectedPartner); // go back to partner view
+  const label = document.createElement("p");
+  label.classList.add("section-label");
+  label.textContent = `${selectCountryData.length} African partners`;
+  container.appendChild(label);
+ 
+  const scrollDiv = document.createElement("div");
+  scrollDiv.classList.add("customScroll");
+ 
+  selectCountryData.forEach((entry) => {
+    scrollDiv.appendChild(createPartnershipMiniCard(entry));
   });
-  return breadcrumb;
+ 
+  container.appendChild(scrollDiv);
+  return container;
 }
+
+// Builds one mini-card per African partner country for the scannable list.
+// Shows: country name, trend indicator, cooperation tags, flagship count.
+// No click handler — clicking a country on the map triggers populateCountryCard.
+function createPartnershipMiniCard(entry) {
+  const card = document.createElement("div");
+  card.classList.add("card-body", "partner");
+
+  //const header = document.createElement("div");
+  //header.classList.add("d-flex", "align-items-center", "gap-2", "mb-1");
+
+  const title = document.createElement("h6");
+  title.classList.add("card-title", "listPartners", "gap-2", "mb-1");
+  title.textContent = entry["African Country"];
+  card.appendChild(title);
+
+  if (entry["Economic and Investment Trend"] !== "No data") {
+    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
+  }
+
+  if (entry["Areas of Cooperation - Categories"] !== "No data") {
+    card.appendChild(createCooperationDiv(entry));
+  }
+
+  if (entry["Number of Flagship Green Projects"] !== "No data") {
+    const flagship = document.createElement("p");
+    flagship.classList.add("card-text", "mb-1", "flagshipProjects");
+    flagship.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
+    card.appendChild(flagship);
+  }
+
+  //card.appendChild(createSourceLink(entry));
+  return card;
+}
+
+// ---- populatepartnerCard helpers  -----
 function createPartnerHeader(selectedPartner) {
   const partner = document.createElement("h4"); // bilateral partner
   partner.classList.add(
@@ -385,33 +198,6 @@ function createPartnerHeader(selectedPartner) {
   partner.style.paddingBottom = partnerDivStyle.paddingBottom;
   partner.style.marginTop = partnerDivStyle.marginTop;
   return partner;
-}
-function createTitle(text) {
-  const title = document.createElement("h4");
-  title.classList.add("card-title", "partner-select");
-  title.textContent = text;
-  return title;
-}
-function createStatStrip(selectedPartner) {
-  // Add stat strip
-  const fdi = statStrip.foreignInvest[selectedPartner];
-  const statStripDiv = document.createElement("div");
-  statStripDiv.classList.add("statStrip");
-  statStripDiv.innerHTML = `
-        <div class="stat">
-            <span class="statValue">${fdi}</span>
-            <span class="statLabel">FDI</span>
-        </div>
-        <div class="stat">
-            <span class="statValue">${statStrip.tradeDeficit[selectedPartner]}</span>
-            <span class="statLabel">Trade deficit</span>
-        </div>
-        <div class="stat">
-            <span class="statValue">${statStrip.NProjects[selectedPartner]}</span>
-            <span class="statLabel">Flagship projects</span>
-        </div>
-    `;
-  return statStripDiv;
 }
 function createTabDiv(selectCountryData, text) {
   const tabDiv = document.createElement("div");
@@ -444,45 +230,31 @@ function createTabDiv(selectCountryData, text) {
   return tabDiv;
 }
 
-function createPartnershipMiniCard(entry) {
-  const card = document.createElement("div");
-  card.classList.add("card-body", "partner");
-
-  //const header = document.createElement("div");
-  //header.classList.add("d-flex", "align-items-center", "gap-2", "mb-1");
-
-  const title = document.createElement("h6");
-  title.classList.add("card-title", "listPartners", "gap-2", "mb-1");
-  title.textContent = entry["African Country"];
-  card.appendChild(title);
-
-  if (entry["Economic and Investment Trend"] !== "No data") {
-    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
-  }
-
-  if (entry["Areas of Cooperation - Categories"] !== "No data") {
-    card.appendChild(createCooperationDiv(entry));
-  }
-
-  if (entry["Number of Flagship Green Projects"] !== "No data") {
-    const flagship = document.createElement("p");
-    flagship.classList.add("card-text", "mb-1", "flagshipProjects");
-    flagship.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
-    card.appendChild(flagship);
-  }
-
-  //card.appendChild(createSourceLink(entry));
-
-  return card;
+// --- populateCountryCard helpers ---
+function createBreadCrumb(selectedPartner) {
+  const breadcrumb = document.createElement("p");
+  breadcrumb.classList.add("breadcrumb-nav");
+  breadcrumb.innerHTML = `<span class="back-link">← ${selectedPartner}</span>`;
+  breadcrumb.querySelector(".back-link").style.cursor = "pointer";
+  breadcrumb.querySelector(".back-link").addEventListener("click", () => {
+    populatePartnerCard(selectedPartner); // go back to partner view
+  });
+  return breadcrumb;
 }
-
-function createEmptyState() {
-  const empty = document.createElement("div");
-  empty.classList.add("empty-state");
-  empty.innerHTML = `
-    <p>Select a partner country from the map to explore Africa's energy transition financing relationships.</p>
+function createTitle(text) {
+  const title = document.createElement("h4");
+  title.classList.add("card-title", "partner-select");
+  title.textContent = text;
+  return title;
+}
+function createTextSection(title, text) {
+  const container = document.createElement("div");
+  container.classList.add("tab-content", "mt-2", "mb-2");
+  container.innerHTML = `
+    <h5 class="card-title partner-select">${title}</h5>
+    ${text || "No text available."}
   `;
-  return empty;
+  return container;
 }
 function createSourceLink(entryOrData) {
   const link = document.createElement("a");
@@ -494,14 +266,27 @@ function createSourceLink(entryOrData) {
   link.textContent = href ? "View agreement" : "View source";
   return link;
 }
-function createTextSection(title, text) {
-  const container = document.createElement("div");
-  container.classList.add("tab-content", "mt-2", "mb-2");
-  container.innerHTML = `
-    <h5 class="card-title partner-select">${title}</h5>
-    ${text || "No text available."}
-  `;
-  return container;
+
+// ---- shared helper function ----
+function createStatStrip(selectedPartner) {
+  const fdi = statStrip.foreignInvest[selectedPartner];
+  const statStripDiv = document.createElement("div");
+  statStripDiv.classList.add("statStrip");
+  statStripDiv.innerHTML = `
+        <div class="stat">
+            <span class="statValue">${fdi}</span>
+            <span class="statLabel">FDI</span>
+        </div>
+        <div class="stat">
+            <span class="statValue">${statStrip.tradeDeficit[selectedPartner]}</span>
+            <span class="statLabel">Trade deficit</span>
+        </div>
+        <div class="stat">
+            <span class="statValue">${statStrip.NProjects[selectedPartner]}</span>
+            <span class="statLabel">Flagship projects</span>
+        </div>
+    `;
+  return statStripDiv;
 }
 function createTrendIndicator(trendValue) {
   const trendDiv = document.createElement("div");
@@ -528,7 +313,6 @@ function createTrendIndicator(trendValue) {
 
   return trendDiv;
 }
-
 function createCooperationDiv(selectCountryData) {
   //const card = document.createElement("div");
   //card.classList.add("card-body", "partner", "custom-scroll");
@@ -590,4 +374,10 @@ function createCooperationTags(areas) {
   });
   //areasCoopDiv.appendChild(iconsRow);
   return iconsRow;
+}
+function initTooltips(container) {
+  const tooltipTriggerList = [].slice.call(
+    container.querySelectorAll('[data-bs-toggle="tooltip"]'),
+  );
+  tooltipTriggerList.forEach((el) => new bootstrap.Tooltip(el));
 }
