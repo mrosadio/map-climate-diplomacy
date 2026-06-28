@@ -31,19 +31,6 @@ export function onPartnerSelect(partnerName) {
   populatePartnerOverview(partnerName);
 }
 
-export function resetLayout() {
-  // reset state to zero. return to initial state
-  currentPartner = null;
-  document
-    .querySelectorAll(".countrySelect")
-    .forEach((item) => item.classList.remove("active"));
-  const zone = document.querySelector(".partner-overview-zone");
-  if (zone) {
-    zone.innerHTML = "";
-    zone.appendChild(createEmptyState());
-  }
-}
-
 // so that drawMap.js can read selected partner
 // and to avoid coupled js script
 // drawMap.js calls this inside its click handler to know
@@ -83,25 +70,10 @@ function renderSidebar() {
 // 3. Accordions - About and source, always visible
 function renderPanel() {
   const card = document.querySelector(".card.partnership");
-  if (!card) {
-    console.error(".card.partnership not found. Check HTML structure");
-    return;
-  }
+  if (!card) return
   card.innerHTML = "";
 
-  const overviewZone = document.createElement("div");
-  overviewZone.classList.add("vis-panel__zone", "partner-overview-zone");
-  overviewZone.appendChild(createEmptyState());
-  card.appendChild(overviewZone);
-}
-
-// ----- Builder helpers -----
-// Each function build and returns a DOM node
-// Dont touch the DOMS. The caller decides where to append
-
-function createEmptyState() {
-  const p = document.createElement("p");
-  p.classList.add("empty-state");
-  p.textContent = "Select a partner from the sidebar to begin exploring";
-  return p;
+  const zone = document.createElement("div");
+  zone.classList.add("vis-panel__zone", "partner-overview-zone");
+  card.appendChild(zone);
 }

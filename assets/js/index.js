@@ -1,6 +1,6 @@
 import { initializeDatabases } from "./modules/dataManager.js";
 import { showAfricaOverview } from "./modules/navigation.js";
-import { initLayout, resetLayout } from "./modules/layout.js";
+import { initLayout } from "./modules/layout.js";
 import { renderOverviewPanel } from "./modules/cards.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -8,11 +8,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Initialize databases
     await initializeDatabases();
 
-    // Render Africa Overview map by default
     await showAfricaOverview();
+    initLayout(); // <- must come first .sets up the zone structure
+    renderOverviewPanel(); // <- must come after. fills it with content
 
-    renderOverviewPanel();
-    initLayout();
 
     // Africa overview button — redraws the default map
     document
@@ -21,11 +20,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         showAfricaOverview();
         renderOverviewPanel();
     });
-
-    // Reset button — clears partner selection and returns panel to empty state
-    document
-      .getElementById("resetButton")
-      ?.addEventListener("click", resetLayout);
   } catch (error) {
     console.error("Error loading data or initializing visualizations:", error);
   }
