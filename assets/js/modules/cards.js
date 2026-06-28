@@ -24,7 +24,7 @@ export function populatePartnerOverview(partnerName) {
   const text = globals.overviewText[partnerName];
   const body = document.createElement("p");
   body.classList.add("partner-subtitle");
-  body.textContent = text || "No overview available";
+  body.innerHTML = text || "No overview available";
   zone.appendChild(body);
 
   zone.appendChild(createStatStrip(partnerName));

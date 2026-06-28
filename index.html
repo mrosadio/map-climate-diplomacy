@@ -1,198 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            <script type="module" src="./assets/js/index.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+      integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" src="./assets/js/index.js"></script>
 
     <!-- <link href="https://afripoli.org/assets/themes/magazine/css/style-2.3.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/mainVisContainer.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/printContainer.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/header.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/css/printContainer.css"
+    />
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
     <title>PIE - Climate financing</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!------------------- START HEADER ------------------->
-    <div id="headerVis">
-        <div class="headerTop">
-            <h1 class="title">Mapping Climate Diplomacy</h1>
-            <h2 class="subtitle">
-                Charting Africa's Climate Financing Agreements
-            </h2>
-        </div>
+    <p class="vis-tagline">
+      Mapping bilateral climate finance agreements between African countries,
+      China, the EU, and Gulf states.
+    </p>
 
-        <div class="description-container">
-            <p class="description" id="descriptionText">
-                This interactive map and its accompanying report illustrate bilateral and multilateral agreements made
-                with
-                African countries regarding climate financing projects.&nbsp;
-            </p>
-            <p class="description" id="descriptionText1">
-                This visual mapping is part of APRI’s Track II Diplomacy project, which aims to identify ecosystems and
-                strategic partnerships that can drive climate finance and green manufacturing investments in Africa. By
-                mapping key actors, their strategies, and financial flows, this tool provides insights into the
-                connections between African countries, China, GCC states (focusing on Oman, Qatar, Saudi Arabia, and the
-                UAE), and the EU. Built on data collection from APRI and PIE partners, the visualization highlights
-                opportunities for collaboration and more effective investment strategies to support sustainable
-                development across the continent.
-                <button id="viewMoreBtn">Show more</button>
-            </p>
-            <p class="description hidden" id="descriptionText2"></p>
-            <!-- <p class="description hidden" id="descriptionText3">
-                <button id="viewLessBtn">Show less</button>
-            </p> -->
-        </div>
-    </div>
     <!------------------- END HEADER ------------------->
-
-    <!------------------- START PRINT CONTAINER ------------------->
-    <div class="printDiv">
-        <div class="printDivContent">
-            <div class="printDivContentText">
-                Please click on China, the GCC or the European Union to explore state-level cooperation on Africa's climate finance agreements. For more detailed insights, please select a non-African partner on the menu on the left.
-            </div>
-            <div class="printButtonDiv">
-                <button class="printButtonDivContent" id="printPage">
-                    Print
-                    <img src="./assets/img/icons/print.svg" alt="Print Icon" class="printIcon" />
-                </button>
-            </div>
-        </div>
-        <div class="hiddenDiv">
-            <span class="_picker-open" id="selectedText">African</span>
-            <span class="_picker-open" id="africanCountry">open</span>
-            <span class="_picker-open" id="blockNameNowTemp">open</span>
-            <span class="_picker-open" id="blockNameTemp">open</span>
-        </div>
-    </div>
-    <!------------------- END PRINT CONTAINER ------------------->
 
     <!---**************** [MOBILE] START SCROLLBAR ****************--->
     <div class="mobilePickerDiv">
-        <div class="mobilePickerDivContent" id="picker">
-            <div class="mobilePickerPanel">
-                <div class="mobilePickerChoose d-none d-xl-lg-block">
-                    <span class="cancel" onclick="cancel()">Close</span>
-                    <span class="confirm" onclick="confirmPicker()">Select</span>
-                    <h1 class="pickerTitle"></h1>
-                </div>
-                <div class="mobilePickerText">
-                    <div class="wheelWrapperDiv">
-                        <div class="wheelScrollbar"></div>
-                        <div class="wheel" id="wheelWrapper">
-                            <ul class="wheel-scroll" id="wheelList"></ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="mobilePickerFooter"></div>
+      <div class="mobilePickerDivContent" id="picker">
+        <div class="mobilePickerPanel">
+          <div class="mobilePickerChoose d-none d-xl-lg-block">
+            <span class="cancel" onclick="cancel()">Close</span>
+            <span class="confirm" onclick="confirmPicker()">Select</span>
+            <h1 class="pickerTitle"></h1>
+          </div>
+          <div class="mobilePickerText">
+            <div class="wheelWrapperDiv">
+              <div class="wheelScrollbar"></div>
+              <div class="wheel" id="wheelWrapper">
+                <ul class="wheel-scroll" id="wheelList"></ul>
+              </div>
             </div>
+          </div>
+          <div class="mobilePickerFooter"></div>
         </div>
+      </div>
     </div>
     <!---**************** [MOBILE] END SCROLLBAR ****************--->
 
-
-    <!------------------- START MAIN VIS PRINTABLE CONTAINER ------------------->
-    <div class="mainVisDiv">
-        <div class="first-col d-flex justify-content-center col-2 mainVisNavTab">
-            <div class="diplomacy-map-nav js-mapNav">
-                <ul class="map-menu js-mapMenu"><li class="countrySelect map-menu-item" data-slug="China" data-countries="Kenya,Morocco,Nigeria,Senegal,Seychelles,SouthAfrica,Zambia">
-                        <div class="label">China</div>
-                        <div class="image">
-                            <img src="assets/img/icons/China_2.svg" alt="China in the world map" class="default">
-                            <img src="assets/img/icons/China_active_2.svg" alt="China toggled in the world map" class="active">
-                        </div>
-                    </li><li class="countrySelect map-menu-item" data-slug="EuropeanUnion" data-countries="Kenya,Morocco,Nigeria,Senegal,SouthAfrica,Zambia">
-                        <div class="label">European Union</div>
-                        <div class="image">
-                            <img src="assets/img/icons/EU.svg" alt="EU in the world map" class="default">
-                            <img src="assets/img/icons/EU_active.svg" alt="EU toggled in the world map" class="active">
-                        </div>
-                    </li><li class="countrySelect map-menu-item" data-slug="GulfCooperationCouncil" data-countries="Kenya,Morocco,Nigeria,Senegal,SouthAfrica,Zambia">
-                        <div class="label">Gulf Countries</div>
-                        <div class="image">
-                            <img src="assets/img/icons/GCC.svg" alt="GCC in the world map" class="default">
-                            <img src="assets/img/icons/GCC_active.svg" alt="GCC toggled in the world map" class="active">
-                        </div>
-                    </li>
-                </ul>
+    <!-------------  MAIN VIS ------------>
+    <div class="vis-header">
+      <div>
+        <h1 class="vis-header__title">Africa's Green Transition</h1>
+        <p class="vis-header__subtitle">
+          Mapping cooperation in climate finance · APRI
+        </p>
+      </div>
+      <!-- Controls move here from inside the map, so they sit in the header -->
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="vis-map__toggle">
+            <span class="vis-map__toggle-label">Show country names</span>
+            <div class="toggle-switch" id="toggleLabels">
+                <div class="toggle-switch__knob"></div>
             </div>
         </div>
-         
-            <!---******** [MOBILE] START Small Container *********--->
-
-            <div class="navTabMobile">
-                <div>
-                    <h2 class="titleButton" id="blockName">
-                        African countries overview
-                    </h2>
-                </div>
-            </div>
-        
-        <!---******** [MOBILE] END Small Container *********--->
-
-
-        <div id="map" class="second-col justify-content-center align-center center">
-            <div class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block" id="showScrollable">
-                <div class="overlay-text">
-                    <img class="hand" src="./assets/img/icons/hand-touch.svg" alt="Zoom In" />
-
-                    <h1 class="titleBlur">Touch the screen</h1>
-                    <h2 class="subtitleBlur">to start exploring the map</h2>
-                </div>
-            </div>
-           <!---- <script src="./main.js"></script> -->
-
-            <div class="controlsDiv">
-                <!-- Toggle show countries -->
-                <div class="controlToggle">
-                    <h1 class="labelToggle">Show country names</h1>
-                    <div class="toggleContainer" id="toggleLabels">
-                        <div class="toggleButton active"></div>
-                    </div>
-                </div>
-                <!-- Zoom button -->
-                <div class="btnZoom">
-                    <button id="zoomIn" class="btnplus">
-                        <img src="./assets/img/icons/zoom-off.svg" alt="Zoom In" />
-                    </button>
-                    <button id="zoomOut" class="btnminus">
-                        <img src="./assets/img/icons/zoom-out-off.svg" alt="Zoom Out" />
-                    </button>
-                </div>
-            </div>
+        <div class="vis-map__zoom">
+            <button id="zoomIn" aria-label="Zoom in">
+                <img src="./assets/img/icons/zoom-off.svg" alt="" />
+            </button>
+            <button id="zoomOut" aria-label="Zoom out">
+                <img src="./assets/img/icons/zoom-out-off.svg" alt="" />
+            </button>
         </div>
-        <div class="instruccions">
-            <div class="col-12 pb-0 col-map-mobile d-sm-none d-block"
-                style="flex-grow: 1; font-family: RalewayLightItalic">
-                Explore state-level agreements regarding access to Africa's critical
-                minerals. Select a country on the map or a non-African partner to
-                view specific agreements.
-            </div>
-        </div>
-        <div class="right bilateral col-4">
-            <div class="third-col">
-                <div class="card partnership expanded"></div>
-                <!-- <div class="customScroll"></div> -->
-
-            </div>
-        </div>
+        <button id="africaButton" style="background:transparent;border:0.5px solid #3D5C41;color:#A8C9AB;border-radius:6px;padding:5px 12px;font-size:9pt;cursor:pointer;font-family:'UncutRegular',sans-serif;">
+        Overview
+        </button> 
+      </div>
     </div>
 
-    <div id="main"></div>
-</body>
+     <!-- Three-column body -->
+    <div class="vis-body">
+        <aside class="vis-sidebar diplomacy-map-nav" aria-label="Partner selection">
+            <p class="vis-sidebar__label">Partners</p>
+            <ul class="map-menu js-mapMenu">
+                <li class="countrySelect map-menu-item" data-slug="China">
+                <div class="image">
+                    <img src="assets/img/icons/China_2.svg" alt="China" class="default">
+                    <img src="assets/img/icons/China_active_2.svg" alt="China selected" class="active">
+                </div>
+                <div class="label">China</div>
+                </li>
+                <li class="countrySelect map-menu-item" data-slug="EuropeanUnion">
+                <div class="image">
+                    <img src="assets/img/icons/EU.svg" alt="European Union" class="default">
+                    <img src="assets/img/icons/EU_active.svg" alt="European Union selected" class="active">
+                </div>
+                <div class="label">European Union</div>
+                </li>
+                <li class="countrySelect map-menu-item" data-slug="GulfCooperationCouncil">
+                <div class="image">
+                    <img src="assets/img/icons/GCC.svg" alt="Gulf Countries" class="default">
+                    <img src="assets/img/icons/GCC_active.svg" alt="Gulf Countries selected" class="active">
+                </div>
+                <div class="label">Gulf Countries</div>
+                </li>
+            </ul>
+        </aside>
 
+        <!-- CENTER: Map -->
+    <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
+        <main id="map" class="vis-map" aria-label="Africa climate finance map">
+        <!-- Map legend — shown once a partner is selected -->
+        <div class="vis-map__legend" id="mapLegend" style="display:none;">
+            <div class="vis-map__legend-item">
+            <div class="vis-map__legend-dot" style="background:#4A7A4E;"></div>
+            <span class="vis-map__legend-label">Low connectivity</span>
+            </div>
+            <div class="vis-map__legend-item">
+            <div class="vis-map__legend-dot" style="background:#2A5C30;"></div>
+            <span class="vis-map__legend-label">Moderate</span>
+            </div>
+            <div class="vis-map__legend-item">
+            <div class="vis-map__legend-dot" style="background:#1C3D22;"></div>
+            <span class="vis-map__legend-label">High</span>
+            </div>
+        </div>
+    
+        <!-- Mobile touch overlay — keep as-is -->
+        <div class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block" id="showScrollable">
+            <div class="overlay-text">
+            <img class="hand" src="./assets/img/icons/hand-touch.svg" alt="" />
+            <h1 class="titleBlur">Touch the screen</h1>
+            <h2 class="subtitleBlur">to start exploring the map</h2>
+            </div>
+        </div>
+        </main>
+
+        <!-- RIGHT: Info panel -->
+        <!-- Keep .card.partnership so populateCountryCard and populatePartnerOverview
+         can find it with document.querySelector(".card") and ".partner-overview-zone" -->
+        <aside class="vis-panel" aria-label="Partner information">
+            <div class="third-col">
+                <div class="card partnership expanded"></div>
+            </div>
+        </aside>
+    </div>
+    </div>
+     
+<!-- Hidden state spans — keep exactly as-is, used by JS -->
+<div class="hiddenDiv">
+  <span class="_picker-open" id="selectedText">African</span>
+  <span class="_picker-open" id="africanCountry">open</span>
+  <span class="_picker-open" id="blockNameNowTemp">open</span>
+  <span class="_picker-open" id="blockNameTemp">open</span>
+</div>
+  </body>
 </html>

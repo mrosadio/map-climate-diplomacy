@@ -1,0 +1,655 @@
+/* ============================================================
+   vis-layout.css
+   Replaces: header.css + mainVisContainer.css (for the vis section)
+   Keeps:    main.css (fonts), printContainer.css, mobileUtils.css
+   
+   Naming conventions used:
+   - BEM-lite: block__element--modifier
+   - Semantic over positional: .vis-sidebar not .first-col
+   - No Bootstrap class mixing for layout
+   ============================================================ */
+
+/* ── Page tagline (replaces #headerVis) ── */
+/* One sentence above the visualization, nothing more */
+.vis-tagline {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 11pt;
+  color: #5F5E5A;
+  line-height: 1.6;
+  margin: 0.75rem 60px 0.5rem 60px;
+  padding: 0;
+}
+
+/* ── Visualization wrapper (replaces .mainVisDiv) ── */
+.vis-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 60px 2rem 60px;
+  border: 0.5px solid #D3D1C7;
+  border-radius: 10px;
+  overflow: hidden;
+  /* No fixed height — fills viewport naturally */
+  height: calc(100vh - 100px);
+  min-height: 560px;
+  max-height: 800px;
+  box-sizing: border-box;
+}
+
+/* ── Visualization header bar (dark, integrated title) ── */
+.vis-header {
+  background: #1C2B1E;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.vis-header__title {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 12pt;
+  color: #E8F0E9;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.vis-header__subtitle {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9pt;
+  color: #7A9E7E;
+  margin: 2px 0 0 0;
+}
+
+/* ── Three-column body ── */
+.vis-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Partner sidebar (replaces .first-col + .diplomacy-map-nav) ── */
+.vis-sidebar {
+  width: 110px;
+  flex-shrink: 0;
+  background: #1C2B1E;
+  border-right: 1px solid #2A3E2D;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 8px;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.vis-sidebar__label {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 8pt;
+  color: #7A9E7E;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 6px;
+  margin-bottom: 4px;
+}
+
+/* Partner cards — keep existing .countrySelect + .map-menu-item from HTML
+   but override their visual style */
+.vis-sidebar .map-menu-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  list-style: none;
+}
+
+.vis-sidebar .map-menu-item:hover {
+  background: #2A3E2D;
+  border-color: #3D5C41;
+}
+
+.vis-sidebar .map-menu-item.active {
+  background: #2A3E2D;
+  border-color: #5C8F5F;
+}
+
+.vis-sidebar .map-menu-item .label {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  color: #A8C9AB;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.vis-sidebar .map-menu-item.active .label {
+  color: #D4EDD6;
+}
+
+.vis-sidebar .map-menu-item .image img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* ── Map column (replaces #map.second-col) ── */
+.vis-map {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #ECEAE3;
+}
+
+/* ── Map controls overlay ── */
+.vis-map__controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.vis-map__controls > * {
+  pointer-events: auto;
+}
+
+.vis-map__toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.92);
+  padding: 4px 10px 4px 12px;
+  border-radius: 6px;
+  border: 0.5px solid #D3D1C7;
+}
+
+.vis-map__toggle-label {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9pt;
+  color: #444441;
+  margin: 0;
+}
+
+/* Toggle switch */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #D3D1C7;
+  padding: 2px;
+  border-radius: 20px;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.toggle-switch.active {
+  background: #2A5C30;
+  justify-content: flex-end;
+}
+
+.toggle-switch__knob {
+  width: 14px;
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.vis-map__zoom {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.92);
+  border-radius: 6px;
+  border: 0.5px solid #D3D1C7;
+  overflow: hidden;
+}
+
+.vis-map__zoom button {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.vis-map__zoom button:hover {
+  background: #F1EFE8;
+}
+
+.vis-map__zoom button:first-child {
+  border-bottom: 0.5px solid #D3D1C7;
+}
+
+.vis-map__zoom button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Map legend strip */
+.vis-map__legend {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: rgba(255,255,255,0.88);
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 0.5px solid #D3D1C7;
+}
+
+.vis-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.vis-map__legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.vis-map__legend-label {
+  font-size: 8.5pt;
+  color: #5F5E5A;
+  font-family: "UncutRegular", sans-serif;
+}
+
+/* ── Right info panel (replaces .right.bilateral + .third-col) ── */
+.vis-panel {
+  width: 220px;
+  flex-shrink: 0;
+  background: white;
+  border-left: 1px solid #E8E6DF;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Panel zones — stacked, each separated by a hairline */
+.vis-panel__zone {
+  padding: 14px 16px;
+  border-bottom: 0.5px solid #F0EEE8;
+  flex-shrink: 0;
+}
+
+.vis-panel__zone:last-child {
+  border-bottom: none;
+}
+
+.vis-panel__zone-label {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #B4B2A9;
+  margin: 0 0 10px 0;
+}
+
+/* Navigation steps */
+.vis-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.vis-step:last-child {
+  margin-bottom: 0;
+}
+
+.vis-step__num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1C2B1E;
+  color: #E8F0E9;
+  font-size: 9pt;
+  font-family: "UncutMedium", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.vis-step__text {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  color: #5F5E5A;
+  line-height: 1.5;
+}
+
+/* Partner overview zone */
+.partner-overview-zone {
+  /* target for populatePartnerOverview() */
+}
+
+.partner-title {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 13pt;
+  color: #1C2B1E;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.partner-title::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3D6B42;
+  flex-shrink: 0;
+}
+
+.partner-subtitle {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  color: #5F5E5A;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.hint {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 8.5pt;
+  color: #9C8B5A;
+  font-style: italic;
+  margin: 8px 0 0 0;
+}
+
+/* Stat strip */
+.statStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.stat {
+  background: #F5F4F0;
+  border-radius: 6px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statValue {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 11pt;
+  color: #1C2B1E;
+  font-weight: normal;
+}
+
+.statLabel {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 7.5pt;
+  color: #8A8880;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Empty state */
+.empty-state {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  color: #8A8880;
+  line-height: 1.6;
+}
+
+/* Accordions */
+.accordion-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.accordion-row:first-child {
+  padding-top: 0;
+}
+
+.acc-title {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 10pt;
+  color: #5F5E5A;
+  transition: color 0.15s;
+}
+
+.accordion-row:hover .acc-title {
+  color: #1C2B1E;
+}
+
+.acc-icon {
+  font-size: 13pt;
+  color: #B4B2A9;
+  transition: transform 0.2s;
+  line-height: 1;
+}
+
+.acc-body {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9pt;
+  color: #5F5E5A;
+  line-height: 1.7;
+  padding: 6px 0 4px 0;
+}
+
+.source-link {
+  display: block;
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9pt;
+  color: #3D6B42;
+  text-decoration: none;
+  margin-top: 4px;
+  transition: color 0.15s;
+}
+
+.source-link:hover {
+  color: #1C2B1E;
+  text-decoration: underline;
+}
+
+/* ── Card content styles (populateCountryCard output) ── */
+.breadcrumb-nav {
+  margin: 0 0 8px 0;
+}
+
+.back-link {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  color: #3D6B42;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: #1C2B1E;
+}
+
+/* African partners list */
+.partners-list {
+  margin-top: 10px;
+}
+
+.section-label {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #B4B2A9;
+  margin: 0 0 8px 0;
+}
+
+.card-body.partner {
+  margin: 0;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 0.5px solid #F0EEE8;
+}
+
+.card-body.partner:last-child {
+  border-bottom: none;
+}
+
+.card-title.listPartners {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 10.5pt;
+  color: #1C2B1E;
+  margin: 0 0 4px 0;
+}
+
+.card-title.partner-select {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 11pt;
+  color: #1C2B1E;
+  margin: 0 0 6px 0;
+}
+
+/* Cooperation tags */
+.btn.btn-outline-dark.aresCoop {
+  font-size: 8pt;
+  padding: 3px 6px;
+  border-radius: 4px !important;
+  border: 0.5px solid rgba(0,0,0,0.15) !important;
+}
+
+/* Trend indicator */
+.trendLabel {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 8.5pt;
+  color: #8A8880;
+  margin: 0;
+}
+
+/* Tab container (African partners tab) */
+.tabContainer {
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #F0EEE8;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 5px 10px 5px 0;
+  cursor: pointer;
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9pt;
+  color: #8A8880;
+  margin-bottom: -1px;
+  transition: color 0.15s;
+}
+
+.tab-btn.active {
+  color: #1C2B1E;
+  border-bottom-color: #1C2B1E;
+}
+
+.tab-btn:hover:not(.active) {
+  color: #5F5E5A;
+}
+
+.tab-content {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.6;
+  color: #444441;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+/* Flagship projects */
+.flagshipProjects {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 8.5pt;
+  color: #5F5E5A;
+  margin: 4px 0 0 0;
+}
+
+.flagshipProjects span {
+  color: #8A8880;
+}
+
+/* ── Tooltip ── */
+.tooltip2 {
+  font-family: "UncutRegular", sans-serif;
+  font-size: 9.5pt;
+  max-width: 220px;
+  z-index: 100;
+}
+
+.tooltipTitle {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 11pt;
+  color: #1C2B1E;
+  margin: 0 0 4px 0;
+}
+
+.tooltipText {
+  font-size: 9pt;
+  color: #5F5E5A;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Print instruction bar (replaces .printDiv) ── */
+
+.vis-print-bar__btn:hover {
+  background: #F5F4F0;
+}
+
+.vis-print-bar__btn img {
+  height: 14px;
+}
+
+/* ── Scrollbars ── */
+.vis-panel::-webkit-scrollbar,
+.customScroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.vis-panel::-webkit-scrollbar-thumb,
+.customScroll::-webkit-scrollbar-thumb {
+  background: #D3D1C7;
+  border-radius: 4px;
+}
+
+.vis-panel::-webkit-scrollbar-track,
+.customScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ── Utility ── */
+.customScroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
