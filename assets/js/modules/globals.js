@@ -142,6 +142,7 @@ const globals = {
       scale: 510,
       center: [20, 0],
       get translation() {
+        const map = document.querySelector("#map");
         return [globals.svgWidth / 3.5, globals.svgHeight / 1.5];
       }, // Create a function to dynamically calculate the values. In an object, you cannot reference other properties of the same object unless you use a function
     },
@@ -149,6 +150,7 @@ const globals = {
       scale: 350,
       center: [20, 0],
       get translation() {
+        const map = document.querySelector("#map");
         return [globals.svgWidth / 1.5, globals.svgHeight / 1.43];
       },
     },
@@ -156,6 +158,7 @@ const globals = {
       scale: 550,
       center: [20, 0],
       get translation() {
+        const map = document.querySelector("#map");
         return [globals.svgWidth / 2, globals.svgHeight / 1.6];
       },
     },

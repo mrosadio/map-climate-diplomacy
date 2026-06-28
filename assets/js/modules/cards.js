@@ -16,26 +16,35 @@ export function populatePartnerOverview(partnerName) {
   if (!zone) return;
   zone.innerHTML = "";
 
+  // Fixed content — never scrolls
+  const header = document.createElement("div");
+  header.classList.add("panel-section");
+
   const title = document.createElement("p");
   title.classList.add("partner-title");
   title.textContent = partnerName;
-  zone.appendChild(title);
+  header.appendChild(title);
 
-  const text = globals.overviewText[partnerName];
+  const text = overviewText[partnerName];
   const body = document.createElement("p");
   body.classList.add("partner-subtitle");
-  body.innerHTML = text || "No overview available";
-  zone.appendChild(body);
+  body.innerHTML = text || "No overview available.";
+  header.appendChild(body);
 
-  zone.appendChild(createStatStrip(partnerName));
+  header.appendChild(createStatStrip(partnerName));
 
   const hint = document.createElement("p");
   hint.classList.add("hint");
-  hint.textContent = "Click a country on the map to see the bilateral detail →";
-  zone.appendChild(hint);
+  hint.textContent = "Click a country on the map →";
+  header.appendChild(hint);
 
-  // African partners tab
-  zone.appendChild(createAfricanPartnersList(partnerName));
+  zone.appendChild(header);
+
+  // Scrollable list — gets its own zone below
+  const listZone = document.createElement("div");
+  listZone.classList.add("panel-section", "partners-list-zone");
+  listZone.appendChild(createAfricanPartnersList(partnerName));
+  zone.appendChild(listZone);
 }
 
 export function populateCountryCard(
@@ -116,7 +125,7 @@ function createAfricanPartnersList(partnerName) {
   if (!selectCountryData) return container;
 
   const label = document.createElement("p");
-  label.classList.add("section-label");
+  label.classList.add("vis-panel__zone-label");
   label.textContent = `${selectCountryData.length} African partners`;
   container.appendChild(label);
 

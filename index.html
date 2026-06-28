@@ -33,17 +33,16 @@
       href="./assets/css/printContainer.css"
     />
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/vis-layout.css" />
+
     <title>PIE - Climate financing</title>
   </head>
 
   <body>
-    <!------------------- START HEADER ------------------->
     <p class="vis-tagline">
       Mapping bilateral climate finance agreements between African countries,
       China, the EU, and Gulf states.
     </p>
-
-    <!------------------- END HEADER ------------------->
 
     <!---**************** [MOBILE] START SCROLLBAR ****************--->
     <div class="mobilePickerDiv">
@@ -68,111 +67,174 @@
     </div>
     <!---**************** [MOBILE] END SCROLLBAR ****************--->
 
-    <!-------------  MAIN VIS ------------>
-    <div class="vis-header">
-      <div>
-        <h1 class="vis-header__title">Africa's Green Transition</h1>
-        <p class="vis-header__subtitle">
-          Mapping cooperation in climate finance · APRI
-        </p>
-      </div>
-      <!-- Controls move here from inside the map, so they sit in the header -->
-      <div style="display:flex; align-items:center; gap:12px;">
-        <div class="vis-map__toggle">
+    <!-- MAIN VISUALIZATION — replaces .mainVisDiv -->
+    <div class="vis-container">
+      <!-- Dark header bar with integrated title -->
+      <div class="vis-header">
+        <div>
+          <h1 class="vis-header__title">Africa's Green Transition</h1>
+          <p class="vis-header__subtitle">
+            Mapping cooperation in climate finance · APRI
+          </p>
+        </div>
+        <!-- Controls move here from inside the map, so they sit in the header -->
+        <div style="display: flex; align-items: center; gap: 12px">
+          <div class="vis-map__toggle">
             <span class="vis-map__toggle-label">Show country names</span>
             <div class="toggle-switch" id="toggleLabels">
-                <div class="toggle-switch__knob"></div>
+              <div class="toggle-switch__knob"></div>
             </div>
-        </div>
-        <div class="vis-map__zoom">
+          </div>
+          <div class="vis-map__zoom">
             <button id="zoomIn" aria-label="Zoom in">
-                <img src="./assets/img/icons/zoom-off.svg" alt="" />
+              <img src="./assets/img/icons/zoom-off.svg" alt="" />
             </button>
             <button id="zoomOut" aria-label="Zoom out">
-                <img src="./assets/img/icons/zoom-out-off.svg" alt="" />
+              <img src="./assets/img/icons/zoom-out-off.svg" alt="" />
             </button>
+          </div>
+          <button
+            id="africaButton"
+            style="
+              background: transparent;
+              border: 0.5px solid #3d5c41;
+              color: #a8c9ab;
+              border-radius: 6px;
+              padding: 5px 12px;
+              font-size: 9pt;
+              cursor: pointer;
+              font-family: &quot;UncutRegular&quot;, sans-serif;
+            "
+          >
+            Overview
+          </button>
         </div>
-        <button id="africaButton" style="background:transparent;border:0.5px solid #3D5C41;color:#A8C9AB;border-radius:6px;padding:5px 12px;font-size:9pt;cursor:pointer;font-family:'UncutRegular',sans-serif;">
-        Overview
-        </button> 
       </div>
-    </div>
 
-     <!-- Three-column body -->
-    <div class="vis-body">
-        <aside class="vis-sidebar diplomacy-map-nav" aria-label="Partner selection">
-            <p class="vis-sidebar__label">Partners</p>
-            <ul class="map-menu js-mapMenu">
-                <li class="countrySelect map-menu-item" data-slug="China">
-                <div class="image">
-                    <img src="assets/img/icons/China_2.svg" alt="China" class="default">
-                    <img src="assets/img/icons/China_active_2.svg" alt="China selected" class="active">
-                </div>
-                <div class="label">China</div>
-                </li>
-                <li class="countrySelect map-menu-item" data-slug="EuropeanUnion">
-                <div class="image">
-                    <img src="assets/img/icons/EU.svg" alt="European Union" class="default">
-                    <img src="assets/img/icons/EU_active.svg" alt="European Union selected" class="active">
-                </div>
-                <div class="label">European Union</div>
-                </li>
-                <li class="countrySelect map-menu-item" data-slug="GulfCooperationCouncil">
-                <div class="image">
-                    <img src="assets/img/icons/GCC.svg" alt="Gulf Countries" class="default">
-                    <img src="assets/img/icons/GCC_active.svg" alt="Gulf Countries selected" class="active">
-                </div>
-                <div class="label">Gulf Countries</div>
-                </li>
-            </ul>
+      <!-- Three-column body -->
+      <div class="vis-body">
+        <!-- LEFT: Partner sidebar -->
+        <!-- Keep .diplomacy-map-nav and .countrySelect/.map-menu-item classes
+         so layout.js can still find them with document.querySelectorAll(".countrySelect") -->
+        <aside
+          class="vis-sidebar diplomacy-map-nav"
+          aria-label="Partner selection"
+        >
+          <p class="vis-sidebar__label">Partners</p>
+          <ul class="map-menu js-mapMenu">
+            <li class="countrySelect map-menu-item" data-slug="China">
+              <div class="image">
+                <img
+                  src="assets/img/icons/China_2.svg"
+                  alt="China"
+                  class="default"
+                />
+                <img
+                  src="assets/img/icons/China_active_2.svg"
+                  alt="China selected"
+                  class="active"
+                />
+              </div>
+              <div class="label">China</div>
+            </li>
+            <li class="countrySelect map-menu-item" data-slug="EuropeanUnion">
+              <div class="image">
+                <img
+                  src="assets/img/icons/EU.svg"
+                  alt="European Union"
+                  class="default"
+                />
+                <img
+                  src="assets/img/icons/EU_active.svg"
+                  alt="European Union selected"
+                  class="active"
+                />
+              </div>
+              <div class="label">European Union</div>
+            </li>
+            <li
+              class="countrySelect map-menu-item"
+              data-slug="GulfCooperationCouncil"
+            >
+              <div class="image">
+                <img
+                  src="assets/img/icons/GCC.svg"
+                  alt="Gulf Countries"
+                  class="default"
+                />
+                <img
+                  src="assets/img/icons/GCC_active.svg"
+                  alt="Gulf Countries selected"
+                  class="active"
+                />
+              </div>
+              <div class="label">Gulf Countries</div>
+            </li>
+          </ul>
         </aside>
 
         <!-- CENTER: Map -->
-    <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
+        <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
         <main id="map" class="vis-map" aria-label="Africa climate finance map">
-        <!-- Map legend — shown once a partner is selected -->
-        <div class="vis-map__legend" id="mapLegend" style="display:none;">
+          <!-- Map legend — shown once a partner is selected -->
+          <div class="vis-map__legend" id="mapLegend" style="display: none">
             <div class="vis-map__legend-item">
-            <div class="vis-map__legend-dot" style="background:#4A7A4E;"></div>
-            <span class="vis-map__legend-label">Low connectivity</span>
+              <div
+                class="vis-map__legend-dot"
+                style="background: #4a7a4e"
+              ></div>
+              <span class="vis-map__legend-label">Low connectivity</span>
             </div>
             <div class="vis-map__legend-item">
-            <div class="vis-map__legend-dot" style="background:#2A5C30;"></div>
-            <span class="vis-map__legend-label">Moderate</span>
+              <div
+                class="vis-map__legend-dot"
+                style="background: #2a5c30"
+              ></div>
+              <span class="vis-map__legend-label">Moderate</span>
             </div>
             <div class="vis-map__legend-item">
-            <div class="vis-map__legend-dot" style="background:#1C3D22;"></div>
-            <span class="vis-map__legend-label">High</span>
+              <div
+                class="vis-map__legend-dot"
+                style="background: #1c3d22"
+              ></div>
+              <span class="vis-map__legend-label">High</span>
             </div>
-        </div>
-    
-        <!-- Mobile touch overlay — keep as-is -->
-        <div class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block" id="showScrollable">
+          </div>
+
+          <!-- Mobile touch overlay — keep as-is -->
+          <div
+            class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block"
+            id="showScrollable"
+          >
             <div class="overlay-text">
-            <img class="hand" src="./assets/img/icons/hand-touch.svg" alt="" />
-            <h1 class="titleBlur">Touch the screen</h1>
-            <h2 class="subtitleBlur">to start exploring the map</h2>
+              <img
+                class="hand"
+                src="./assets/img/icons/hand-touch.svg"
+                alt=""
+              />
+              <h1 class="titleBlur">Touch the screen</h1>
+              <h2 class="subtitleBlur">to start exploring the map</h2>
             </div>
-        </div>
+          </div>
         </main>
 
         <!-- RIGHT: Info panel -->
         <!-- Keep .card.partnership so populateCountryCard and populatePartnerOverview
          can find it with document.querySelector(".card") and ".partner-overview-zone" -->
         <aside class="vis-panel" aria-label="Partner information">
-            <div class="third-col">
-                <div class="card partnership expanded"></div>
-            </div>
+          <div class="third-col">
+            <div class="card partnership expanded"></div>
+          </div>
         </aside>
+      </div>
     </div>
+
+    <!-- Hidden state spans — keep exactly as-is, used by JS -->
+    <div class="hiddenDiv">
+      <span class="_picker-open" id="selectedText">African</span>
+      <span class="_picker-open" id="africanCountry">open</span>
+      <span class="_picker-open" id="blockNameNowTemp">open</span>
+      <span class="_picker-open" id="blockNameTemp">open</span>
     </div>
-     
-<!-- Hidden state spans — keep exactly as-is, used by JS -->
-<div class="hiddenDiv">
-  <span class="_picker-open" id="selectedText">African</span>
-  <span class="_picker-open" id="africanCountry">open</span>
-  <span class="_picker-open" id="blockNameNowTemp">open</span>
-  <span class="_picker-open" id="blockNameTemp">open</span>
-</div>
   </body>
 </html>

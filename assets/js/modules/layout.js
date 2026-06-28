@@ -95,7 +95,7 @@ function renderPanel() {
   // populatepartneroverview can find and replate its contents
   // without touching the zone above or below it
   const overviewZone = document.createElement("div");
-  overviewZone.classList.add("panel-section", "partner-overview-zone");
+  overviewZone.classList.add("vis-panel__zone", "partner-overview-zone");
   overviewZone.appendChild(createEmptyState());
   card.appendChild(overviewZone);
 
@@ -134,10 +134,10 @@ function createEmptyState() {
 
 function createNavigationSteps() {
   const section = document.createElement("div");
-  section.classList.add("panel-section");
+  section.classList.add("vis-panel__zone");
 
   const label = document.createElement("p");
-  label.classList.add("section-label");
+  label.classList.add("vis-panel__zone-label");
   label.textContent = "How to navigate";
   section.appendChild(label);
 
@@ -148,12 +148,12 @@ function createNavigationSteps() {
   ];
   steps.forEach((text, i) => {
     const row = document.createElement("div");
-    row.classList.add("step-row");
+    row.classList.add("vis-step");
     const num = document.createElement("div");
-    num.classList.add("step-num");
+    num.classList.add("vis-step__num");
     num.textContent = i + 1;
     const stepText = document.createElement("span");
-    stepText.classList.add("step-text");
+    stepText.classList.add("vis-step__text");
     stepText.textContent = text;
 
     row.appendChild(num);
@@ -168,7 +168,7 @@ function createNavigationSteps() {
 // in the event listeners closure
 function createAccordion(title, content) {
   const section = document.createElement("div");
-  section.classList.add("panel-section");
+  section.classList.add("vis-panel__zone");
   const row = document.createElement("div");
   row.classList.add("accordion-row");
   row.style.cursor = "pointer";

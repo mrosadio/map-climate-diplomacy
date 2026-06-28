@@ -29,9 +29,9 @@
   border-radius: 10px;
   overflow: hidden;
   /* No fixed height — fills viewport naturally */
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   min-height: 560px;
-  max-height: 800px;
+  max-height: calc(100vh - 60px);;
   box-sizing: border-box;
 }
 
@@ -62,8 +62,10 @@
 
 /* ── Three-column body ── */
 .vis-body {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
   flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -136,9 +138,10 @@
 /* ── Map column (replaces #map.second-col) ── */
 .vis-map {
   flex: 1;
-  position: relative;
+  min-height: 0;
+  /* position: relative; */
   overflow: hidden;
-  background: #ECEAE3;
+  /* background: #ECEAE3; */
 }
 
 /* ── Map controls overlay ── */
@@ -270,7 +273,7 @@
 
 /* ── Right info panel (replaces .right.bilateral + .third-col) ── */
 .vis-panel {
-  width: 220px;
+  width: 300px;
   flex-shrink: 0;
   background: white;
   border-left: 1px solid #E8E6DF;
@@ -278,7 +281,24 @@
   flex-direction: column;
   overflow-y: auto;
 }
-
+.vis-panel .card.partnership {
+  overflow-y: auto; /* only the card content scrolls */
+  flex: 1;
+  min-height: 0; /* same flexbox fix */
+}
+.card.partnership.expanded {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+.panel-section {
+  flex-shrink: 0; /* all sections fixed except the list zone */
+}
 /* Panel zones — stacked, each separated by a hairline */
 .vis-panel__zone {
   padding: 14px 16px;
@@ -335,7 +355,11 @@
 
 /* Partner overview zone */
 .partner-overview-zone {
-  /* target for populatePartnerOverview() */
+  flex: 1; /* takes remaining space */
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .partner-title {
