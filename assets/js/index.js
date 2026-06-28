@@ -1,7 +1,6 @@
 import { initializeDatabases } from "./modules/dataManager.js";
 import { showAfricaOverview } from "./modules/navigation.js";
 import { initLayout, resetLayout } from "./modules/layout.js";
-import { zoomIn, zoomOut } from "./modules/setUpControls.js";
 import { renderOverviewPanel } from "./modules/cards.js";
 
 document.addEventListener("DOMContentLoaded", async () => {

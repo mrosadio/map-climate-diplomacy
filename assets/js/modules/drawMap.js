@@ -1,8 +1,12 @@
+// drawMap.js
 // Responsible for: SVG setup, drawing map paths, tooltips, hover/click events.
-// Two public drawing functions:
+// Public functions:
 //   drawOverviewMap    → default world view, all partner countries same colour
+//                        + African country labels always visible
 //   drawBilateralMap   → partner selected, African countries coloured by connectivity
-// Supporting exports: addCountryLabels, deleteCountryLabels, highlightAndTooltipEvents
+//   addCountryLabels   → called by setUpControls toggle (if kept)
+//   deleteCountryLabels
+//   highlightAndTooltipEvents
 
 import globals from "./globals.js";
 import { populateCountryCard } from "./cards.js";
@@ -23,6 +27,10 @@ const connectivityColor = mapDisplaySettings.connectivityColor;
 // ── SVG setup ──
 // Created once at module load time. All drawing functions share this element.
 // D3 is loaded as a global via <script> tag in HTML, not as an ES module import
+const mapEl = document.querySelector("#map");
+const W = mapEl?.clientWidth || 800;
+const H = mapEl?.clientHeight || 500;
+
 let svg = d3
   .select("#map")
   .append("svg")
@@ -44,31 +52,46 @@ let g;
 export function drawOverviewMap(geoJSONData, reshapedBiData) {
   console.log("Data to draw:", geoJSONData);
   if (!geoJSONData || !geoJSONData.features) {
-    console.error("No merged data available or invalid format");
+    console.error("drawOverviewMap: no valid geoJSONData received");
     return;
   }
-  const mapEl = document.querySelector("#map");
-  svg.attr("viewBox", `0 0 ${mapEl.clientWidth} ${mapEl.clientHeight}`);
+  // Re-read dimensions in case container resized since module load
+  const el = document.querySelector("#map");
+  svg.attr("viewBox", `0 0 ${el.clientWidth} ${el.clientHeight}`);
   svg.selectAll("path").remove();
+  svg.selectAll("text").remove();
   g = svg.append("g");
 
   // getOrCreateTooltip ensures we don't append a new tooltip div
   // every time drawOverviewMap is called (e.g. when user hits Africa Overview button)
   const tooltip = getOrCreateTooltip();
 
-  // Define a color scale for the connect_partners values
-  const colorScale = d3
-    .scaleOrdinal()
-    .domain(["Low", "Moderate", "High"])
-    .range(legend.colorRange);
-
   g.selectAll("path")
     .data(geoJSONData.features)
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("fill", (d) => getOverviewFill(d.properties.name));
-
+    .attr("fill", (d) => getOverviewFill(d.properties.name))
+    .attr("stroke", style.strokeDefaultColor)
+    .attr("stroke-width", style.strokeDefaultWidth);
+ 
+  // African country labels — always visible on overview map.
+  // pointer-events:none prevents labels intercepting mouse events on paths.
+  g.selectAll("text")
+    .data(geoJSONData.features.filter(
+      (f) => globals.africanPartners.has(f.properties.name)
+    ))
+    .enter()
+    .append("text")
+    .attr("transform", (d) => `translate(${path.centroid(d)})`)
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "9px")
+    .attr("font-family", "UncutRegular, sans-serif")
+    .attr("fill", "#444441")
+    .attr("pointer-events", "none")
+    .text((d) => d.properties.name);
+ 
   highlightAndTooltipEvents(reshapedBiData, g, tooltip);
 }
 
@@ -124,6 +147,21 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       // a circular import (cards.js ← layout.js ← drawMap.js ← cards.js)
       populateCountryCard(countryName, selectedPartner, onPartnerSelect);
     });
+    // African country labels on bilateral map too
+  g.selectAll("text")
+    .data(mergedData.features.filter(
+      (f) => africanPartnersSet.has(f.properties.name)
+    ))
+    .enter()
+    .append("text")
+    .attr("transform", (d) => `translate(${path.centroid(d)})`)
+    .attr("dy", ".35em")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "9px")
+    .attr("font-family", "UncutRegular, sans-serif")
+    .attr("fill", "#ffffff")
+    .attr("pointer-events", "none")
+    .text((d) => d.properties.name);
 }
 
 // --- Public: label controls ---
@@ -138,7 +176,7 @@ export function addCountryLabels(geoJSONData, labelGroup) {
     .data(countriesWithData)
     .enter()
     .append("text")
-    .attr("transform", (d) => `translate(${centroid})`)
+    .attr("transform", (d) => `translate(${path.centroid(d)})`)
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
     .attr("font-size", "9px")
