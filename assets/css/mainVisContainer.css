@@ -104,10 +104,15 @@ h2.accordion-header.partnerHeader {
     }
 
     #africaButton {
-        font-size: 14pt;
-        font-weight: normal;
-        color: #252525;
-        justify-content: space-between;
+          background: transparent !important;
+  border: 0.5px solid #D3D1C7 !important;
+  color: #5F5E5A !important;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 8.5pt;
+  cursor: pointer;
+  font-family: "UncutRegular", sans-serif;
+  transition: background 0.15s, color 0.15s;
         /* Esto separa los elementos a los extremos */
     }
 }
@@ -188,19 +193,20 @@ h2.accordion-header.partnerHeader {
 
 #africaButton,
 .accordion-button2 {
-    display: flex;
-    box-shadow: none;
-    width: 100%;
-    background-color: #ffdc94;
-    padding: 18.5px;
-    border: none;
-    border-radius: 2.9px !important;
-    font-size: 10pt !important;
-    text-align: left;
-    outline: none;
-    height: 50px;
+  background: transparent !important;
+  border: 0.5px solid #D3D1C7 !important;
+  color: #5F5E5A !important;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 8.5pt;
+  cursor: pointer;
+  font-family: "UncutRegular", sans-serif;
+  transition: background 0.15s, color 0.15s;
 }
-
+#africaButton:hover {
+  background: #F5F4F0 !important;
+  color: #1C1C1A !important;
+}
 .accordion-button2:focus,
 .accordion-button2.active {
     background-color: #2b7e3d !important;

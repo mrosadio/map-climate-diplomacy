@@ -37,26 +37,23 @@
 
 /* ── Visualization header bar (dark, integrated title) ── */
 .vis-header {
-  background: #1C2B1E;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
+  background: #ffffff;
+  border-bottom: 0.5px solid #E8E6DF;
+  padding: 12px 20px;
 }
 
 .vis-header__title {
   font-family: "UncutMedium", sans-serif;
-  font-size: 12pt;
-  color: #E8F0E9;
+  font-size: 11pt;
+  color: #1C1C1A;
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .vis-header__subtitle {
   font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
-  color: #7A9E7E;
+  font-size: 8pt;
+  color: #8A8880;
   margin: 2px 0 0 0;
 }
 
@@ -73,11 +70,11 @@
 .vis-sidebar {
   width: 100px;
   flex-shrink: 0;
-  background: #1C2B1E;
-  border-right: 1px solid #2A3E2D;
+  background: #ffffff;
+  border-right: 0.5px solid #E8E6DF;
   display: flex;
   flex-direction: column;
-  padding: 14px 0px;
+  padding: 16px 8px;
   gap: 6px;
   overflow-y: auto;
 }
@@ -87,12 +84,12 @@
 
 .vis-sidebar__label {
   font-family: "UncutMedium", sans-serif;
-  font-size: 8pt;
-  color: #7A9E7E;
+  font-size: 7.5pt;
+  color: #C8C5BB;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0 6px;
-  margin-bottom: 4px;
+  letter-spacing: 0.1em;
+  padding: 0 8px;
+  margin-bottom: 8px;
 }
 .vis-sidebar .map-menu {
   padding: 0;
@@ -115,19 +112,19 @@
 }
 
 .vis-sidebar .map-menu-item:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: #2A3E2D;
+  background: #F5F4F0;
+  border-color: #E8E6DF;
 }
 
 .vis-sidebar .map-menu-item.active {
-  background: #243329;
-  border-color: #3D6B42;
+  background: #F0EFEA;
+  border-color: #C8C5BB;
 }
 
 .vis-sidebar .map-menu-item .label {
-  font-family: "UncutRegular", sans-serif;
+  font-family: "UncutMedium", sans-serif;
   font-size: 9.5pt;
-  color: #A8C9AB;
+  color: #1C1C1A;
   text-align: center;
   line-height: 1.3;
 }
@@ -149,6 +146,7 @@
 /* On active: show active image, hide default */
 .vis-sidebar .map-menu-item.active .image img.active {
   display: block;
+  filter: brightness(0.2);
 }
 
 .vis-sidebar .map-menu-item.active .image img.default {
