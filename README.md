@@ -100,5 +100,5 @@ feature. This still needs to be implemented in the visualization.
 ## Credits
 
 Built for the Africa Policy Research Institute (APRI).
-Data collection: [team members]
+Data collection: Marius Kretzschmar
 Visualization development: Micaela Rosadio
