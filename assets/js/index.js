@@ -2,6 +2,7 @@ import { initializeDatabases } from "./modules/dataManager.js";
 import { showAfricaOverview } from "./modules/navigation.js";
 import { initLayout, resetLayout } from "./modules/layout.js";
 import { zoomIn, zoomOut } from "./modules/setUpControls.js";
+import { renderOverviewPanel } from "./modules/cards.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -11,20 +12,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render Africa Overview map by default
     await showAfricaOverview();
 
-    // Show Bilateral partnership
+    renderOverviewPanel();
     initLayout();
-
-    // Show comparative advantage
-    //showComparative();
-
-    // Zoom controls
-    document.getElementById("zoomIn")?.addEventListener("click", zoomIn);
-    document.getElementById("zoomOut")?.addEventListener("click", zoomOut);
 
     // Africa overview button — redraws the default map
     document
       .getElementById("africaButton")
-      ?.addEventListener("click", showAfricaOverview);
+      ?.addEventListener("click", () => {
+        showAfricaOverview();
+        renderOverviewPanel();
+    });
 
     // Reset button — clears partner selection and returns panel to empty state
     document

@@ -515,16 +515,6 @@
 .partners-list {
   margin-top: 10px;
 }
-
-.section-label {
-  font-family: "UncutMedium", sans-serif;
-  font-size: 8pt;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #B4B2A9;
-  margin: 0 0 8px 0;
-}
-
 .card-body.partner {
   margin: 0;
   padding: 10px 0;

@@ -11,9 +11,100 @@ const {
   trendConfig,
 } = globals;
 
+export function renderOverviewPanel() {
+  const card = document.querySelector(".card");
+  if (!card) return;
+  card.innerHTML = "";
+
+  // Re-render the panel structure since innerHTML was wiped
+  // Navigation steps
+  card.appendChild(createNavigationSteps());
+
+  // About zone
+  const aboutZone = document.createElement("div");
+  aboutZone.classList.add("panel-section");
+  aboutZone.innerHTML = `
+    <p class="vis-panel__zone-label">About this visualization</p>
+    <p class="partner-subtitle">
+      Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.
+    </p>
+  `;
+  card.appendChild(aboutZone);
+
+  // Sources zone
+  const sourcesZone = document.createElement("div");
+  sourcesZone.classList.add("panel-section");
+  sourcesZone.innerHTML = `
+    <p class="vis-panel__zone-label">Data sources</p>
+  `;
+  const sources = [
+    { label: "IMF Database", url: "#" },
+    { label: "World Bank Database", url: "#" },
+    { label: "China Global Investment Tracker", url: "#" },
+    { label: "Gulf Renewable Projects Tracker", url: "#" },
+  ];
+  sources.forEach(({ label, url }) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.classList.add("source-link");
+    link.textContent = label;
+    sourcesZone.appendChild(link);
+  });
+  card.appendChild(sourcesZone);
+
+  // Legend zone — connectivity scale
+  const legendZone = document.createElement("div");
+  legendZone.classList.add("panel-section");
+  legendZone.innerHTML = `
+    <p class="vis-panel__zone-label">Map legend</p>
+    <p class="partner-subtitle" style="margin-bottom:10px;">
+      Countries shaded by number of active partner relationships.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:14px;height:14px;border-radius:3px;background:#C8DFC9;flex-shrink:0;"></div>
+        <span class="vis-step__text">Low connectivity</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:14px;height:14px;border-radius:3px;background:#6BA870;flex-shrink:0;"></div>
+        <span class="ste">Moderate connectivity</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:14px;height:14px;border-radius:3px;background:#1C4A20;flex-shrink:0;"></div>
+        <span class="vis-step__text">High connectivity</span>
+      </div>
+    </div>
+    <p class="vis-panel__zone-label" style="margin-top:14px;">Investment trend</p>
+    <div style="display:flex;flex-direction:column;gap:5px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="/assets/img/icons/arrow-up.svg" style="width:14px;height:14px;filter:invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg);">
+        <span class="vis-step__text">Increasing</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="/assets/img/icons/arrow-down.svg" style="width:14px;height:14px;filter:invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg);">
+        <span class="vis-step__text">Decreasing</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="/assets/img/icons/minus.svg" style="width:14px;height:14px;filter:invert(50%);">
+        <span class="vis-step__text">Stable</span>
+      </div>
+    </div>
+  `;
+  card.appendChild(legendZone);
+}
+
 export function populatePartnerOverview(partnerName) {
-  const zone = document.querySelector(".partner-overview-zone");
-  if (!zone) return;
+  let zone = document.querySelector(".partner-overview-zone");
+  if (!zone) {
+  // renderOverviewPanel wiped it - recreate it
+    const card = document.querySelector(".card.partnership");
+    if (!card) return;
+    zone = document.createElement("div");
+    zone.classList.add("partner-overview-zone");
+    card.innerHTML = "";
+    card.appendChild(zone);
+  }
   zone.innerHTML = "";
 
   // Fixed content — never scrolls
@@ -114,7 +205,41 @@ export function populateCountryCard(
 }
 
 // --- partner overview panel helper ---
+// Helper — also used by renderOverviewPanel
+function createNavigationSteps() {
+  const section = document.createElement("div");
+  section.classList.add("panel-section");
 
+  const label = document.createElement("p");
+  label.classList.add("vis-panel__zone-label");
+  label.textContent = "How to navigate";
+  section.appendChild(label);
+
+  const steps = [
+    "Select a foreign actor from the sidebar",
+    "Click an African country on the map",
+    "Browse the bilateral detail sheet",
+  ];
+
+  steps.forEach((text, i) => {
+    const row = document.createElement("div");
+    row.classList.add("vis-step");
+
+    const num = document.createElement("div");
+    num.classList.add("vis-step__num");
+    num.textContent = i + 1;
+
+    const stepText = document.createElement("span");
+    stepText.classList.add("vis-step__text");
+    stepText.textContent = text;
+
+    row.appendChild(num);
+    row.appendChild(stepText);
+    section.appendChild(row);
+  });
+
+  return section;
+}
 // build the scannable list of African partners shown in the overview zone
 // read-only -> no click-handlers. the map is the navigation element
 function createAfricanPartnersList(partnerName) {
@@ -176,51 +301,6 @@ function createPartnershipMiniCard(entry) {
   return card;
 }
 
-// ---- populatepartnerCard helpers  -----
-function createPartnerHeader(selectedPartner) {
-  const partner = document.createElement("h4"); // bilateral partner
-  partner.classList.add(
-    "card-title",
-    "card-title-fixed",
-    "partner-select",
-    "h4",
-  );
-  partner.innerHTML = `${selectedPartner} - Africa`;
-  partner.style.borderBottom = partnerDivStyle.borderBottom;
-  partner.style.paddingBottom = partnerDivStyle.paddingBottom;
-  partner.style.marginTop = partnerDivStyle.marginTop;
-  return partner;
-}
-function createTabDiv(selectCountryData, text) {
-  const tabDiv = document.createElement("div");
-  tabDiv.classList.add("tabContainer");
-  tabDiv.innerHTML = `
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="overview">Overview</button>
-            <button class="tab-btn" data-tab="partners">The ${selectCountryData.length} African Partners</button>
-        </div>
-        <div class="tab-content mt-2 mb-2" id="overview">
-            ${text || "No overview available."}
-        </div>
-        <div class="tab-content mt-2 mb-2 hidden" id="partners">
-            <!-- country cards -->
-        </div>
-    `;
-  // Tab switching
-  tabDiv.querySelectorAll(".tab-btn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-      tabDiv
-        .querySelectorAll(".tab-btn")
-        .forEach((b) => b.classList.remove("active"));
-      tabDiv
-        .querySelectorAll(".tab-content")
-        .forEach((c) => c.classList.add("hidden"));
-      this.classList.add("active");
-      tabDiv.querySelector(`#${this.dataset.tab}`).classList.remove("hidden");
-    });
-  });
-  return tabDiv;
-}
 
 // --- populateCountryCard helpers ---
 function createBreadCrumb(selectedPartner) {

@@ -1,5 +1,5 @@
 import { drawOverviewMap, drawBilateralMap } from "./drawMap.js";
-import { addLegend } from "./addLegend.js";
+import { renderOverviewPanel } from "./cards.js";
 import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
 
@@ -37,7 +37,6 @@ export async function showAfricaOverview() {
     console.log("africaOverviewData", overviewData); // For now, this is no longer necessary since we want to render the world map on the overview page
 
     drawOverviewMap(mergedWorldGeoJSON, reshapedBiData);
-    addLegend(databases.overviewData); // this database is just the CSV Pie diplomacy data converted to JSON
     setupControls(mergedWorldGeoJSON);
 
     // Update the UI (e.g., scroll to the button, update the block name)

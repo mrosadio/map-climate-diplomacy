@@ -141,8 +141,9 @@ export function addCountryLabels(geoJSONData, labelGroup) {
     .attr("transform", (d) => `translate(${centroid})`)
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
-    .attr("font-size", "10px")
-    .attr("fill", "black")
+    .attr("font-size", "9px")
+    .attr("fill", "#444441")
+    .attr("pointer-events", "none") // labels don't block mouse events on paths
     .text((d) => d.properties.name);
 }
 
