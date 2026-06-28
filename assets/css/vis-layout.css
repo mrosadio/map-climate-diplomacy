@@ -77,10 +77,13 @@
   border-right: 1px solid #2A3E2D;
   display: flex;
   flex-direction: column;
-  padding: 14px 8px;
+  padding: 14px 0px;
   gap: 6px;
   overflow-y: auto;
 }
+/* ul.map-menu.js-mapMenu {
+  padding-right: 1.8rem;
+} */
 
 .vis-sidebar__label {
   font-family: "UncutMedium", sans-serif;
@@ -91,17 +94,20 @@
   padding: 0 6px;
   margin-bottom: 4px;
 }
+.vis-sidebar .map-menu {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
 
 /* Partner cards — keep existing .countrySelect + .map-menu-item from HTML
    but override their visual style */
 .vis-sidebar .map-menu-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
   width: 100%;
-  padding: 10px 4px; /* reduce horizontal padding so content fits */
-  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 10px 8px;
+  margin: 0; /* remove any margin that breaks full-width */
+  border-radius: 6px;
   border: 1px solid transparent;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
@@ -109,13 +115,13 @@
 }
 
 .vis-sidebar .map-menu-item:hover {
-  background: #2A3E2D;
-  border-color: #3D5C41;
+  background: rgba(255,255,255,0.06);
+  border-color: #2A3E2D;
 }
 
 .vis-sidebar .map-menu-item.active {
-  background: #2A3E2D;
-  border-color: #5C8F5F;
+  background: #243329;
+  border-color: #3D6B42;
 }
 
 .vis-sidebar .map-menu-item .label {
@@ -314,39 +320,40 @@
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  padding: 0;
+  padding: 18px 24px;
   border: none;
   border-radius: 0;
 }
 .panel-section {
   flex-shrink: 0; /* all sections fixed except the list zone */
+  padding-bottom: 18px;
 }
 /* Panel zones — stacked, each separated by a hairline */
 .vis-panel__zone {
-  padding: 14px 16px;
+  padding: 0 0 18px 0; /* only bottom padding — card handles left/right */
   border-bottom: 0.5px solid #F0EEE8;
-  flex-shrink: 0;
 }
 
 .vis-panel__zone:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .vis-panel__zone-label {
   font-family: "UncutMedium", sans-serif;
-  font-size: 8pt;
+  font-size: 7.5pt;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #B4B2A9;
-  margin: 0 0 10px 0;
+  letter-spacing: 0.1em;
+  color: #C8C5BB;
+  margin: 0 0 14px 0;
 }
 
 /* Navigation steps */
 .vis-step {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .vis-step:last-child {
@@ -359,7 +366,7 @@
   border-radius: 50%;
   background: #1C2B1E;
   color: #E8F0E9;
-  font-size: 9pt;
+  font-size: 8pt;
   font-family: "UncutMedium", sans-serif;
   display: flex;
   align-items: center;
@@ -370,40 +377,39 @@
 
 .vis-step__text {
   font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
+  font-size: 9pt;
   color: #5F5E5A;
   line-height: 1.5;
+}
+.partner-subtitle p {
+  margin: 0 0 10px 0;
+}
+
+.partner-subtitle p:last-child {
+  margin-bottom: 0;
 }
 
 /* Partner overview zone */
 .partner-overview-zone {
-  flex: 1; /* takes remaining space */
-  min-height: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
-
+/* Remove double padding when zone contains a vis-panel__zone */
+.partner-overview-zone .vis-panel__zone {
+  padding: 0 0 18px 0;
+  margin: 0;
+}
 .partner-title {
   font-family: "UncutMedium", sans-serif;
-  font-size: 13pt;
+  font-size: 14pt;
   color: #1C2B1E;
-  margin: 0 0 6px 0;
-  /* display: flex; */
-  align-items: center;
-  /* gap: 7px; */
+  margin: 0 0 10px 0;
+  letter-spacing: -0.01em;
 }
-
-/* .partner-title::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #3D6B42;
-  flex-shrink: 0;
-} */
-
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;
   font-size: 9.5pt;
@@ -411,13 +417,27 @@
   line-height: 1.6;
   margin: 0 0 10px 0;
 }
+.partners-list-zone {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 0;
+}
+.partners-list-zone::-webkit-scrollbar {
+  width: 3px;
+}
 
+.partners-list-zone::-webkit-scrollbar-thumb {
+  background: #D3D1C7;
+  border-radius: 3px;
+}
 .hint {
   font-family: "UncutRegular", sans-serif;
   font-size: 8.5pt;
-  color: #9C8B5A;
+  color: #B09A5A;
   font-style: italic;
-  margin: 8px 0 0 0;
+  margin: 4px 0 0 0;
+  padding: 0;
 }
 
 /* Stat strip */
@@ -425,33 +445,34 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  margin: 10px 0;
+  margin: 0 0 14px 0;
+  padding: 0;
+  border: none;
 }
 
 .stat {
   background: #F5F4F0;
-  border-radius: 6px;
-  padding: 8px 4px;
+  border-radius: 4px;
+  padding: 10px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
 }
 
 .statValue {
   font-family: "UncutMedium", sans-serif;
   font-size: 11pt;
   color: #1C2B1E;
-  font-weight: normal;
 }
 
 .statLabel {
   font-family: "UncutRegular", sans-serif;
-  font-size: 7.5pt;
+  font-size: 7pt;
   color: #8A8880;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 /* Empty state */
@@ -507,23 +528,26 @@
   font-size: 9pt;
   color: #3D6B42;
   text-decoration: none;
-  margin-top: 4px;
+  padding: 3px 0;
   transition: color 0.15s;
+}
+.source-link:last-child {
+  border-bottom: none;
 }
 
 .source-link:hover {
   color: #1C2B1E;
-  text-decoration: underline;
 }
 
 /* ── Card content styles (populateCountryCard output) ── */
 .breadcrumb-nav {
+  padding: 0;
   margin: 0 0 8px 0;
 }
 
 .back-link {
   font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
+  font-size: 8pt;
   color: #3D6B42;
   cursor: pointer;
   transition: color 0.15s;
@@ -538,10 +562,9 @@
   margin-top: 10px;
 }
 .card-body.partner {
+  padding: 12px 0;
+  border-bottom: 0.5px solid #F5F4F0;
   margin: 0;
-  padding: 10px 0;
-  border: none;
-  border-bottom: 0.5px solid #F0EEE8;
 }
 
 .card-body.partner:last-child {
@@ -550,32 +573,58 @@
 
 .card-title.listPartners {
   font-family: "UncutMedium", sans-serif;
-  font-size: 10.5pt;
+  font-size: 10pt;
   color: #1C2B1E;
-  margin: 0 0 4px 0;
+  margin: 0 0 3px 0;
+  letter-spacing: -0.01em;
 }
 
 .card-title.partner-select {
   font-family: "UncutMedium", sans-serif;
-  font-size: 11pt;
+  font-size: 10pt;
   color: #1C2B1E;
-  margin: 0 0 6px 0;
+  margin: 0 0 10px 0;
+}
+/* Areas of cooperation label smaller */
+.card-text.areasCoop {
+  font-size: 7.5pt;
+  color: #B4B2A9;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 8px 0 4px 0;
+}
+/* View agreement link */
+.cardLink {
+  font-size: 8.5pt;
+  color: #3D6B42;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+  border-bottom: 0.5px solid #3D6B42;
+  padding-bottom: 1px;
 }
 
+.cardLink:hover {
+  color: #1C2B1E;
+  border-bottom-color: #1C2B1E;
+}
 /* Cooperation tags */
 .btn.btn-outline-dark.aresCoop {
-  font-size: 8pt;
-  padding: 3px 6px;
+  font-size: 0pt; /* hide text, show icon only */
+  padding: 4px;
   border-radius: 4px !important;
-  border: 0.5px solid rgba(0,0,0,0.15) !important;
+  border: 0.5px solid rgba(0,0,0,0.1) !important;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Trend indicator */
 .trendLabel {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 8.5pt;
-  color: #8A8880;
-  margin: 0;
+  font-size: 7.5pt;
+  color: #B4B2A9;
 }
 
 /* Tab container (African partners tab) */
@@ -611,12 +660,18 @@
 .tab-btn:hover:not(.active) {
   color: #5F5E5A;
 }
-
+.tab-content h5.card-title.partner-select {
+  font-size: 9pt;
+  font-family: "UncutMedium", sans-serif;
+  color: #1C2B1E;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 .tab-content {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
-  line-height: 1.6;
-  color: #444441;
+  font-size: 9pt;
+  line-height: 1.65;
+  color: #5F5E5A;
 }
 
 .tab-content.hidden {
@@ -626,13 +681,13 @@
 /* Flagship projects */
 .flagshipProjects {
   font-family: "UncutRegular", sans-serif;
-  font-size: 8.5pt;
-  color: #5F5E5A;
+  font-size: 8pt;
+  color: #8A8880;
   margin: 4px 0 0 0;
 }
 
 .flagshipProjects span {
-  color: #8A8880;
+  color: #B4B2A9;
 }
 
 /* ── Tooltip ── */

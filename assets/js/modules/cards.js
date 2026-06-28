@@ -169,7 +169,7 @@ export function populateCountryCard(
   // If onPartnerSelect is not provided (legacy call), falls back to populatePartnerCard.
   const backFn =
     onPartnerSelect || (() => populatePartnerOverview(selectedPartner));
-  zone.appendChild(createBreadCrumb(selectedPartner));
+  zone.appendChild(createBreadCrumb(selectedPartner, backFn));
   zone.appendChild(createTitle(`${selectedPartner} - ${countryName}`));
 
   const selectedCountryData = databases.reshapedBiData[selectedPartner]?.find(

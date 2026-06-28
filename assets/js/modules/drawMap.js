@@ -75,7 +75,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     })
     .attr("stroke", "white")
     .attr("stroke-width", 0.5)
-    .style("cursos", "default");
+    .style("cursor", "default");
 
   // African country labels — always visible on overview map.
   // pointer-events:none prevents labels intercepting mouse events on paths.
@@ -103,13 +103,13 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     return;
   }
 
-  const settings = mapDisplaySettings[selectedPartner];
-  if (!settings) {
-    console.error(
-      `drawBilateralMap: no map settings found for "${selectedPartner}"`,
-    );
-    return;
-  }
+  // const settings = mapDisplaySettings[selectedPartner];
+  // if (!settings) {
+  //   console.error(
+  //     `drawBilateralMap: no map settings found for "${selectedPartner}"`,
+  //   );
+  //   return;
+  // }
 
   projection = d3
     .geoMercator()
@@ -119,13 +119,17 @@ export function drawBilateralMap(mergedData, selectedPartner) {
   path = d3.geoPath().projection(projection);
 
   svg.selectAll("path").remove();
-  svg.selectAll("text").remove()
+  svg.selectAll("text").remove();
   g = svg.append("g");
 
   // Get the selected country and its partners
   const africanPartnersSet =
     databases.bilateralPartnerMap.get(selectedPartner) || new Set();
-  console.log("African partner set:", africanPartnersSet);
+  // ← add these two lines here, inside the function
+  console.log("africanPartnersSet size:", africanPartnersSet.size);
+  console.log("africanPartnersSet contents:", [...africanPartnersSet]);
+  console.log("first feature name:", mergedData.features[0]?.properties.name);
+  console.log("selectedPartner:", selectedPartner);
 
   // Define a color scale for the connect_partners values
   g.selectAll("path")
@@ -161,6 +165,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
         africanPartnersSet.has(f.properties.name),
       ),
     )
+    .data(mergedData.features)
     .enter()
     .append("text")
     .attr("transform", (d) => `translate(${path.centroid(d)})`)
@@ -168,7 +173,9 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("text-anchor", "middle")
     .attr("font-size", "9px")
     .attr("font-family", "UncutRegular, sans-serif")
-    .attr("fill", "#ffffff")
+    .attr("fill", (d) =>
+      africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
+    )
     .attr("pointer-events", "none")
     .text((d) => d.properties.name);
 }
