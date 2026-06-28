@@ -71,7 +71,7 @@
 
 /* ── Partner sidebar (replaces .first-col + .diplomacy-map-nav) ── */
 .vis-sidebar {
-  width: 110px;
+  width: 100px;
   flex-shrink: 0;
   background: #1C2B1E;
   border-right: 1px solid #2A3E2D;
@@ -99,7 +99,8 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 10px 6px;
+  width: 100%;
+  padding: 10px 4px; /* reduce horizontal padding so content fits */
   border-radius: 8px;
   border: 1px solid transparent;
   cursor: pointer;
@@ -134,7 +135,28 @@
   height: 42px;
   object-fit: contain;
 }
+/* Default: show default image, hide active */
+.vis-sidebar .map-menu-item .image img.active {
+  display: none;
+}
 
+/* On active: show active image, hide default */
+.vis-sidebar .map-menu-item.active .image img.active {
+  display: block;
+}
+
+.vis-sidebar .map-menu-item.active .image img.default {
+  display: none;
+}
+
+/* On hover: show active image, hide default */
+.vis-sidebar .map-menu-item:hover .image img.active {
+  display: block;
+}
+
+.vis-sidebar .map-menu-item:hover .image img.default {
+  display: none;
+}
 /* ── Map column (replaces #map.second-col) ── */
 .vis-map {
   flex: 1;
@@ -273,7 +295,7 @@
 
 /* ── Right info panel (replaces .right.bilateral + .third-col) ── */
 .vis-panel {
-  width: 300px;
+  width: 340px;
   flex-shrink: 0;
   background: white;
   border-left: 1px solid #E8E6DF;
@@ -367,12 +389,12 @@
   font-size: 13pt;
   color: #1C2B1E;
   margin: 0 0 6px 0;
-  display: flex;
+  /* display: flex; */
   align-items: center;
-  gap: 7px;
+  /* gap: 7px; */
 }
 
-.partner-title::before {
+/* .partner-title::before {
   content: "";
   display: inline-block;
   width: 8px;
@@ -380,7 +402,7 @@
   border-radius: 50%;
   background: #3D6B42;
   flex-shrink: 0;
-}
+} */
 
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;

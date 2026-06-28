@@ -61,11 +61,11 @@ export async function prepareAfricaOverviewData() {
     }
 
     // Filter GeoJSON data for African countries
-    //const filteredGeoJSON = filterGeoJSON(geoJSONData, africanCountries); // we dont need to filter african countries since we decided to show in the overview map the world map
+    const filteredGeoJSON = filterGeoJSON(geoJSONData, africanCountries); // we dont need to filter african countries since we decided to show in the overview map the world map
 
     // Merge filtered GeoJSON with CSV data
-    //const mergedData = mergeGeoJSONWithData(filteredGeoJSON, csvData);
-    const mergedData = mergeGeoJSONWithData(geoJSONData, csvData);
+    const mergedData = mergeGeoJSONWithData(filteredGeoJSON, csvData);
+    //const mergedData = mergeGeoJSONWithData(geoJSONData, csvData);
 
 
     // Optionally save the merged data in globals for reuse
@@ -88,6 +88,7 @@ export async function prepareBilateralData() {
     }
 
     // Merge the GeoJSON data with the bilateral data
+    const africanGeoJSON = filterGeoJSON(geoJSONData, globals.africanPartners);
     const mergedData = mergeBilateralData(geoJSONData, bilateralData);
 
     // Optionally save the merged data in globals for reuse

@@ -138,34 +138,10 @@ const globals = {
     colorRange: ["#a8d5ba", "#5cae6b", "#2b7e3d"],
   },
   mapDisplaySettings: {
-    China: {
-      scale: 510,
-      center: [20, 0],
-      get translation() {
-        const map = document.querySelector("#map");
-        return [globals.svgWidth / 3.5, globals.svgHeight / 1.5];
-      }, // Create a function to dynamically calculate the values. In an object, you cannot reference other properties of the same object unless you use a function
-    },
-    "European Union": {
-      scale: 350,
-      center: [20, 0],
-      get translation() {
-        const map = document.querySelector("#map");
-        return [globals.svgWidth / 1.5, globals.svgHeight / 1.43];
-      },
-    },
-    "Gulf Countries": {
-      scale: 550,
-      center: [20, 0],
-      get translation() {
-        const map = document.querySelector("#map");
-        return [globals.svgWidth / 2, globals.svgHeight / 1.6];
-      },
-    },
     colors: {
       nonAfricaPartner: "#fec030",
       africaPartner: "#ffdc94",
-      default: "#d3d3d3",
+      default: "#e4dfd8",
     },
     connectivityColor: {
       Low: "#c8dac0",

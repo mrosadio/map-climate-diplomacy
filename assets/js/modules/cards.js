@@ -125,13 +125,13 @@ export function populatePartnerOverview(partnerName) {
   title.classList.add("partner-title");
   title.textContent = partnerName;
   header.appendChild(title);
+
+  header.appendChild(createStatStrip(partnerName));
  
   const body = document.createElement("p");
   body.classList.add("partner-subtitle");
   body.innerHTML = overviewText[partnerName] || "No overview available.";
   header.appendChild(body);
- 
-  header.appendChild(createStatStrip(partnerName));
  
   const hint = document.createElement("p");
   hint.classList.add("hint");

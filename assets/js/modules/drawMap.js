@@ -11,15 +11,8 @@
 import globals from "./globals.js";
 import { populateCountryCard } from "./cards.js";
 import { getCurrentPartner, onPartnerSelect } from "./layout.js";
-const {
-  svgWidth,
-  svgHeight,
-  mainViewBox,
-  legend,
-  mapDisplaySettings,
-  databases,
-  cooperation,
-} = globals;
+const { mainViewBox, legend, mapDisplaySettings, databases, cooperation } =
+  globals;
 
 const style = mapDisplaySettings.style;
 const connectivityColor = mapDisplaySettings.connectivityColor;
@@ -34,7 +27,7 @@ const H = mapEl?.clientHeight || 500;
 let svg = d3
   .select("#map")
   .append("svg")
-  .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+  .attr("viewBox", `0 0 ${W} ${H}`)
   .attr("preserveAspectRatio", "xMidYMid meet")
   .attr("height", "100%")
   .attr("width", "100%");
@@ -43,8 +36,9 @@ let svg = d3
 // and addCountryLabels() can read the current path for centroid calculations.
 let projection = d3
   .geoMercator()
-  .scale(400)
-  .translate([svgWidth / 2, svgHeight / 2]);
+  .scale(550)
+  .center([20, 5])
+  .translate([W / 2, H / 2]);
 let path = d3.geoPath().projection(projection);
 let g;
 
@@ -71,16 +65,22 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("fill", (d) => getOverviewFill(d.properties.name))
-    .attr("stroke", style.strokeDefaultColor)
-    .attr("stroke-width", style.strokeDefaultWidth);
- 
+    .attr("fill", (d) => {
+      // All countries on this map are African partners.
+      // Color by connectivity level if data exists, otherwise default.
+      const level = d.properties["connect_partners"];
+      return level
+        ? mapDisplaySettings.connectivityColor[level]
+        : mapDisplaySettings.colors.default;
+    })
+    .attr("stroke", "white")
+    .attr("stroke-width", 0.5)
+    .style("cursos", "default");
+
   // African country labels — always visible on overview map.
   // pointer-events:none prevents labels intercepting mouse events on paths.
   g.selectAll("text")
-    .data(geoJSONData.features.filter(
-      (f) => globals.africanPartners.has(f.properties.name)
-    ))
+    .data(geoJSONData.features)
     .enter()
     .append("text")
     .attr("transform", (d) => `translate(${path.centroid(d)})`)
@@ -91,7 +91,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("fill", "#444441")
     .attr("pointer-events", "none")
     .text((d) => d.properties.name);
- 
+
   highlightAndTooltipEvents(reshapedBiData, g, tooltip);
 }
 
@@ -111,8 +111,15 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     return;
   }
 
-  updateProjection(settings.scale, settings.center, settings.translation);
+  projection = d3
+    .geoMercator()
+    .scale(320)
+    .center([20, 0])
+    .translate([W / 2, H / 2]);
+  path = d3.geoPath().projection(projection);
+
   svg.selectAll("path").remove();
+  svg.selectAll("text").remove()
   g = svg.append("g");
 
   // Get the selected country and its partners
@@ -147,11 +154,13 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       // a circular import (cards.js ← layout.js ← drawMap.js ← cards.js)
       populateCountryCard(countryName, selectedPartner, onPartnerSelect);
     });
-    // African country labels on bilateral map too
+  // African country labels on bilateral map too
   g.selectAll("text")
-    .data(mergedData.features.filter(
-      (f) => africanPartnersSet.has(f.properties.name)
-    ))
+    .data(
+      mergedData.features.filter((f) =>
+        africanPartnersSet.has(f.properties.name),
+      ),
+    )
     .enter()
     .append("text")
     .attr("transform", (d) => `translate(${path.centroid(d)})`)
@@ -255,35 +264,7 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
     });
 }
 
-// --- Private: projection ---
-
-function updateProjection(scale, center, translation) {
-  projection = d3
-    .geoNaturalEarth1()
-    .scale(scale)
-    .center(center)
-    .translate(translation);
-  path = d3.geoPath().projection(projection);
-  svg.selectAll("path").attr("d", path);
-}
-
 // --- Private: fill colour helpers ---
-
-// On the overview map all partner countries share one colour.
-// The distinction between EU/GCC/China/African doesn't matter visually here —
-// all four branches return the same value. The if/else is kept for clarity
-// in case per-bloc colours are added later.
-function getOverviewFill(countryName) {
-  if (
-    globals.EUCountries.has(countryName) ||
-    globals.GCCCountries.has(countryName) ||
-    countryName === "China" ||
-    globals.africanPartners.has(countryName)
-  ) {
-    return mapDisplaySettings.colors.nonAfricaPartner;
-  }
-  return mapDisplaySettings.colors.default;
-}
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
 function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
