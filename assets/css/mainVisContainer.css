@@ -402,28 +402,7 @@ p.trendLabel {
     font-size: 9pt;
     padding: 2px 5px
 }
-.tooltip {
-    position: absolute;
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border-radius: 3px;
-    font-size: 10pt;
-  }
-  .tooltipTitle {
-    font-size: 13pt;
-    margin-top: 0px;
-  }
-  p.tooltipText {
-    font-size: 11pt;
-    margin-bottom: 0px;
-    margin-top: 0px;
-  }
-  .matrixVarList {
-    list-style-type: disc; /* Use bullet points */
-    padding-left: 20px; /* Add padding to align bullets */
-    margin: 0; /* Optional: Adjust margin */
-}
+
 .tab-content {
   font-size: 10pt;
   line-height: 1.25;

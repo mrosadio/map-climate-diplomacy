@@ -56,9 +56,6 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   svg.selectAll("text").remove();
   g = svg.append("g");
 
-  // getOrCreateTooltip ensures we don't append a new tooltip div
-  // every time drawOverviewMap is called (e.g. when user hits Africa Overview button)
-  const tooltip = getOrCreateTooltip();
 
   g.selectAll("path")
     .data(geoJSONData.features)
@@ -92,7 +89,6 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("pointer-events", "none")
     .text((d) => d.properties.name);
 
-  highlightAndTooltipEvents(reshapedBiData, g, tooltip);
 }
 
 export function drawBilateralMap(mergedData, selectedPartner) {
@@ -216,24 +212,10 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 
   function handleMouseOver(event, d) {
     const countryName = d.properties.name;
-    const content = buildTooltipContent(
-      countryName,
-      currentAfricanPartnersData,
-    );
-
-    // Only display the tooltip if the content is not empty
-    if (content.trim() !== "") {
-      tooltip
-        .style("display", "block")
-        .html(content)
-        .style("left", `${event.pageX + 10}px`)
-        .style("top", `${event.pageY + 10}px`);
-    }
     applyHighlight(countryName, g);
   }
 
   function handleMouseOut() {
-    tooltip.style("display", "none");
     g.selectAll("path")
       .attr("stroke", style.strokeDefaultColor)
       .attr("stroke-width", style.strokeDefaultWidth);
@@ -289,71 +271,6 @@ function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
     ] ?? "default";
 
   return connectivityColor[connectivityLevel] || connectivityColor.default;
-}
-
-// --- Private: tooltip helpers ---
-
-// Returns the singleton tooltip div, creating it only if it doesn't exist yet.
-// Prevents duplicate tooltip divs when drawOverviewMap is called multiple times.
-function getOrCreateTooltip() {
-  const existing = d3.select(".tooltip2");
-  if (!existing.empty()) return existing;
-
-  return d3
-    .select("body")
-    .append("div")
-    .attr("class", "tooltip2")
-    .style("position", "absolute")
-    .style("background-color", "white")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "4px")
-    .style("padding", "10px")
-    .style("box-shadow", "0 4px 8px rgba(0, 0, 0, 0.2)")
-    .style("display", "none")
-    .style("pointer-events", "none");
-}
-
-function buildTooltipContent(countryName, currentAfricanPartnersData) {
-  if (globals.EUCountries.has(countryName)) return "European Union (EU)";
-  if (globals.GCCCountries.has(countryName))
-    return "Gulf Cooperation Council (GCC)";
-  if (countryName === "China") return "China";
-
-  if (!globals.africanPartners.has(countryName)) return "";
-
-  const partnerData = currentAfricanPartnersData.find(
-    (p) => p["African Country"] === countryName,
-  );
-
-  if (!partnerData) {
-    return `<p class="fw-bold tooltipTitle mx-0">${countryName}</p>`;
-  }
-
-  const connectivityLevel =
-    partnerData[
-      "Economic and Investment connectivity between African country and non-African partner"
-    ] || "No data";
-
-  let content = `
-    <p class="fw-bold tooltipTitle mb-0">${countryName}</p>
-    <p class="tooltipText mb-0">Connectivity Level:</p>
-    <p class="tooltipText">${connectivityLevel}</p>
-  `;
-
-  if (partnerData["Areas of Cooperation - Categories"] !== "No data") {
-    content += `<p class="tooltipText">Areas of cooperation:</p>`;
-    partnerData["Areas of Cooperation - Categories"].forEach((category) => {
-      const iconPath = `/assets/img/icons/${category.toLowerCase().replace(/ /g, "-")}.svg`;
-      content += `
-        <p class="btn btn-outline-dark aresCoop me-1 tooltipText d-flex align-items-center"
-           style="background: ${cooperation.color[category]}">
-          <img src="${iconPath}" alt="${category} Icon" style="width:16px;height:16px;margin-right:5px;">
-          ${category}
-        </p><br>`;
-    });
-  }
-
-  return content;
 }
 
 // --- Private: highlight helper ---

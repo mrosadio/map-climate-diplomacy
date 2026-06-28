@@ -689,12 +689,6 @@
 }
 
 /* ── Tooltip ── */
-.tooltip2 {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
-  max-width: 220px;
-  z-index: 100;
-}
 
 .tooltipTitle {
   font-family: "UncutMedium", sans-serif;
