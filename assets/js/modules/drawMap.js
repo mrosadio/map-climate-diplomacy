@@ -109,8 +109,8 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
   projection = d3
     .geoMercator()
-    .scale(320)
-    .center([20, 0])
+    .scale(550)
+    .center([20, 5])
     .translate([W / 2, H / 2]);
   path = d3.geoPath().projection(projection);
 
