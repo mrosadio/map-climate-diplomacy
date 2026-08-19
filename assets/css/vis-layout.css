@@ -130,7 +130,7 @@
 }
 
 .vis-sidebar .map-menu-item.active .label {
-  color: #D4EDD6;
+  color: #3a653a;
 }
 
 .vis-sidebar .map-menu-item .image img {
@@ -146,7 +146,7 @@
 /* On active: show active image, hide default */
 .vis-sidebar .map-menu-item.active .image img.active {
   display: block;
-  filter: brightness(0.2);
+  /*filter: brightness(0.2);*/
 }
 
 .vis-sidebar .map-menu-item.active .image img.default {
