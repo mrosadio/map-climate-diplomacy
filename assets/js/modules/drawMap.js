@@ -138,6 +138,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     )
     .attr("stroke", "white")
     .attr("stroke-width", 0.5)
+    .style("cursor", (d) => africanPartnersSet.has(d.properties.name) ? "pointer" : "default")
     .on("click", function (event, d) {
       const countryName = d.properties.name;
 
@@ -161,7 +162,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
         africanPartnersSet.has(f.properties.name),
       ),
     )
-    .data(mergedData.features)
+    //.data(mergedData.features)
     .enter()
     .append("text")
     .attr("transform", (d) => `translate(${path.centroid(d)})`)
@@ -169,6 +170,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("text-anchor", "middle")
     .attr("font-size", "9px")
     .attr("font-family", "UncutRegular, sans-serif")
+    //.attr("pointer-events", "mouse") 
     .attr("fill", (d) =>
       africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
     )
