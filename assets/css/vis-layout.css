@@ -133,8 +133,8 @@
 }
 
 .vis-sidebar .map-menu-item .image img {
-  width: 42px;
-  height: 42px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
 }
 /* Default: show default image, hide active */
@@ -737,11 +737,11 @@
 }
 
 /* -- Web responsiveness -- */
-@media (min-width: 1025px) {
+/* @media (min-width: 1025px) {
   .vis-sidebar {
     width: 100px;
   }
-}
+} */
 
 @media (max-width: 1024px) {
   /* Slim the outer container margins */
