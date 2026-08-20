@@ -14,7 +14,7 @@
 .vis-tagline {
   font-family: "UncutRegular", sans-serif;
   font-size: 11pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   line-height: 1.6;
   margin: 0.75rem 60px 0.5rem 60px;
   padding: 0;
@@ -25,27 +25,27 @@
   display: flex;
   flex-direction: column;
   margin: 0 60px 2rem 60px;
-  border: 0.5px solid #D3D1C7;
+  border: 0.5px solid #d3d1c7;
   border-radius: 10px;
   overflow: hidden;
   /* No fixed height — fills viewport naturally */
   height: calc(100vh - 60px);
   min-height: 560px;
-  max-height: calc(100vh - 60px);;
+  max-height: calc(100vh - 60px);
   box-sizing: border-box;
 }
 
 /* ── Visualization header bar (dark, integrated title) ── */
 .vis-header {
   background: #ffffff;
-  border-bottom: 0.5px solid #E8E6DF;
+  border-bottom: 0.5px solid #e8e6df;
   padding: 12px 20px;
 }
 
 .vis-header__title {
   font-family: "UncutMedium", sans-serif;
   font-size: 11pt;
-  color: #1C1C1A;
+  color: #1c1c1a;
   margin: 0;
   letter-spacing: 0.01em;
 }
@@ -53,7 +53,7 @@
 .vis-header__subtitle {
   font-family: "UncutRegular", sans-serif;
   font-size: 8pt;
-  color: #8A8880;
+  color: #8a8880;
   margin: 2px 0 0 0;
 }
 
@@ -70,7 +70,7 @@
 .vis-sidebar {
   flex-shrink: 0;
   background: #ffffff;
-  border-right: 0.5px solid #E8E6DF;
+  border-right: 0.5px solid #e8e6df;
   display: flex;
   flex-direction: column;
   padding: 16px 8px;
@@ -84,7 +84,7 @@
 .vis-sidebar__label {
   font-family: "UncutMedium", sans-serif;
   font-size: 7.5pt;
-  color: #C8C5BB;
+  color: #c8c5bb;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 0 8px;
@@ -106,24 +106,26 @@
   border-radius: 6px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
   list-style: none;
 }
 
 .vis-sidebar .map-menu-item:hover {
-  background: #F5F4F0;
-  border-color: #E8E6DF;
+  background: #f5f4f0;
+  border-color: #e8e6df;
 }
 
 .vis-sidebar .map-menu-item.active {
-  background: #F0EFEA;
-  border-color: #C8C5BB;
+  background: #f0efea;
+  border-color: #c8c5bb;
 }
 
 .vis-sidebar .map-menu-item .label {
   font-family: "UncutMedium", sans-serif;
   font-size: 9.5pt;
-  color: #1C1C1A;
+  color: #1c1c1a;
   text-align: center;
   line-height: 1.3;
 }
@@ -190,10 +192,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   padding: 4px 10px 4px 12px;
   border-radius: 6px;
-  border: 0.5px solid #D3D1C7;
+  border: 0.5px solid #d3d1c7;
 }
 
 .vis-map__toggle-label {
@@ -208,7 +210,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: #D3D1C7;
+  background: #d3d1c7;
   padding: 2px;
   border-radius: 20px;
   width: 36px;
@@ -218,7 +220,7 @@
 }
 
 .toggle-switch.active {
-  background: #2A5C30;
+  background: #2a5c30;
   justify-content: flex-end;
 }
 
@@ -233,9 +235,9 @@
 .vis-map__zoom {
   display: flex;
   flex-direction: column;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 6px;
-  border: 0.5px solid #D3D1C7;
+  border: 0.5px solid #d3d1c7;
   overflow: hidden;
 }
 
@@ -251,11 +253,11 @@
 }
 
 .vis-map__zoom button:hover {
-  background: #F1EFE8;
+  background: #f1efe8;
 }
 
 .vis-map__zoom button:first-child {
-  border-bottom: 0.5px solid #D3D1C7;
+  border-bottom: 0.5px solid #d3d1c7;
 }
 
 .vis-map__zoom button img {
@@ -271,10 +273,10 @@
   display: flex;
   gap: 14px;
   align-items: center;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255, 255, 255, 0.88);
   padding: 5px 10px;
   border-radius: 6px;
-  border: 0.5px solid #D3D1C7;
+  border: 0.5px solid #d3d1c7;
 }
 
 .vis-map__legend-item {
@@ -292,7 +294,7 @@
 
 .vis-map__legend-label {
   font-size: 8.5pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   font-family: "UncutRegular", sans-serif;
 }
 
@@ -301,7 +303,7 @@
   /* width: 340px; */
   flex-shrink: 0;
   background: white;
-  border-left: 1px solid #E8E6DF;
+  border-left: 1px solid #e8e6df;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -328,7 +330,7 @@
 /* Panel zones — stacked, each separated by a hairline */
 .vis-panel__zone {
   padding: 0 0 18px 0; /* only bottom padding — card handles left/right */
-  border-bottom: 0.5px solid #F0EEE8;
+  border-bottom: 0.5px solid #f0eee8;
 }
 
 .vis-panel__zone:last-child {
@@ -341,7 +343,7 @@
   font-size: 7.5pt;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #C8C5BB;
+  color: #c8c5bb;
   margin: 0 0 14px 0;
 }
 
@@ -361,8 +363,8 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #1C2B1E;
-  color: #E8F0E9;
+  background: #1c2b1e;
+  color: #e8f0e9;
   font-size: 8pt;
   font-family: "UncutMedium", sans-serif;
   display: flex;
@@ -375,7 +377,7 @@
 .vis-step__text {
   font-family: "UncutRegular", sans-serif;
   font-size: 9pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   line-height: 1.5;
 }
 .partner-subtitle p {
@@ -403,14 +405,14 @@
 .partner-title {
   font-family: "UncutMedium", sans-serif;
   font-size: 14pt;
-  color: #1C2B1E;
+  color: #1c2b1e;
   margin: 0 0 10px 0;
   letter-spacing: -0.01em;
 }
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;
   font-size: 9.5pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   line-height: 1.6;
   margin: 0 0 10px 0;
 }
@@ -425,13 +427,13 @@
 }
 
 .partners-list-zone::-webkit-scrollbar-thumb {
-  background: #D3D1C7;
+  background: #d3d1c7;
   border-radius: 3px;
 }
 .hint {
   font-family: "UncutRegular", sans-serif;
   font-size: 8.5pt;
-  color: #B09A5A;
+  color: #b09a5a;
   font-style: italic;
   margin: 4px 0 0 0;
   padding: 0;
@@ -448,7 +450,7 @@
 }
 
 .stat {
-  background: #F5F4F0;
+  background: #f5f4f0;
   border-radius: 4px;
   padding: 10px 6px;
   display: flex;
@@ -460,13 +462,13 @@
 .statValue {
   font-family: "UncutMedium", sans-serif;
   font-size: 11pt;
-  color: #1C2B1E;
+  color: #1c2b1e;
 }
 
 .statLabel {
   font-family: "UncutRegular", sans-serif;
   font-size: 7pt;
-  color: #8A8880;
+  color: #8a8880;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -476,7 +478,7 @@
 .empty-state {
   font-family: "UncutRegular", sans-serif;
   font-size: 9.5pt;
-  color: #8A8880;
+  color: #8a8880;
   line-height: 1.6;
 }
 
@@ -496,17 +498,17 @@
 .acc-title {
   font-family: "UncutRegular", sans-serif;
   font-size: 10pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   transition: color 0.15s;
 }
 
 .accordion-row:hover .acc-title {
-  color: #1C2B1E;
+  color: #1c2b1e;
 }
 
 .acc-icon {
   font-size: 13pt;
-  color: #B4B2A9;
+  color: #b4b2a9;
   transition: transform 0.2s;
   line-height: 1;
 }
@@ -514,7 +516,7 @@
 .acc-body {
   font-family: "UncutRegular", sans-serif;
   font-size: 9pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   line-height: 1.7;
   padding: 6px 0 4px 0;
 }
@@ -523,7 +525,7 @@
   display: block;
   font-family: "UncutRegular", sans-serif;
   font-size: 9pt;
-  color: #3D6B42;
+  color: #3d6b42;
   text-decoration: none;
   padding: 3px 0;
   transition: color 0.15s;
@@ -533,7 +535,7 @@
 }
 
 .source-link:hover {
-  color: #1C2B1E;
+  color: #1c2b1e;
 }
 
 /* ── Card content styles (populateCountryCard output) ── */
@@ -545,13 +547,13 @@
 .back-link {
   font-family: "UncutRegular", sans-serif;
   font-size: 8pt;
-  color: #3D6B42;
+  color: #3d6b42;
   cursor: pointer;
   transition: color 0.15s;
 }
 
 .back-link:hover {
-  color: #1C2B1E;
+  color: #1c2b1e;
 }
 
 /* African partners list */
@@ -560,7 +562,7 @@
 }
 .card-body.partner {
   padding: 12px 0;
-  border-bottom: 0.5px solid #F5F4F0;
+  border-bottom: 0.5px solid #f5f4f0;
   margin: 0;
 }
 
@@ -571,7 +573,7 @@
 .card-title.listPartners {
   font-family: "UncutMedium", sans-serif;
   font-size: 10pt;
-  color: #1C2B1E;
+  color: #1c2b1e;
   margin: 0 0 3px 0;
   letter-spacing: -0.01em;
 }
@@ -579,13 +581,13 @@
 .card-title.partner-select {
   font-family: "UncutMedium", sans-serif;
   font-size: 10pt;
-  color: #1C2B1E;
+  color: #1c2b1e;
   margin: 0 0 10px 0;
 }
 /* Areas of cooperation label smaller */
 .card-text.areasCoop {
   font-size: 7.5pt;
-  color: #B4B2A9;
+  color: #b4b2a9;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 8px 0 4px 0;
@@ -593,24 +595,24 @@
 /* View agreement link */
 .cardLink {
   font-size: 8.5pt;
-  color: #3D6B42;
+  color: #3d6b42;
   text-decoration: none;
   display: inline-block;
   margin-top: 10px;
-  border-bottom: 0.5px solid #3D6B42;
+  border-bottom: 0.5px solid #3d6b42;
   padding-bottom: 1px;
 }
 
 .cardLink:hover {
-  color: #1C2B1E;
-  border-bottom-color: #1C2B1E;
+  color: #1c2b1e;
+  border-bottom-color: #1c2b1e;
 }
 /* Cooperation tags */
 .btn.btn-outline-dark.aresCoop {
   font-size: 0pt; /* hide text, show icon only */
   padding: 4px;
   border-radius: 4px !important;
-  border: 0.5px solid rgba(0,0,0,0.1) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.1) !important;
   width: 26px;
   height: 26px;
   display: inline-flex;
@@ -621,7 +623,7 @@
 /* Trend indicator */
 .trendLabel {
   font-size: 7.5pt;
-  color: #B4B2A9;
+  color: #b4b2a9;
 }
 
 /* Tab container (African partners tab) */
@@ -633,7 +635,7 @@
   display: flex;
   gap: 0;
   margin-bottom: 10px;
-  border-bottom: 1px solid #F0EEE8;
+  border-bottom: 1px solid #f0eee8;
 }
 
 .tab-btn {
@@ -644,23 +646,23 @@
   cursor: pointer;
   font-family: "UncutRegular", sans-serif;
   font-size: 9pt;
-  color: #8A8880;
+  color: #8a8880;
   margin-bottom: -1px;
   transition: color 0.15s;
 }
 
 .tab-btn.active {
-  color: #1C2B1E;
-  border-bottom-color: #1C2B1E;
+  color: #1c2b1e;
+  border-bottom-color: #1c2b1e;
 }
 
 .tab-btn:hover:not(.active) {
-  color: #5F5E5A;
+  color: #5f5e5a;
 }
 .tab-content h5.card-title.partner-select {
   font-size: 9pt;
   font-family: "UncutMedium", sans-serif;
-  color: #1C2B1E;
+  color: #1c2b1e;
   margin: 0 0 6px 0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -668,7 +670,7 @@
 .tab-content {
   font-size: 9pt;
   line-height: 1.65;
-  color: #5F5E5A;
+  color: #5f5e5a;
 }
 
 .tab-content.hidden {
@@ -679,12 +681,12 @@
 .flagshipProjects {
   font-family: "UncutRegular", sans-serif;
   font-size: 8pt;
-  color: #8A8880;
+  color: #8a8880;
   margin: 4px 0 0 0;
 }
 
 .flagshipProjects span {
-  color: #B4B2A9;
+  color: #b4b2a9;
 }
 
 /* ── Tooltip ── */
@@ -692,13 +694,13 @@
 .tooltipTitle {
   font-family: "UncutMedium", sans-serif;
   font-size: 11pt;
-  color: #1C2B1E;
+  color: #1c2b1e;
   margin: 0 0 4px 0;
 }
 
 .tooltipText {
   font-size: 9pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   margin: 0;
   line-height: 1.5;
 }
@@ -706,7 +708,7 @@
 /* ── Print instruction bar (replaces .printDiv) ── */
 
 .vis-print-bar__btn:hover {
-  background: #F5F4F0;
+  background: #f5f4f0;
 }
 
 .vis-print-bar__btn img {
@@ -721,7 +723,7 @@
 
 .vis-panel::-webkit-scrollbar-thumb,
 .customScroll::-webkit-scrollbar-thumb {
-  background: #D3D1C7;
+  background: #d3d1c7;
   border-radius: 4px;
 }
 
@@ -736,7 +738,100 @@
   overflow-x: hidden;
 }
 
-/* -- Web responsiveness -- */
+/* ------------------------- */
+/* -- Web responsiveness --- */
+/* ------------------------- */
+
+/* Phone -------------------- */
+.mobile-partner-bar {
+  display: none;
+}
+
+@media (max-width: 575px) {
+  .vis-body {
+    /* flex-direction: column !important; */
+    height: auto !important;
+    overflow: visible !important;
+  }
+  /* Hide sidebar — replaced by the pill bar */
+  .vis-sidebar {
+    display: none !important;
+  }
+
+  /* Hide right panel — replaced by bottom sheet */
+  .vis-panel {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 50vh;
+    border-left: none;
+    border-top: 0.5px solid #e8e6df;
+  }
+  .vis-panel .third-col {
+    width: 100%;
+  }
+  /* Map takes full width */
+  .vis-map {
+    width: 100% !important;
+    height: 45vh !important;
+    min-height: 0 !important;
+    flex: none !important;
+  }
+  .vis-container {
+    height: auto !important;
+    /* min-height: 100vh; */
+    overflow: visible !important;
+  }
+  .mobile-partner-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 10px 16px;
+    overflow-x: auto;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-bottom: 0.5px solid #e8e6df;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .mobile-partner-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-partner-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 0.5px solid #d3d1c7;
+    background: #ffffff;
+    font-family: "UncutRegular", sans-serif;
+    font-size: 9pt;
+    color: #5f5e5a;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+  }
+  .mobile-partner-pill.active {
+    background: #1C2B1E;
+    border-color: #1C2B1E;
+    color: #ffffff;
+  }
+  .mobile-partner-pill img {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+  }
+
+  /* hide the desktop sidebar on mobile since pills replace it */
+  .vis-sidebar {
+    display: none !important;
+  }
+}
+
 /* @media (min-width: 1025px) {
   .vis-sidebar {
     width: 100px;
@@ -758,7 +853,7 @@
   .vis-sidebar {
     flex-shrink: 0;
     background: #ffffff;
-    border-right: 0.5px solid #E8E6DF;
+    border-right: 0.5px solid #e8e6df;
     display: flex;
     flex-direction: column;
     padding: 16px 8px;

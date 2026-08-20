@@ -51,7 +51,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   }
   // Re-read dimensions in case container resized since module load
   const el = document.querySelector("#map");
-  svg.attr("preserveAspectRatio", "xMidYMin meet")
+  svg.attr("preserveAspectRatio", "xMidYMin meet");
   svg.attr("viewBox", getViewBox(el));
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
@@ -88,7 +88,6 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("fill", "#444441")
     .attr("pointer-events", "none")
     .text((d) => d.properties.name);
-
 }
 
 export function drawBilateralMap(mergedData, selectedPartner) {
@@ -138,7 +137,9 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     )
     .attr("stroke", "white")
     .attr("stroke-width", 0.5)
-    .style("cursor", (d) => africanPartnersSet.has(d.properties.name) ? "pointer" : "default")
+    .style("cursor", (d) =>
+      africanPartnersSet.has(d.properties.name) ? "pointer" : "default",
+    )
     .on("click", function (event, d) {
       const countryName = d.properties.name;
 
@@ -170,7 +171,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("text-anchor", "middle")
     .attr("font-size", "9px")
     .attr("font-family", "UncutRegular, sans-serif")
-    //.attr("pointer-events", "mouse") 
+    //.attr("pointer-events", "mouse")
     .attr("fill", (d) =>
       africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
     )
@@ -259,14 +260,15 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 // Adjust viewbox for different ports
 function getViewBox(el) {
   const w = el.clientWidth;
-  // Tablet: narrow container gets a tighter viewBox
-  // that zooms in on Africa's coordinate space
+  // Phones
+  svg.attr("preserveAspectRatio", "xMidYMid meet");
+  return "-200 -225 700 900";
+  // Tablet
   if (w < 1024) {
     return "-150 150 775 1000";
   }
   return `0 0 ${el.clientWidth} ${el.clientHeight}`;
 }
-
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
 function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {

@@ -78,7 +78,7 @@
           </p>
         </div>
         <!-- Controls move here from inside the map, so they sit in the header -->
-        <div style="display: flex; align-items: center; gap: 12px"> 
+        <div style="display: flex; align-items: center; gap: 12px">
           <button
             id="africaButton"
             style="
@@ -90,19 +90,44 @@
               font-size: 9pt;
               cursor: pointer;
               font-family: &quot;UncutRegular&quot;, sans-serif;
-            ">
+            "
+          >
             Overview
           </button>
         </div>
       </div>
 
       <!-- Three-column body -->
-      <div class="vis-body">
+      <div class="vis-body row">
         <!-- LEFT: Partner sidebar -->
         <!-- Keep .diplomacy-map-nav and .countrySelect/.map-menu-item classes
          so layout.js can still find them with document.querySelectorAll(".countrySelect") -->
-        <aside
-          class="vis-sidebar diplomacy-map-nav col-xl-2 col-sm-2"
+        
+         <!-- For mobile only: pill -->
+        <!-- For mobile only -->
+        <div class="mobile-partner-bar" id="mobilePartnerBar">
+          <button class="mobile-partner-pill countrySelect" data-slug="China">
+            <img src="assets/img/icons/China_2.svg" alt="China" />
+            <span class="label">China</span>
+          </button>
+          <button
+            class="mobile-partner-pill countrySelect"
+            data-slug="EuropeanUnion"
+          >
+            <img src="assets/img/icons/EU.svg" alt="European Union" />
+            <span class="label">European Union</span>
+          </button>
+          <button
+            class="mobile-partner-pill countrySelect"
+            data-slug="GulfCooperationCouncil"
+          >
+            <img src="assets/img/icons/GCC.svg" alt="Gulf Countries" />
+            <span class="label">Gulf Countries</span>
+          </button>
+        </div>
+          <!-- For other ports -->
+         <aside
+          class="vis-sidebar diplomacy-map-nav col-xl-2 col-sm-2 col-12"
           aria-label="Partner selection"
         >
           <p class="vis-sidebar__label">Partners</p>
@@ -160,7 +185,11 @@
 
         <!-- CENTER: Map -->
         <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
-        <main id="map" class="vis-map" aria-label="Africa climate finance map">
+        <main
+          id="map"
+          class="vis-map col-12"
+          aria-label="Africa climate finance map"
+        >
           <!-- Map legend — shown once a partner is selected -->
           <div class="vis-map__legend" id="mapLegend" style="display: none">
             <div class="vis-map__legend-item">
@@ -187,7 +216,7 @@
           </div>
 
           <!-- Mobile touch overlay — keep as-is -->
-          <div
+          <!-- <div
             class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block"
             id="showScrollable"
           >
@@ -200,13 +229,16 @@
               <h1 class="titleBlur">Touch the screen</h1>
               <h2 class="subtitleBlur">to start exploring the map</h2>
             </div>
-          </div>
+          </div> -->
         </main>
 
         <!-- RIGHT: Info panel -->
         <!-- Keep .card.partnership so populateCountryCard and populatePartnerOverview
          can find it with document.querySelector(".card") and ".partner-overview-zone" -->
-        <aside class="vis-panel col col-sm-3" aria-label="Partner information">
+        <aside
+          class="vis-panel col-12 col-sm-3"
+          aria-label="Partner information"
+        >
           <div class="third-col">
             <div class="card partnership expanded"></div>
           </div>
