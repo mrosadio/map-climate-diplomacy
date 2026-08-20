@@ -755,7 +755,7 @@
   .vis-body {
     /* flex-direction: column !important; */
     height: auto !important;
-    overflow: visible !important;
+    /* overflow: visible !important; */
   }
   /* Hide sidebar — replaced by the pill bar */
   .vis-sidebar {
@@ -769,6 +769,7 @@
     min-height: 50vh;
     border-left: none;
     border-top: 0.5px solid #e8e6df;
+    overflow-y: scroll;
   }
   .vis-panel .third-col {
     width: 100%;
