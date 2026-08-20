@@ -7,7 +7,7 @@
    - BEM-lite: block__element--modifier
    - Semantic over positional: .vis-sidebar not .first-col
    - No Bootstrap class mixing for layout
-   ============================================================ */
+  ============================================================ */
 
 /* ── Page tagline (replaces #headerVis) ── */
 /* One sentence above the visualization, nothing more */
@@ -68,7 +68,6 @@
 
 /* ── Partner sidebar (replaces .first-col + .diplomacy-map-nav) ── */
 .vis-sidebar {
-  width: 100px;
   flex-shrink: 0;
   background: #ffffff;
   border-right: 0.5px solid #E8E6DF;
@@ -299,7 +298,7 @@
 
 /* ── Right info panel (replaces .right.bilateral + .third-col) ── */
 .vis-panel {
-  width: 340px;
+  /* width: 340px; */
   flex-shrink: 0;
   background: white;
   border-left: 1px solid #E8E6DF;
@@ -735,4 +734,87 @@
 .customScroll {
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+/* -- Web responsiveness -- */
+@media (min-width: 1025px) {
+  .vis-sidebar {
+    width: 100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Slim the outer container margins */
+  .vis-container {
+    margin: 0 0px 0rem 0px;
+    height: calc(100vh - 60px);
+  }
+
+  .vis-tagline {
+    margin: 0.5rem 20px;
+  }
+
+  /* Sidebar — keep visible but narrower */
+  .vis-sidebar {
+    flex-shrink: 0;
+    background: #ffffff;
+    border-right: 0.5px solid #E8E6DF;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 8px;
+    gap: 6px;
+    overflow-y: auto;
+  }
+
+  .vis-sidebar .map-menu-item .label {
+    font-size: 7pt;
+    line-height: 1.2;
+  }
+
+  .vis-sidebar .map-menu-item .image img {
+    width: 126px;
+    height: 126px;
+  }
+
+  /* Right panel — narrower */
+  /* .vis-panel {
+     width: 260px; 
+  } */
+
+  /* Panel text slightly smaller */
+  .partner-subtitle {
+    font-size: 8.5pt;
+    line-height: 1.6;
+  }
+
+  .vis-step__text {
+    font-size: 8.5pt;
+  }
+
+  .statValue {
+    font-size: 10pt;
+  }
+
+  .statLabel {
+    font-size: 6.5pt;
+  }
+
+  /* Header — tighter */
+  .vis-header {
+    padding: 8px 14px;
+  }
+
+  .vis-header__title {
+    font-size: 10pt;
+  }
+
+  .vis-header__subtitle {
+    font-size: 7.5pt;
+  }
+
+  /* Overview button smaller */
+  #africaButton {
+    padding: 3px 8px !important;
+    font-size: 8pt !important;
+  }
 }

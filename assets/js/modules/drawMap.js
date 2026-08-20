@@ -36,7 +36,7 @@ let svg = d3
 // and addCountryLabels() can read the current path for centroid calculations.
 let projection = d3
   .geoMercator()
-  .scale(550)
+  .scale(600)
   .center([20, 5])
   .translate([W / 2, H / 2]);
 let path = d3.geoPath().projection(projection);
@@ -51,11 +51,11 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   }
   // Re-read dimensions in case container resized since module load
   const el = document.querySelector("#map");
-  svg.attr("viewBox", `0 0 ${el.clientWidth} ${el.clientHeight}`);
+  svg.attr("preserveAspectRatio", "xMidYMin meet")
+  svg.attr("viewBox", getViewBox(el));
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
   g = svg.append("g");
-
 
   g.selectAll("path")
     .data(geoJSONData.features)
@@ -109,7 +109,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
   projection = d3
     .geoMercator()
-    .scale(550)
+    .scale(600)
     .center([20, 5])
     .translate([W / 2, H / 2]);
   path = d3.geoPath().projection(projection);
@@ -256,6 +256,17 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 }
 
 // --- Private: fill colour helpers ---
+// Adjust viewbox for different ports
+function getViewBox(el) {
+  const w = el.clientWidth;
+  // Tablet: narrow container gets a tighter viewBox
+  // that zooms in on Africa's coordinate space
+  if (w < 1024) {
+    return "-150 150 775 1000";
+  }
+  return `0 0 ${el.clientWidth} ${el.clientHeight}`;
+}
+
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
 function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
