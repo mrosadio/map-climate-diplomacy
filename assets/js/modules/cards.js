@@ -249,6 +249,10 @@ function createNavigationSteps() {
 
   return section;
 }
+
+function createAccordion(id, title, content) {
+  
+}
 // build the scannable list of African partners shown in the overview zone
 // read-only -> no click-handlers. the map is the navigation element
 function createAfricanPartnersList(partnerName) {

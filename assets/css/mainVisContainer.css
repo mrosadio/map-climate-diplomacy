@@ -1,25 +1,25 @@
 .mainVisDiv {
-    display: flex;
-    box-sizing: border-box;
-    border: 0.5px solid #d7d7d7;
-    border-radius: 10px;
-    padding: 20px;
-    justify-content: space-between;
-    margin: 0 60px 0 60px;
-    box-sizing: border-box;
-    /* Borders do not override */
-    height: 640px;  
+  display: flex;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  justify-content: space-between;
+  margin: 0 60px 0 60px;
+  box-sizing: border-box;
+  /* Borders do not override */
+  height: 640px;
 }
 @media (min-width: 768px) {
-    .climate-diplomacy-map .diplomacy-map-nav {
-        width: calc(126px + var(--bs-gutter-x));
-        flex: 0 0 auto;
-    }
+  .climate-diplomacy-map .diplomacy-map-nav {
+    width: calc(126px + var(--bs-gutter-x));
+    flex: 0 0 auto;
+  }
 }
 ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 /* hide active image by default */
 .map-menu-item .image img.active {
@@ -38,252 +38,268 @@ ul {
 
 /* Adjust the third column (right panel) */
 .first-col {
-    /* flex: 1; Without it, navbar doesnt take much space */
-    /* Flex 1--> Allow it to take up proportional space */
-    max-width: 25%; /* Limit its width */
-    overflow-y: auto; /* Enable vertical scrolling if needed */
+  /* flex: 1; Without it, navbar doesnt take much space */
+  /* Flex 1--> Allow it to take up proportional space */
+  max-width: 25%; /* Limit its width */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
 }
 #map {
-    flex: 2; /* Allow it to take up proportional space */
-    position: relative;
-    overflow: hidden;
-    margin-left: 8px;
+  flex: 2; /* Allow it to take up proportional space */
+  position: relative;
+  overflow: hidden;
+  margin-left: 8px;
 }
 .right.bilateral {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex: 1; /* Allow it to take up proportional space */
-    /* max-width: 25%; */ /* Limit its width */
-    height: 100%; /* Full height of the parent */
-    overflow: hidden; /* Prevent overflow */
-    padding: 10px; /* Add some padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex: 1; /* Allow it to take up proportional space */
+  /* max-width: 25%; */ /* Limit its width */
+  height: 100%; /* Full height of the parent */
+  overflow: hidden; /* Prevent overflow */
+  padding: 10px; /* Add some padding */
 }
 .third-col {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Allow it to take up proportional space */
-    height: 100%; /* Full height of the parent */
-    overflow: hidden; /* Prevent overflow */ 
-    padding: 10px; /* Add some padding */
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow it to take up proportional space */
+  height: 100%; /* Full height of the parent */
+  overflow: hidden; /* Prevent overflow */
+  padding: 10px; /* Add some padding */
 }
 .card.partnership.expanded {
-    flex-grow: 1; /* Allow it to grow and fill available space */
-    overflow-y: auto; /* Enable vertical scrolling for content */
-    padding: 0.75rem; /* Add some padding */
-    border: none;
+  flex-grow: 1; /* Allow it to grow and fill available space */
+  overflow-y: auto; /* Enable vertical scrolling for content */
+  padding: 0.75rem; /* Add some padding */
+  border: none;
 }
 
 .btnZoom {
-    top: 10px;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .btnZoom button img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .mainVisNavTab {
-   /*  width: 250px; */
+  /*  width: 250px; */
 }
 
 .navTabOverview {
-    margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
 h2.accordion-header.partnerHeader {
-    .accordion-button2 {
-        font-size: 14pt;
-        font-weight: normal;
-        color: #252525;
-        justify-content: space-between;
-    }
+  .accordion-button2 {
+    font-size: 14pt;
+    font-weight: normal;
+    color: #252525;
+    justify-content: space-between;
+  }
 
-    #africaButton {
-          background: transparent !important;
-  border: 0.5px solid #D3D1C7 !important;
-  color: #5F5E5A !important;
-  border-radius: 4px;
-  padding: 4px 12px;
-  font-size: 8.5pt;
-  cursor: pointer;
-  font-family: "UncutRegular", sans-serif;
-  transition: background 0.15s, color 0.15s;
-        /* Esto separa los elementos a los extremos */
-    }
+  .button#africaButton {
+    background: transparent !important;
+    /* border: 0.5px solid #d3d1c7 !important; */
+    /* color: #5f5e5a !important; */
+    /* border-radius: 4px; */
+    /* padding: 4px 12px;
+    font-size: 8.5pt;
+    cursor: pointer;
+    font-family: "UncutRegular", sans-serif; */
+    transition:
+      background 0.15s,
+      color 0.15s;
+    background: transparent;
+    border: 0.5px solid #3d5c41;
+    color: #a8c9ab;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 9pt;
+    cursor: pointer;
+    font-family: "UncutRegular", sans-serif;
+    position: absolute;
+    right: calc(25% + (var(--bs-gutter-x) / 2));
+    z-index: 5;
+  }
 }
 
 .triangleIcon {
-    margin-left: auto;
-    /* Puts the triangle at the extreme right */
-    width: 16px;
-    /* Adjust the size */
-    height: 16px;
-    transition: transform 0.3s ease;
-    transform: rotate(-90deg);
+  margin-left: auto;
+  /* Puts the triangle at the extreme right */
+  width: 16px;
+  /* Adjust the size */
+  height: 16px;
+  transition: transform 0.3s ease;
+  transform: rotate(-90deg);
 }
 
 .accordion-button2[aria-expanded="true"] .triangleIcon {
-    transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .accordion-button2[aria-expanded="false"] .triangleIcon {
-    transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 .africaTriangle {
-    display: none;
+  display: none;
 }
 
 .accordion-body .accordionBilateral {
-    border: black solid 0.5px;
-    padding: 0.75rem 0.75rem;
+  border: black solid 0.5px;
+  padding: 0.75rem 0.75rem;
 }
 
 .customScroll {
-    max-height: 100%;
-    overflow-y: auto;
-    margin-top: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  margin-top: 0;
 }
 
 .customScrollAccordion {
-    max-height: 500px;
-    overflow-y: auto;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .customScroll {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 .customScroll::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 .customScroll::-webkit-scrollbar-button {
-    display: none;
+  display: none;
 }
 
 .customScroll::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .customScroll::-webkit-scrollbar-track {
-    background: #ccc;
+  background: #ccc;
 }
 
 .cardSubtitle {
-    font-size: 11pt;
-    padding: 0px;
-    padding-bottom: 8px;
-    margin: 0px;
+  font-size: 11pt;
+  padding: 0px;
+  padding-bottom: 8px;
+  margin: 0px;
 }
 
 .accordion {
-    height: 100%;
-    padding: 0px;
-    width: 450px;
-    margin-bottom: 0px;
+  height: 100%;
+  padding: 0px;
+  width: 450px;
+  margin-bottom: 0px;
 }
 
 #africaButton,
 .accordion-button2 {
   background: transparent !important;
-  border: 0.5px solid #D3D1C7 !important;
-  color: #5F5E5A !important;
+  border: 0.5px solid #d3d1c7 !important;
+  color: #5f5e5a !important;
   border-radius: 4px;
   padding: 4px 12px;
   font-size: 8.5pt;
   cursor: pointer;
   font-family: "UncutRegular", sans-serif;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 #africaButton:hover {
-  background: #F5F4F0 !important;
-  color: #1C1C1A !important;
+  background: #f5f4f0 !important;
+  color: #1c1c1a !important;
 }
 .accordion-button2:focus,
 .accordion-button2.active {
-    background-color: #2b7e3d !important;
-    font-weight: bold !important;
-    box-shadow: none !important;
+  background-color: #2b7e3d !important;
+  font-weight: bold !important;
+  box-shadow: none !important;
 }
 
 #africaButton:not(:focus),
 .accordion-button2:not(:focus) {
-    background-color: #a8d5ba;
+  background-color: #a8d5ba;
 }
 
 #africaButton:not(:focus).active {
-    background-color: #2b7e3d;
+  background-color: #2b7e3d;
 }
 
 .list-group-item.btn-outline-dark.countrySelect {
-    color: #757575;
-    text-decoration: none;
-    transition: color 0.3s, text-decoration-color 0.3s;
-    padding-left: 0px;
-    padding-top: 0px;
-    margin: 0px;
-    font-size: 10pt;
+  color: #757575;
+  text-decoration: none;
+  transition:
+    color 0.3s,
+    text-decoration-color 0.3s;
+  padding-left: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  font-size: 10pt;
 }
 
 .list-group-item.btn-outline-dark.countrySelect:hover {
-    color: #2b7e3d;
-    text-decoration: underline;
-    text-decoration-color: black;
-    text-underline-offset: 10px;
+  color: #2b7e3d;
+  text-decoration: underline;
+  text-decoration-color: black;
+  text-underline-offset: 10px;
 }
 
 .line {
-    width: 100%;
-    height: 3px;
-    background-color: #2b7e3d;
-    margin-bottom: 14px;
+  width: 100%;
+  height: 3px;
+  background-color: #2b7e3d;
+  margin-bottom: 14px;
 }
 
 .accordion-body .accordionMultilateral {
-    border: black solid 0.5px;
-    padding: 0.75rem 0.75rem;
+  border: black solid 0.5px;
+  padding: 0.75rem 0.75rem;
 }
 
 .listPartners {
-    font-size: 16pt;
+  font-size: 16pt;
 }
 
 .listPartners {
-    .list-group-item {
-        font-size: 30pt;
-    }
+  .list-group-item {
+    font-size: 30pt;
+  }
 }
 
 .card-title.listPartners {
-    font-size: 15pt;
+  font-size: 15pt;
 }
 
 .card.partnership {
-    display: flex;
-    border: 1px solid lightgray;
-    border-radius: 7px;
-    padding: 0px 10px 10px 10px;
+  display: flex;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+  padding: 0px 10px 10px 10px;
 }
 .card-body.partner {
-    margin: 0;
-    padding: 2px;
-    border: none;
-    border-bottom: #252525 solid 0.5px;
-    margin-right: 10px;
-    padding: 15px 10px 15px 0px !important;
+  margin: 0;
+  padding: 2px;
+  border: none;
+  border-bottom: #252525 solid 0.5px;
+  margin-right: 10px;
+  padding: 15px 10px 15px 0px !important;
 }
 
 .card-body.partner:last-child {
-    border-bottom: none;
-    margin-bottom: 0px !important;
+  border-bottom: none;
+  margin-bottom: 0px !important;
 }
 
 .project,
@@ -294,113 +310,116 @@ h2.accordion-header.partnerHeader {
 p.card-text.flagshipProjects.span, */
 .flagshipProjects,
 .cardLink {
-    font-size: "11pt";
-    padding-bottom: 0px;
+  font-size: "11pt";
+  padding-bottom: 0px;
 }
 
 p.trendLabel {
-
 }
 
 .areasCoop {
-    border-radius: 50% !important; 
+  border-radius: 50% !important;
 }
 .webIcon {
-    height: 20px;
+  height: 20px;
 }
 
 .cardLink {
-    text-decoration: none;
-    color: "#0071BC";
+  text-decoration: none;
+  color: "#0071BC";
 }
 
 .list-group-item.blocSelect {
-    color: #757575;
-    text-decoration: none;
-    transition: color 0.3s, text-decoration-color 0.3s;
-    padding-left: 0px;
-    margin-top: 0px;
-    padding-top: 0px;
-    font-size: 10pt;
+  color: #757575;
+  text-decoration: none;
+  transition:
+    color 0.3s,
+    text-decoration-color 0.3s;
+  padding-left: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  font-size: 10pt;
 }
 
 .list-group-item.blocSelect:hover {
-    color: #2b7e3d;
-    text-decoration: underline;
-    text-decoration-color: #2b7e3d;
-    text-underline-offset: 4px;
+  color: #2b7e3d;
+  text-decoration: underline;
+  text-decoration-color: #2b7e3d;
+  text-underline-offset: 4px;
 }
 
 .navTabMobile {
-    display: none;
+  display: none;
 }
 
 .controlsDiv {
-    position: absolute;
-    top: 0px;
-    right: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    align-items: flex-end;
-    background-color: transparent;
-    pointer-events: none;
+  position: absolute;
+  top: 0px;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  align-items: flex-end;
+  background-color: transparent;
+  pointer-events: none;
 }
 
 .controlsDiv * {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 
 .controlToggle {
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 3px 5px 3px 5px;
-    border-radius: 7px;
-    border: 1pt solid #fff;
-    margin-top: 6px;
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 3px 5px 3px 5px;
+  border-radius: 7px;
+  border: 1pt solid #fff;
+  margin-top: 6px;
 }
 
 .labelToggle {
-    font-size: 14px;
-    color: #000;
-    margin: 0px;
-    margin-right: 12px;
-    margin-left: 12px;
+  font-size: 14px;
+  color: #000;
+  margin: 0px;
+  margin-right: 12px;
+  margin-left: 12px;
 }
 
 .toggleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    /* Fondo gris para el contenedor del toggle */
-    padding: 3px;
-    border-radius: 20px;
-    width: 45px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  /* Fondo gris para el contenedor del toggle */
+  padding: 3px;
+  border-radius: 20px;
+  width: 45px;
+  cursor: pointer;
 }
 
 .toggleButton {
-    width: 16px;
-    height: 16px;
-    background-color: #f2f2f2;
-    border-radius: 50%;
-    transition: background-color 0.3s, transform 0.3s;
+  width: 16px;
+  height: 16px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
 }
 
 .toggleContainer.active .toggleButton {
-    background-color: #4b4b4b;
-    /* Amarillo cuando está activo */
-    transform: translateX(18px);
-    /* Mueve el botón a la derecha */
+  background-color: #4b4b4b;
+  /* Amarillo cuando está activo */
+  transform: translateX(18px);
+  /* Mueve el botón a la derecha */
 }
 
 .btn.btn-outline-dark.aresCoop {
-    font-size: 9pt;
-    padding: 2px 5px
+  font-size: 9pt;
+  padding: 2px 5px;
 }
 
 .tab-content {
@@ -453,13 +472,13 @@ p.trendLabel {
 }
 
 .statLabel {
-  font-family: 'UncutRegular' !important;
+  font-family: "UncutRegular" !important;
   font-size: 0.75rem;
   color: #666;
   text-align: center;
 }
 .iconsRow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }

@@ -22,11 +22,13 @@
 
 /* ── Visualization wrapper (replaces .mainVisDiv) ── */
 .vis-container {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 1rem;
   display: flex;
   flex-direction: column;
   margin: 0 60px 2rem 60px;
-  border: 0.5px solid #d3d1c7;
-  border-radius: 10px;
+  /* border: 0.5px solid #d3d1c7; */
+  /* border-radius: 10px; */
   overflow: hidden;
   /* No fixed height — fills viewport naturally */
   height: calc(100vh - 60px);
@@ -44,7 +46,7 @@
 
 .vis-header__title {
   font-family: "UncutMedium", sans-serif;
-  font-size: 11pt;
+  /* font-size: 11pt; */
   color: #1c1c1a;
   margin: 0;
   letter-spacing: 0.01em;
@@ -52,9 +54,10 @@
 
 .vis-header__subtitle {
   font-family: "UncutRegular", sans-serif;
-  font-size: 8pt;
-  color: #8a8880;
+  font-size: 14pt;
+  /* color: #8a8880; */
   margin: 2px 0 0 0;
+
 }
 
 /* ── Three-column body ── */
@@ -70,7 +73,7 @@
 .vis-sidebar {
   flex-shrink: 0;
   background: #ffffff;
-  border-right: 0.5px solid #e8e6df;
+  /* border-right: 0.5px solid #e8e6df; */
   display: flex;
   flex-direction: column;
   padding: 16px 8px;
@@ -303,7 +306,7 @@
   /* width: 340px; */
   flex-shrink: 0;
   background: white;
-  border-left: 1px solid #e8e6df;
+  /* border-left: 1px solid #e8e6df; */
   display: flex;
   flex-direction: column;
   overflow-y: auto;

@@ -39,10 +39,10 @@
   </head>
 
   <body>
-    <p class="vis-tagline">
+    <!-- <p class="vis-tagline">
       Mapping bilateral climate finance agreements between African countries,
       China, the EU, and Gulf states.
-    </p>
+    </p> -->
 
     <!---**************** [MOBILE] START SCROLLBAR ****************--->
     <div class="mobilePickerDiv">
@@ -73,11 +73,13 @@
       <div class="vis-header">
         <div>
           <h1 class="vis-header__title">Africa's Green Transition</h1>
-          <p class="vis-header__subtitle">
-            Mapping cooperation in climate finance · APRI
+          <p class="vis-header__subtitle fw-lighter">
+            Mapping bilateral climate finance agreements between African countries,
+      China, the EU, and Gulf states.
           </p>
         </div>
-        <!-- Controls move here from inside the map, so they sit in the header -->
+      </div>
+      <!-- Controls move here from inside the map, so they sit in the header -->
         <div style="display: flex; align-items: center; gap: 12px">
           <button
             id="africaButton"
@@ -90,13 +92,15 @@
               font-size: 9pt;
               cursor: pointer;
               font-family: &quot;UncutRegular&quot;, sans-serif;
+              position: absolute;
+              right: calc(25% + (var(--bs-gutter-x) / 2));
+              top: calc(13% + (var(--bs-gutter-y)));
+              z-index: 5;
             "
           >
             Overview
           </button>
         </div>
-      </div>
-
       <!-- Three-column body -->
       <div class="vis-body row">
         <!-- LEFT: Partner sidebar -->
@@ -130,7 +134,7 @@
           class="vis-sidebar diplomacy-map-nav col-xl-2 col-sm-2 col-12"
           aria-label="Partner selection"
         >
-          <p class="vis-sidebar__label">Partners</p>
+          <p class="vis-sidebar__label d-flex justify-content-center">Partners</p>
           <ul class="map-menu js-mapMenu">
             <li class="countrySelect map-menu-item" data-slug="China">
               <div class="image d-flex justify-content-center">
@@ -182,7 +186,10 @@
             </li>
           </ul>
         </aside>
-
+        <!-- OVERVIEW BUTTON -->
+         <!-- <button id="africaButton2">
+            Overview
+         </button> -->
         <!-- CENTER: Map -->
         <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
         <main

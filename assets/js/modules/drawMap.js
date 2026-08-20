@@ -260,11 +260,14 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 // Adjust viewbox for different ports
 function getViewBox(el) {
   const w = el.clientWidth;
-  // Phones
-  svg.attr("preserveAspectRatio", "xMidYMid meet");
-  return "-200 -225 700 900";
+  // Phone
+  if (w < 576) {
+    svg.attr("preserveAspectRatio", "xMidYMin meet");
+    return "-200 -225 700 900";
+  }
   // Tablet
   if (w < 1024) {
+    svg.attr("preserveAspectRatio", "xMidYMin meet");
     return "-150 150 775 1000";
   }
   return `0 0 ${el.clientWidth} ${el.clientHeight}`;
