@@ -57,7 +57,7 @@ ul {
   flex: 1; /* Allow it to take up proportional space */
   /* max-width: 25%; */ /* Limit its width */
   height: 100%; /* Full height of the parent */
-  overflow: hidden; /* Prevent overflow */
+  /* overflow: hidden; Prevent overflow */
   padding: 10px; /* Add some padding */
 }
 .third-col {
@@ -65,12 +65,12 @@ ul {
   flex-direction: column;
   flex: 1; /* Allow it to take up proportional space */
   height: 100%; /* Full height of the parent */
-  overflow: hidden; /* Prevent overflow */
+  overflow: scroll;
   padding: 10px; /* Add some padding */
 }
 .card.partnership.expanded {
   flex-grow: 1; /* Allow it to grow and fill available space */
-  overflow-y: auto; /* Enable vertical scrolling for content */
+  overflow-y: scroll; /* Enable vertical scrolling for content */
   padding: 0.75rem; /* Add some padding */
   border: none;
 }

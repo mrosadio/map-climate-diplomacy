@@ -66,7 +66,6 @@
   flex-direction: row !important;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
 }
 
 /* ── Partner sidebar (replaces .first-col + .diplomacy-map-nav) ── */
@@ -309,19 +308,21 @@
   /* border-left: 1px solid #e8e6df; */
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  height: calc(100vh - 150px); /* WE NEED THIS TO ENABLE OVERSCROLL */
+  overflow-y: scroll !important;
 }
 .vis-panel .card.partnership {
-  overflow-y: auto; /* only the card content scrolls */
+  overflow: scroll !important; /* only the card content scrolls */
   flex: 1;
   min-height: 0; /* same flexbox fix */
+  height: atu
 }
 .card.partnership.expanded {
   display: flex !important;
   flex-direction: column !important;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
+  overflow: scroll !important;
   padding: 18px 24px;
   border: none;
   border-radius: 0;
