@@ -85,11 +85,11 @@
 .vis-sidebar__label {
   font-family: "UncutMedium", sans-serif;
   font-size: 7.5pt;
-  color: #c8c5bb;
+  /* color: #c8c5bb; */
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 0 8px;
-  margin-bottom: 8px;
+  padding: 10px 0px;
+  margin: 0 0 5px;
 }
 .vis-sidebar .map-menu {
   padding: 0;
@@ -113,15 +113,15 @@
   list-style: none;
 }
 
-.vis-sidebar .map-menu-item:hover {
+/* .vis-sidebar .map-menu-item:hover {
   background: #f5f4f0;
   border-color: #e8e6df;
-}
+} */
 
-.vis-sidebar .map-menu-item.active {
+/* .vis-sidebar .map-menu-item.active {
   background: #f0efea;
   border-color: #c8c5bb;
-}
+} */
 
 .vis-sidebar .map-menu-item .label {
   font-family: "UncutMedium", sans-serif;
