@@ -146,13 +146,13 @@ export function populatePartnerOverview(partnerName) {
   header.appendChild(createStatStrip(partnerName));
  
   const body = document.createElement("p");
-  body.classList.add("partner-subtitle");
+  body.classList.add("partner-subtitle", "vis-panel__zone-text");
   body.innerHTML = overviewText[partnerName] || "No overview available.";
   header.appendChild(body);
  
   const hint = document.createElement("p");
   hint.classList.add("hint");
-  hint.textContent = "Click a country on the map to see the bilateral detail →";
+  hint.textContent = "← Click a country on the map to see the bilateral detail";
   header.appendChild(hint);
  
   zone.appendChild(header);
@@ -403,7 +403,7 @@ function createStatStrip(selectedPartner) {
     </div>
     <div class="stat">
       <span class="statValue">${statStrip.tradeDeficit[selectedPartner]}</span>
-      <span class="statLabel">Trade deficit</span>
+      <span class="statLabel">Trade <br> deficit</span>
     </div>
     <div class="stat">
       <span class="statValue">${statStrip.NProjects[selectedPartner]}</span>

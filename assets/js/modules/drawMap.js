@@ -98,7 +98,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     console.error("drawBilateralMap: no valid mergedData received");
     return;
   }
-  svg.attr("viewBox", getViewBox(el));
+  //svg.attr("viewBox", getViewBox(el));
   // const settings = mapDisplaySettings[selectedPartner];
   // if (!settings) {
   //   console.error(

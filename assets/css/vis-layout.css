@@ -26,7 +26,7 @@
   --bs-gutter-y: 1rem;
   display: flex;
   flex-direction: column;
-  margin: 0 60px 2rem 60px;
+  margin: 0 30px 2rem 30px;
   /* border: 0.5px solid #d3d1c7; */
   /* border-radius: 10px; */
   overflow: hidden;
@@ -322,7 +322,7 @@
   flex: 1;
   min-height: 0;
   overflow: scroll !important;
-  padding: 18px 24px;
+  padding: 18px 18px;
   border: none;
   border-radius: 0;
 }
@@ -824,11 +824,10 @@
     min-height: 0 !important;
     flex: none !important;
   }
-  .vis-container {
+  /* .vis-container {
     height: auto !important;
-    /* min-height: 100vh; */
     overflow: visible !important;
-  }
+  } */
   .mobile-partner-bar {
     display: flex;
     flex-direction: row;
