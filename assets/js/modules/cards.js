@@ -16,42 +16,33 @@ export function renderOverviewPanel() {
   if (!card) return;
   card.innerHTML = "";
  
+  // About zone - Bootstrap accordion 
+  const accordionWrapper = document.createElement("div");
+  accordionWrapper.classList.add("accordion", "accordion-flush", "vis-panel__zone");
+  accordionWrapper.id = "overviewAccordion";
+  const aboutText = `Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.`;
+  accordionWrapper.appendChild(
+    createBootstrapAccordion(
+      "about",
+      "About this visualization",
+      `<p class="partner-subtitle">${aboutText}</p>`
+    )
+  );  
+  card.appendChild(accordionWrapper);
+  // const aboutZone = document.createElement("div");
+  // aboutZone.classList.add("vis-panel__zone");
+  // const aboutLabel = document.createElement("p");
+  // aboutLabel.classList.add("vis-panel__zone-label");
+  // aboutLabel.textContent = "About this visualization";
+  // aboutZone.appendChild(aboutLabel);
+  // const aboutText = document.createElement("p");
+  // aboutText.classList.add("partner-subtitle");
+  // aboutText.innerHTML = `Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.`;
+  // aboutZone.appendChild(aboutText);
+  // card.appendChild(aboutZone);
+
+  // How to navigate
   card.appendChild(createNavigationSteps());
- 
-  // About zone
-  const aboutZone = document.createElement("div");
-  aboutZone.classList.add("vis-panel__zone");
-  const aboutLabel = document.createElement("p");
-  aboutLabel.classList.add("vis-panel__zone-label");
-  aboutLabel.textContent = "About this visualization";
-  aboutZone.appendChild(aboutLabel);
-  const aboutText = document.createElement("p");
-  aboutText.classList.add("partner-subtitle");
-  aboutText.innerHTML = `Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.`;
-  aboutZone.appendChild(aboutText);
-  card.appendChild(aboutZone);
- 
-  // Sources zone
-  const sourcesZone = document.createElement("div");
-  sourcesZone.classList.add("vis-panel__zone");
-  const sourcesLabel = document.createElement("p");
-  sourcesLabel.classList.add("vis-panel__zone-label");
-  sourcesLabel.textContent = "Data sources";
-  sourcesZone.appendChild(sourcesLabel);
-  [
-    { label: "IMF Database", url: "#" },
-    { label: "World Bank Database", url: "#" },
-    { label: "China Global Investment Tracker", url: "#" },
-    { label: "Gulf Renewable Projects Tracker", url: "#" },
-  ].forEach(({ label, url }) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.classList.add("source-link");
-    link.textContent = label;
-    sourcesZone.appendChild(link);
-  });
-  card.appendChild(sourcesZone);
  
   // Legend zone
   const legendZone = document.createElement("div");
@@ -100,6 +91,27 @@ export function renderOverviewPanel() {
   });
   legendZone.appendChild(trendList);
   card.appendChild(legendZone);
+  // Sources zone
+  const sourcesZone = document.createElement("div");
+  sourcesZone.classList.add("vis-panel__zone");
+  const sourcesLabel = document.createElement("p");
+  sourcesLabel.classList.add("vis-panel__zone-label");
+  sourcesLabel.textContent = "Data sources";
+  sourcesZone.appendChild(sourcesLabel);
+  [
+    { label: "IMF Database", url: "#" },
+    { label: "World Bank Database", url: "#" },
+    { label: "China Global Investment Tracker", url: "#" },
+    { label: "Gulf Renewable Projects Tracker", url: "#" },
+  ].forEach(({ label, url }) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.classList.add("source-link");
+    link.textContent = label;
+    sourcesZone.appendChild(link);
+  });
+  card.appendChild(sourcesZone);
 }
 
 // Called by layout.js → onPartnerSelect()
@@ -212,6 +224,33 @@ export function populateCountryCard(
 
   initTooltips(zone);
 }
+
+// Private: bootstrap accordion builder
+function createBootstrapAccordion(id, title, contentHTML) {
+  const item = document.createElement("div");
+  item.classList.add("accordion-item");
+  item.innerHTML = `
+  <h2 class="accordion-header" id="heading-${id}">
+      <button class="accordion-button collapsed vis-panel__zone-label"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-${id}"
+              aria-expanded="false"
+              aria-controls="collapse-${id}">
+        ${title}
+      </button>
+    </h2>
+  <div id="collapse-${id}"
+         class="accordion-collapse collapse"
+         aria-labelledby="heading-${id}"
+         data-bs-parent="#overviewAccordion">
+      <div class="accordion-body">
+        ${contentHTML}
+      </div>
+    </div>
+  `;
+  return item;
+} 
 
 // --- partner overview panel helper ---
 // Helper — also used by renderOverviewPanel

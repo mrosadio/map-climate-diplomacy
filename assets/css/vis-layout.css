@@ -332,10 +332,10 @@
   padding-bottom: 18px;
 }
 /* Panel zones — stacked, each separated by a hairline */
-.vis-panel__zone {
-  padding: 0 0 18px 0; /* only bottom padding — card handles left/right */
+/*.vis-panel__zone {
+  padding: 0 0 18px 0; 
   border-bottom: 0.5px solid #f0eee8;
-}
+}*/ /* only bottom padding — card handles left/right */
 
 .vis-panel__zone:last-child {
   border-bottom: none;
@@ -351,6 +351,41 @@
   margin: 0 0 14px 0;
 }
 
+/* Accordion */
+.accordion.vis-panel__zone {
+  padding-bottom: 8px
+}
+.accordion-item {
+  border: none;
+  border-top: 0.5px solid #F0EEE8;
+  border-radius: 0 !important;
+  background: transparent;
+}
+.accordion-button {
+  /* font-family: "UncutRegular", sans-serif; */
+  font-size: 9.5pt;
+  color: #5F5E5A;
+  background: transparent;
+  padding: 10px 0;
+  box-shadow: none !important;
+}
+.accordion-button:not(.collapsed) {
+  color: #1C2B1E;
+  background: transparent;
+  box-shadow: none !important;
+}
+.accordion-button::after {
+  width: 12px;
+  height: 12px;
+  background-size: 12px;
+}
+.accordion-body {
+  padding: 0 0 14px 0;
+}
+/* Remove the outer accordion zone padding conflict */
+/* .accordion.vis-panel__zone {
+  padding-bottom: 0;
+} */
 /* Navigation steps */
 .vis-step {
   display: flex;
