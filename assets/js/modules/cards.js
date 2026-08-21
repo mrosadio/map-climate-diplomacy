@@ -25,7 +25,7 @@ export function renderOverviewPanel() {
     createBootstrapAccordion(
       "about",
       "About this visualization",
-      `<p class="partner-subtitle">${aboutText}</p>`
+      `<p class="partner-subtitle vis-panel__zone-text">${aboutText}</p>`
     )
   );  
   card.appendChild(accordionWrapper);
@@ -52,7 +52,7 @@ export function renderOverviewPanel() {
   legendLabel.textContent = "Map legend";
   legendZone.appendChild(legendLabel);
   const legendSub = document.createElement("p");
-  legendSub.classList.add("partner-subtitle");
+  legendSub.classList.add("partner-subtitle", "vis-panel__zone-text");
   legendSub.style.marginBottom = "10px";
   legendSub.textContent = "Countries shaded by number of active partner relationships.";
   legendZone.appendChild(legendSub);
@@ -66,14 +66,14 @@ export function renderOverviewPanel() {
   ].forEach(({ color, label }) => {
     const row = document.createElement("div");
     row.style.cssText = "display:flex;align-items:center;gap:8px;";
-    row.innerHTML = `<div style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0;"></div><span class="vis-step__text">${label}</span>`;
+    row.innerHTML = `<div style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0;"></div><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
     connectivityList.appendChild(row);
   });
   legendZone.appendChild(connectivityList);
  
   const trendLabelEl = document.createElement("p");
   trendLabelEl.classList.add("vis-panel__zone-label");
-  trendLabelEl.style.marginTop = "10px";
+  trendLabelEl.style.marginTop = "18px";
   trendLabelEl.textContent = "Investment trend";
   legendZone.appendChild(trendLabelEl);
  
@@ -86,7 +86,7 @@ export function renderOverviewPanel() {
   ].forEach(({ icon, filter, label }) => {
     const row = document.createElement("div");
     row.style.cssText = "display:flex;align-items:center;gap:8px;";
-    row.innerHTML = `<img src="/assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text">${label}</span>`;
+    row.innerHTML = `<img src="/assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
     trendList.appendChild(row);
   });
   legendZone.appendChild(trendList);
@@ -97,21 +97,26 @@ export function renderOverviewPanel() {
   const sourcesLabel = document.createElement("p");
   sourcesLabel.classList.add("vis-panel__zone-label");
   sourcesLabel.textContent = "Data sources";
+  sourcesLabel.style.marginTop = "18px";
   sourcesZone.appendChild(sourcesLabel);
-  [
+  // Sources accordion item
+  const sourcesLinks = [
     { label: "IMF Database", url: "#" },
     { label: "World Bank Database", url: "#" },
     { label: "China Global Investment Tracker", url: "#" },
     { label: "Gulf Renewable Projects Tracker", url: "#" },
-  ].forEach(({ label, url }) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.classList.add("source-link");
-    link.textContent = label;
-    sourcesZone.appendChild(link);
-  });
-  card.appendChild(sourcesZone);
+  ].map(({ label, url }) =>
+    `<a href="${url}" target="_blank" class="source-link vis-panel__zone-text">${label}</a>`
+  ).join("");
+  accordionWrapper.appendChild(
+    createBootstrapAccordion(
+      "sources",
+      "Data sources",
+      sourcesLinks
+    )
+  );
+//card.appendChild(accordionWrapper);
+  //card.appendChild(sourcesZone);
 }
 
 // Called by layout.js → onPartnerSelect()
@@ -242,8 +247,7 @@ function createBootstrapAccordion(id, title, contentHTML) {
     </h2>
   <div id="collapse-${id}"
          class="accordion-collapse collapse"
-         aria-labelledby="heading-${id}"
-         data-bs-parent="#overviewAccordion">
+         aria-labelledby="heading-${id}">
       <div class="accordion-body">
         ${contentHTML}
       </div>
@@ -278,7 +282,7 @@ function createNavigationSteps() {
     num.textContent = i + 1;
 
     const stepText = document.createElement("span");
-    stepText.classList.add("vis-step__text");
+    stepText.classList.add("vis-step__text", "vis-panel__zone-text");
     stepText.textContent = text;
 
     row.appendChild(num);

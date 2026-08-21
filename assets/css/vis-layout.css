@@ -57,7 +57,6 @@
   font-size: 14pt;
   /* color: #8a8880; */
   margin: 2px 0 0 0;
-
 }
 
 /* ── Three-column body ── */
@@ -315,7 +314,7 @@
   overflow: scroll !important; /* only the card content scrolls */
   flex: 1;
   min-height: 0; /* same flexbox fix */
-  height: atu
+  height: atu;
 }
 .card.partnership.expanded {
   display: flex !important;
@@ -331,7 +330,15 @@
   flex-shrink: 0; /* all sections fixed except the list zone */
   padding-bottom: 18px;
 }
-/* Panel zones — stacked, each separated by a hairline */
+/* Text styling for all text in right or side panel */
+/* use in combination with all container/tags that contain text */
+.vis-panel__zone-text {
+  text-align: justify;
+  text-wrap: stable;
+  hyphens: auto;
+  font-size: 9.5pt;
+}
+
 /*.vis-panel__zone {
   padding: 0 0 18px 0; 
   border-bottom: 0.5px solid #f0eee8;
@@ -344,33 +351,34 @@
 
 .vis-panel__zone-label {
   font-family: "UncutMedium", sans-serif;
-  font-size: 7.5pt;
+  font-size: 9.5pt;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #c8c5bb;
-  margin: 0 0 14px 0;
+  color: #5f5e5a;
+  margin: 0 0 5px 0;
+  padding: 0 0 10px 0;
 }
 
 /* Accordion */
 .accordion.vis-panel__zone {
-  padding-bottom: 8px
+  padding-bottom: 8px;
 }
 .accordion-item {
   border: none;
-  border-top: 0.5px solid #F0EEE8;
+  border-top: 0.5px solid #f0eee8;
   border-radius: 0 !important;
   background: transparent;
 }
 .accordion-button {
   /* font-family: "UncutRegular", sans-serif; */
   font-size: 9.5pt;
-  color: #5F5E5A;
+  color: #5f5e5a;
   background: transparent;
   padding: 10px 0;
   box-shadow: none !important;
 }
 .accordion-button:not(.collapsed) {
-  color: #1C2B1E;
+  color: #1c2b1e;
   background: transparent;
   box-shadow: none !important;
 }
@@ -415,7 +423,7 @@
 
 .vis-step__text {
   font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
+  /* font-size: 9pt; */
   color: #5f5e5a;
   line-height: 1.5;
 }
@@ -450,7 +458,7 @@
 }
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
+  /* font-size: 9.5pt; */
   color: #5f5e5a;
   line-height: 1.6;
   margin: 0 0 10px 0;
@@ -563,10 +571,10 @@
 .source-link {
   display: block;
   font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
+  /* font-size: 9pt; */
   color: #3d6b42;
   text-decoration: none;
-  padding: 3px 0;
+  /* padding: 3px 0; */
   transition: color 0.15s;
 }
 .source-link:last-child {
@@ -856,8 +864,8 @@
       border-color 0.15s;
   }
   .mobile-partner-pill.active {
-    background: #1C2B1E;
-    border-color: #1C2B1E;
+    background: #1c2b1e;
+    border-color: #1c2b1e;
     color: #ffffff;
   }
   .mobile-partner-pill img {

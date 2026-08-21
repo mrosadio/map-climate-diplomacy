@@ -51,8 +51,9 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   }
   // Re-read dimensions in case container resized since module load
   const el = document.querySelector("#map");
-  svg.attr("preserveAspectRatio", "xMidYMin meet");
+  //svg.attr("preserveAspectRatio", "xMidYMin meet");
   svg.attr("viewBox", getViewBox(el));
+  console.log("console svg", el.clientWidth)
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
   g = svg.append("g");
@@ -97,7 +98,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     console.error("drawBilateralMap: no valid mergedData received");
     return;
   }
-
+  svg.attr("viewBox", getViewBox(el));
   // const settings = mapDisplaySettings[selectedPartner];
   // if (!settings) {
   //   console.error(
@@ -265,12 +266,17 @@ function getViewBox(el) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
     return "-200 -225 700 900";
   }
-  // Tablet
+ // Tablet
   if (w < 1024) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
-    return "-150 150 775 1000";
+    //return "-150 150 775 1000";
+    return `-250 -125 1150 600`;
   }
-  return `0 0 ${el.clientWidth} ${el.clientHeight}`;
+  //viewBox="-250 -125 1150 600"
+  svg.attr("preserveAspectRatio", "xMidYMin meet");
+  //return `0 0 ${el.clientWidth} ${el.clientHeight}`;
+  // large screens
+  return `-100 -105 1150 600`
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
@@ -292,7 +298,6 @@ function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
 }
 
 // --- Private: highlight helper ---
-
 function applyHighlight(countryName, g) {
   if (globals.EUCountries.has(countryName)) {
     g.selectAll("path")
