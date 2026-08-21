@@ -60,8 +60,8 @@ export function renderOverviewPanel() {
   const connectivityList = document.createElement("div");
   connectivityList.style.cssText = "display:flex;flex-direction:column;gap:6px;margin-bottom:12px;";
   [
-    { color: "#C8DFC9", label: "Low connectivity" },
-    { color: "#6BA870", label: "Moderate connectivity" },
+    { color: "#d6cb62", label: "Low connectivity" },
+    { color: "#6fb56f", label: "Moderate connectivity" },
     { color: "#1C4A20", label: "High connectivity" },
   ].forEach(({ color, label }) => {
     const row = document.createElement("div");
@@ -208,13 +208,13 @@ export function populateCountryCard(
     engageText,
   );
 
-  if (selectedCountryData["Economic and Investment Trend"] !== "No data") {
-    engagementDiv.appendChild(
-      createTrendIndicator(
-        selectedCountryData["Economic and Investment Trend"],
-      ),
-    );
-  }
+  // if (selectedCountryData["Economic and Investment Trend"] !== "No data") {
+  //   engagementDiv.appendChild(
+  //     createTrendIndicator(
+  //       selectedCountryData["Economic and Investment Trend"],
+  //     ),
+  //   );
+  // }
   zone.appendChild(engagementDiv);
   // Investment section
   const investmentText =
@@ -223,7 +223,7 @@ export function populateCountryCard(
     "Green Investments",
     investmentText,
   );
-  investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData));
+  investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData, "h5", `["card-title", "partner-select"]`));
   investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
   zone.appendChild(investmentTextDiv);
 
@@ -333,11 +333,11 @@ function createPartnershipMiniCard(entry) {
   title.textContent = entry["African Country"];
   card.appendChild(title);
 
-  if (entry["Economic and Investment Trend"] !== "No data") {
-    card.appendChild(
-      createTrendIndicator(entry["Economic and Investment Trend"]),
-    );
-  }
+  // if (entry["Economic and Investment Trend"] !== "No data") {
+  //   card.appendChild(
+  //     createTrendIndicator(entry["Economic and Investment Trend"]),
+  //   );
+  // }
 
   if (entry["Areas of Cooperation - Categories"] !== "No data") {
     card.appendChild(createCooperationDiv(entry));
@@ -413,31 +413,31 @@ function createStatStrip(selectedPartner) {
   return div;
 }
 
-function createTrendIndicator(trendValue) {
-  const div = document.createElement("div");
-  div.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
+// function createTrendIndicator(trendValue) {
+//   const div = document.createElement("div");
+//   div.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
  
-  const label = document.createElement("p");
-  label.classList.add("trendLabel", "my-auto");
-  label.textContent = "Investment trend:";
+//   const label = document.createElement("p");
+//   label.classList.add("trendLabel", "my-auto");
+//   label.textContent = "Investment trend:";
  
-  const icon = document.createElement("img");
-  icon.style.cssText = "width:20px;height:20px;";
-  icon.setAttribute("data-bs-toggle", "tooltip");
+//   const icon = document.createElement("img");
+//   icon.style.cssText = "width:20px;height:20px;";
+//   icon.setAttribute("data-bs-toggle", "tooltip");
  
-  const config = trendConfig[trendValue];
-  if (config) {
-    icon.src = `/assets/img/icons/${config.src}`;
-    icon.setAttribute("title", config.title);
-    icon.style.filter = config.filter;
-    new bootstrap.Tooltip(icon);
-  }
+//   const config = trendConfig[trendValue];
+//   if (config) {
+//     icon.src = `/assets/img/icons/${config.src}`;
+//     icon.setAttribute("title", config.title);
+//     icon.style.filter = config.filter;
+//     new bootstrap.Tooltip(icon);
+//   }
  
-  div.appendChild(label);
-  div.appendChild(icon);
-  return div;
-}
-function createCooperationDiv(data) {
+//   div.appendChild(label);
+//   div.appendChild(icon);
+//   return div;
+// }
+function createCooperationDiv(data, labelTag = "p", classes = ["card-text", "mb-1", "areasCoop"]) {
   const div = document.createElement("div");
   div.classList.add("card-text", "mb-1");
   div.style.display = partnerDivStyle.areasCoopDisplay;
@@ -447,8 +447,8 @@ function createCooperationDiv(data) {
  
   if (data["Areas of Cooperation - Categories"] === "No data") return div;
  
-  const label = document.createElement("p");
-  label.classList.add("card-text", "mb-1", "areasCoop");
+  const label = document.createElement(labelTag);
+  label.classList.add(classes);
   label.textContent = "Areas of cooperation:";
   div.appendChild(label);
   div.appendChild(createCooperationTags(data["Areas of Cooperation - Categories"]));

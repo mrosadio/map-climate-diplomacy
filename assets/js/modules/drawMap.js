@@ -16,10 +16,78 @@ const { mainViewBox, legend, mapDisplaySettings, databases, cooperation } =
 
 const style = mapDisplaySettings.style;
 const connectivityColor = mapDisplaySettings.connectivityColor;
-
-// ── SVG setup ──
-// Created once at module load time. All drawing functions share this element.
-// D3 is loaded as a global via <script> tag in HTML, not as an ES module import
+const countryLabelConfig = {
+  Senegal: { dy: -4 },
+  "Democratic Republic of the Congo": {
+    lines: ["Democratic", "Republic", "of the Congo"],
+    dy: -8,
+  },
+  Morocco: { dy: -18, dx: 10 },
+  "Republic of the Congo": {
+    lines: ["Republic of", "the Congo"],
+    dy: -12,
+    dx: 15,
+  },
+  "Equatorial Guinea": {
+    lines: ["Equatorial", "Guinea"],
+    dy: -6,
+  },
+  "Guinea Bissau": {
+    lines: ["Guinea-", "Bissau"],
+    dy: 6,
+    dx: -10,
+  },
+  Gambia: {
+    dx: -22,
+  },
+  "Central African Republic": {
+    lines: ["Central African", "Republic"],
+    dy: -6,
+  },
+  "Guinea-Bissau": {
+    lines: ["Guinea", "Bissau"],
+    dy: -6,
+    dx: -22,
+  },
+  "South Sudan": {
+    lines: ["South", "Sudan"],
+    dy: -6,
+  },
+  "United Republic of Tanzania": {
+    lines: ["Tanzania"],
+    dy: 0,
+  },
+  "Sierra Leone": {
+    lines: ["Sierra", "Leone"],
+    dy: 0,
+    dx: -22,
+  },
+  "Cape Verde": {
+    lines: ["Cabo", "Verde"],
+    dy: 0,
+  },
+  "South Africa": {
+    dy: -12,
+  },
+  "Ivory Coast": {
+    lines: ["Côte", "D'Ivore"],
+  },
+  "Benin": {
+    dy: -6,
+  },
+  "Ghana": {
+    dy: 6,
+  },
+  "Liberia": {
+    dx: -22,
+  },
+  "Zambia": {
+    dy: 10,
+    dx: -10
+  }
+};
+// -- SVG setup --
+// Created once at module load time
 const mapEl = document.querySelector("#map");
 const W = mapEl?.clientWidth || 800;
 const H = mapEl?.clientHeight || 500;
@@ -49,11 +117,10 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     console.error("drawOverviewMap: no valid geoJSONData received");
     return;
   }
-  // Re-read dimensions in case container resized since module load
   const el = document.querySelector("#map");
   //svg.attr("preserveAspectRatio", "xMidYMin meet");
   svg.attr("viewBox", getViewBox(el));
-  console.log("console svg", el.clientWidth)
+  console.log("console svg", el.clientWidth);
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
   g = svg.append("g");
@@ -65,7 +132,6 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("d", path)
     .attr("fill", (d) => {
       // All countries on this map are African partners.
-      // Color by connectivity level if data exists, otherwise default.
       const level = d.properties["connect_partners"];
       return level
         ? mapDisplaySettings.connectivityColor[level]
@@ -75,20 +141,47 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("stroke-width", 0.5)
     .style("cursor", "default");
 
-  // African country labels — always visible on overview map.
-  // pointer-events:none prevents labels intercepting mouse events on paths.
-  g.selectAll("text")
+  // country labels always visible on overview map only
+  // pointer-events:none prevents labels intercepting mouse events on paths
+  // Country labels with per-country position and line-break overrides
+  g.selectAll("g.country-label")
     .data(geoJSONData.features)
     .enter()
-    .append("text")
-    .attr("transform", (d) => `translate(${path.centroid(d)})`)
-    .attr("dy", ".35em")
-    .attr("text-anchor", "middle")
-    .attr("font-size", "9px")
-    .attr("font-family", "UncutRegular, sans-serif")
-    .attr("fill", "#444441")
+    .append("g")
+    .attr("class", "country-label")
+    .attr("transform", (d) => {
+      const name = d.properties.name;
+      const config = countryLabelConfig[name] || {};
+      const [cx, cy] = path.centroid(d);
+      const dx = config.dx || 0;
+      const dy = config.dy || 0;
+      return `translate(${cx + dx}, ${cy + dy})`;
+    })
     .attr("pointer-events", "none")
-    .text((d) => d.properties.name);
+    .each(function (d) {
+      const name = d.properties.name;
+      const config = countryLabelConfig[name] || {};
+
+      const textEl = d3
+        .select(this)
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "13px")
+        .attr("font-family", "UncutRegular, sans-serif")
+        .attr("fill", "#444441");
+
+      if (config.lines) {
+        config.lines.forEach((line, i) => {
+          textEl
+            .append("tspan")
+            .attr("x", 0)
+            .attr("dy", i === 0 ? `0` : "10px")
+            .text(line);
+        });
+      } else {
+        textEl.append("tspan").attr("x", 0).attr("dy", "0.35em").text(name);
+      }
+    });
 }
 
 export function drawBilateralMap(mergedData, selectedPartner) {
@@ -106,7 +199,6 @@ export function drawBilateralMap(mergedData, selectedPartner) {
   //   );
   //   return;
   // }
-
   projection = d3
     .geoMercator()
     .scale(600)
@@ -158,26 +250,108 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       populateCountryCard(countryName, selectedPartner, onPartnerSelect);
     });
   // African country labels on bilateral map too
-  g.selectAll("text")
+  // g.selectAll("text")
+  //   .data(
+  //     mergedData.features.filter((f) =>
+  //       africanPartnersSet.has(f.properties.name),
+  //     ),
+  //   )
+  //   //.data(mergedData.features)
+  //   .enter()
+  //   .append("text")
+  //   .attr("transform", (d) => `translate(${path.centroid(d)})`)
+  //   .attr("dy", ".35em")
+  //   .attr("text-anchor", "middle")
+  //   .attr("font-size", "9px")
+  //   .attr("font-family", "UncutRegular, sans-serif")
+  //   //.attr("pointer-events", "mouse")
+  //   .attr("fill", (d) =>
+  //     africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
+  //   )
+  //   .attr("pointer-events", "none")
+  //   .text((d) => d.properties.name);
+  // Label + trend arrow group for each country
+  const labelGroups = g
+    .selectAll("g.country-label")
     .data(
-      mergedData.features.filter((f) =>
-        africanPartnersSet.has(f.properties.name),
+      mergedData.features.filter(
+        (
+          f, // add filter here
+        ) => africanPartnersSet.has(f.properties.name),
       ),
     )
-    //.data(mergedData.features)
     .enter()
+    .append("g")
+    .attr("class", "country-label")
+    .attr("transform", (d) => {
+      const name = d.properties.name;
+      const config = countryLabelConfig[name] || {};
+      const [cx, cy] = path.centroid(d);
+      const dx = config.dx || 0;
+      const dy = config.dy || 0;
+      return `translate(${cx + dx}, ${cy + dy})`;
+    })
+    .attr("pointer-events", "none");
+
+  // Country name — single or multi-line, always white on partner countries
+  labelGroups.each(function (d) {
+    const name = d.properties.name;
+    const config = countryLabelConfig[name] || {};
+
+    const textEl = d3
+      .select(this)
+      .append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-size", "13px")
+      .attr("font-family", "UncutRegular, sans-serif")
+      .attr("fill", "#ffffff");
+
+    if (config.lines) {
+      config.lines.forEach((line, i) => {
+        textEl
+          .append("tspan")
+          .attr("x", 0)
+          .attr("dy", i === 0 ? "-0.4em" : "10px")
+          .text(line);
+      });
+    } else {
+      textEl.append("tspan").attr("x", 0).attr("dy", "-0.4em").text(name);
+    }
+  });
+
+  // Trend arrow — only for partner countries
+  labelGroups
+    .filter((d) => africanPartnersSet.has(d.properties.name))
     .append("text")
-    .attr("transform", (d) => `translate(${path.centroid(d)})`)
-    .attr("dy", ".35em")
+    .attr("dy", (d) => {
+    const config = countryLabelConfig[d.properties.name] || {};
+    const lines = config.lines?.length || 1;
+    return `${(lines - 1) * 10 + 10}px`;
+  })
     .attr("text-anchor", "middle")
-    .attr("font-size", "9px")
+    .attr("font-size", "18px")
+    .attr("font-weight", "bold")
     .attr("font-family", "UncutRegular, sans-serif")
-    //.attr("pointer-events", "mouse")
-    .attr("fill", (d) =>
-      africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
-    )
-    .attr("pointer-events", "none")
-    .text((d) => d.properties.name);
+    .attr("fill", (d) => {
+      const partnerData = databases.reshapedBiData[selectedPartner]?.find(
+        (entry) => entry["African Country"] === d.properties.name,
+      );
+      const trend = partnerData?.["Economic and Investment Trend"];
+      if (trend === "Increase") return "#4CAF50"; // green
+      if (trend === "Decrease") return "#E53935"; // red
+      if (trend === "Stable") return "#E53935"; // grey
+      return "transparent";
+    })
+    .text((d) => {
+      const partnerData = databases.reshapedBiData[selectedPartner]?.find(
+        (entry) => entry["African Country"] === d.properties.name,
+      );
+      const trend = partnerData?.["Economic and Investment Trend"];
+      if (trend === "Increase") return "↑";
+      if (trend === "Decrease") return "↓";
+      if (trend === "Stable") return "—";
+      return "";
+    });
 }
 
 // --- Public: label controls ---
@@ -195,7 +369,7 @@ export function addCountryLabels(geoJSONData, labelGroup) {
     .attr("transform", (d) => `translate(${path.centroid(d)})`)
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
-    .attr("font-size", "9px")
+    .attr("font-size", "13px")
     .attr("fill", "#444441")
     .attr("pointer-events", "none") // labels don't block mouse events on paths
     .text((d) => d.properties.name);
@@ -266,7 +440,7 @@ function getViewBox(el) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
     return "-200 -225 700 900";
   }
- // Tablet
+  // Tablet
   if (w < 1024) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
     //return "-150 150 775 1000";
@@ -276,7 +450,7 @@ function getViewBox(el) {
   svg.attr("preserveAspectRatio", "xMidYMin meet");
   //return `0 0 ${el.clientWidth} ${el.clientHeight}`;
   // large screens
-  return `-100 -105 1150 600`
+  return `-100 -105 1150 600`;
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
