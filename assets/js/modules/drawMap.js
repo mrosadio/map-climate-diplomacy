@@ -137,8 +137,8 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
         ? mapDisplaySettings.connectivityColor[level]
         : mapDisplaySettings.colors.default;
     })
-    .attr("stroke", "white")
-    .attr("stroke-width", 0.5)
+    .attr("stroke", "#a7acb6")
+    .attr("stroke-width", 1)
     .style("cursor", "default");
 
   // country labels always visible on overview map only
@@ -228,8 +228,8 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("fill", (d) =>
       getBilateralFill(d.properties.name, selectedPartner, africanPartnersSet),
     )
-    .attr("stroke", "white")
-    .attr("stroke-width", 0.5)
+    .attr("stroke", "#a7acb6")
+    .attr("stroke-width", 1)
     .style("cursor", (d) =>
       africanPartnersSet.has(d.properties.name) ? "pointer" : "default",
     )
@@ -241,8 +241,10 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       console.log("Clicked African country:", countryName);
 
       // Visual feedback — highlight selected country, dim all countrie
-      g.selectAll("path").attr("opacity", 0.5);
-      d3.select(this).attr("opacity", 1);
+      g.selectAll("path").attr("opacity", 0.15);
+      labelGroups.selectAll("g.text").attr("opacity", 0.15);
+      d3.select(this).attr("opacity", 1)
+      d3.select(this).attr("stroke", "#51596f").attr("stroke-width", 1.5);
 
       // populateCountryCard needs onPartnerSelect to wire the breadcrumb correctly.
       // We pass it here rather than importing it inside cards.js to avoid
@@ -337,9 +339,9 @@ export function drawBilateralMap(mergedData, selectedPartner) {
         (entry) => entry["African Country"] === d.properties.name,
       );
       const trend = partnerData?.["Economic and Investment Trend"];
-      if (trend === "Increase") return "#4CAF50"; // green
-      if (trend === "Decrease") return "#E53935"; // red
-      if (trend === "Stable") return "#E53935"; // grey
+      if (trend === "Increase") return "#ffffff"; 
+      if (trend === "Decrease") return "#ffffff"; 
+      if (trend === "Stable") return "#ffffff"; 
       return "transparent";
     })
     .text((d) => {
@@ -440,11 +442,11 @@ function getViewBox(el) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
     return "-200 -225 700 900";
   }
-  // Tablet
+  // Laptop
   if (w < 1024) {
     svg.attr("preserveAspectRatio", "xMidYMin meet");
     //return "-150 150 775 1000";
-    return `-250 -125 1150 600`;
+    return `-150 -25 925 600`;
   }
   //viewBox="-250 -125 1150 600"
   svg.attr("preserveAspectRatio", "xMidYMin meet");

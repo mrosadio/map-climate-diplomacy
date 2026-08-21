@@ -141,13 +141,13 @@ const globals = {
     colors: {
       nonAfricaPartner: "#fec030",
       africaPartner: "#ffdc94",
-      default: "#e4dfd8",
+      default: "none",
     },
     connectivityColor: {
-      Low: "#c8dac0",
-      Moderate: "#739e69",
-      High: "#3a653a",
-      default: "#d3d3d3",
+      Low: "#d6cb62",
+      Moderate: "#6fb56f",
+      High: "#1C4A20",
+      default: "#dbe0e8",
     },
     style: {
       strokeDefaultColor: "white",

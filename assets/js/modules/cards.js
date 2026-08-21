@@ -223,7 +223,7 @@ export function populateCountryCard(
     "Green Investments",
     investmentText,
   );
-  investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData, "h5", `["card-title", "partner-select"]`));
+  investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData, "h5"));
   investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
   zone.appendChild(investmentTextDiv);
 
@@ -437,7 +437,7 @@ function createStatStrip(selectedPartner) {
 //   div.appendChild(icon);
 //   return div;
 // }
-function createCooperationDiv(data, labelTag = "p", classes = ["card-text", "mb-1", "areasCoop"]) {
+function createCooperationDiv(data, labelTag = "p") {
   const div = document.createElement("div");
   div.classList.add("card-text", "mb-1");
   div.style.display = partnerDivStyle.areasCoopDisplay;
@@ -448,7 +448,7 @@ function createCooperationDiv(data, labelTag = "p", classes = ["card-text", "mb-
   if (data["Areas of Cooperation - Categories"] === "No data") return div;
  
   const label = document.createElement(labelTag);
-  label.classList.add(classes);
+  label.classList.add(["card-text", "mb-1", "areasCoop"]);
   label.textContent = "Areas of cooperation:";
   div.appendChild(label);
   div.appendChild(createCooperationTags(data["Areas of Cooperation - Categories"]));
