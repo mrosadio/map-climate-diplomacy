@@ -74,7 +74,7 @@
   /* border-right: 0.5px solid #e8e6df; */
   display: flex;
   flex-direction: column;
-  padding: 16px 8px;
+  padding: 16px 8px 16px 20px; /* was 16px 8px — left bumped to match .vis-header's 20px */
   gap: 6px;
   overflow-y: auto;
 }
@@ -112,16 +112,6 @@
     border-color 0.15s;
   list-style: none;
 }
-
-/* .vis-sidebar .map-menu-item:hover {
-  background: #f5f4f0;
-  border-color: #e8e6df;
-} */
-
-/* .vis-sidebar .map-menu-item.active {
-  background: #f0efea;
-  border-color: #c8c5bb;
-} */
 
 .vis-sidebar .map-menu-item .label {
   font-family: "UncutMedium", sans-serif;
@@ -167,9 +157,8 @@
 .vis-map {
   flex: 1;
   min-height: 0;
-  /* position: relative; */
+  position: relative;
   overflow: hidden;
-  /* background: #ECEAE3; */
 }
 
 /* ── Map controls overlay ── */
@@ -270,7 +259,7 @@
 .vis-map__legend {
   position: absolute;
   bottom: 12px;
-  left: 16px;
+  right: 16px;
   display: flex;
   gap: 14px;
   align-items: center;

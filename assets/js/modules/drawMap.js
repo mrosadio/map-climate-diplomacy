@@ -22,7 +22,7 @@ const countryLabelConfig = {
     lines: ["Democratic", "Republic", "of the Congo"],
     dy: -8,
   },
-  Morocco: { dy: -18, dx: 10 },
+  Morocco: { dy: -18, dx: 20 },
   "Republic of the Congo": {
     lines: ["Republic of", "the Congo"],
     dy: -12,
@@ -126,7 +126,10 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   g = svg.append("g");
 
   g.selectAll("path")
-    .data(geoJSONData.features)
+    .data(geoJSONData.features.filter((d) => {
+      const [cx, cy] = path.centroid(d);
+      return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
+    }))
     .enter()
     .append("path")
     .attr("d", path)
@@ -145,7 +148,10 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   // pointer-events:none prevents labels intercepting mouse events on paths
   // Country labels with per-country position and line-break overrides
   g.selectAll("g.country-label")
-    .data(geoJSONData.features)
+    .data(geoJSONData.features.filter((d) => {
+      const [cx, cy] = path.centroid(d);
+      return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
+    }))
     .enter()
     .append("g")
     .attr("class", "country-label")
@@ -304,6 +310,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       .select(this)
       .append("text")
       .attr("text-anchor", "middle")
+      .attr("font-weight", "bold")
       .attr("font-size", "13px")
       .attr("font-family", "UncutRegular, sans-serif")
       .attr("fill", "#ffffff");
