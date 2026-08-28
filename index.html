@@ -79,28 +79,6 @@
           </p>
         </div>
       </div>
-      <!-- Controls move here from inside the map, so they sit in the header -->
-      <div style="display: flex; align-items: center; gap: 12px">
-        <button
-          id="africaButton"
-          style="
-            background: transparent;
-            border: 0.5px solid #3d5c41;
-            color: #a8c9ab;
-            border-radius: 6px;
-            padding: 5px 12px;
-            font-size: 9pt;
-            cursor: pointer;
-            font-family: &quot;UncutRegular&quot;, sans-serif;
-            position: absolute;
-            right: calc(25% + (var(--bs-gutter-x) / 2));
-            top: calc(13% + (var(--bs-gutter-y)));
-            z-index: 5;
-          "
-        >
-          Overview
-        </button>
-      </div>
       <!-- Three-column body -->
       <div class="vis-body row">
         <!-- LEFT: Partner sidebar -->
@@ -201,6 +179,13 @@
           class="vis-map col-12 position-relative"
           aria-label="Africa climate finance map"
         >
+          <button
+            id="africaButton"
+            class="vis-map__overview-btn position-absolute top-0 end-0 m-3"
+          >
+            Overview
+          </button>
+          <!-- Overview button  -->
           <!-- Map legend — shown once a partner is selected -->
           <div
             class="vis-map__legend d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-5 p-2 bg-white rounded border"
@@ -208,7 +193,7 @@
             style="display: none"
           >
             <p class="vis-map__legend-title">Legend</p>
-            
+
             <p class="vis-map__legend-subtitle">Level of connectivity</p>
             <div class="d-flex align-items-center gap-1">
               <div

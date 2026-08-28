@@ -70,10 +70,16 @@ function renderSidebar() {
 // 3. Accordions - About and source, always visible
 function renderPanel() {
   const card = document.querySelector(".card.partnership");
-  if (!card) return
+  if (!card) return;
   card.innerHTML = "";
 
   const zone = document.createElement("div");
   zone.classList.add("vis-panel__zone", "partner-overview-zone");
   card.appendChild(zone);
+}
+export function resetPartnerSelection() {
+  currentPartner = null;
+  document.querySelectorAll(".countrySelect").forEach((item) => {
+    item.classList.remove("active");
+  });
 }
