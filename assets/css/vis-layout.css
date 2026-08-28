@@ -256,6 +256,21 @@
   height: 20px;
 }
 
+.vis-map__legend-title {
+  font-family: "UncutSemibold", sans-serif;
+  font-size: 9.5pt;
+  color: #252525;
+  margin: 0;
+}
+
+.vis-map__legend-subtitle {
+  font-family: "UncutMedium", sans-serif;
+  font-size: 7.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a8880;
+  margin: 2px 0 0 0;
+}
 .vis-map__legend-dot {
   width: 10px;
   height: 10px;

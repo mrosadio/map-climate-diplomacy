@@ -1,30 +1,28 @@
 // drawMap.js
 // Responsible for: SVG setup, drawing map paths, tooltips, hover/click events.
 // Public functions:
-//   drawOverviewMap    → default world view, all partner countries same colour
+//   drawOverviewMap    -> default world view, all partner countries same colour
 //                        + African country labels always visible
-//   drawBilateralMap   → partner selected, African countries coloured by connectivity
-//   addCountryLabels   → called by setUpControls toggle (if kept)
+//   drawBilateralMap   -> partner selected, African countries coloured by connectivity
 //   deleteCountryLabels
 //   highlightAndTooltipEvents
 
 import globals from "./globals.js";
 import { populateCountryCard } from "./cards.js";
-import { getCurrentPartner, onPartnerSelect } from "./layout.js";
-const { mainViewBox, legend, mapDisplaySettings, databases, cooperation } =
-  globals;
+import { onPartnerSelect } from "./layout.js";
+const { mapDisplaySettings, databases, trendConfig } = globals;
 
 const style = mapDisplaySettings.style;
 const connectivityColor = mapDisplaySettings.connectivityColor;
 const countryLabelConfig = {
-  Senegal: { dy: -4 },
+  Senegal: { dy: -4, iconDy: -6 },
   "Democratic Republic of the Congo": {
-    lines: ["Democratic", "Republic", "of the Congo"],
+    lines: ["Dem. Rep.", "of the Congo"],
     dy: -8,
   },
   Morocco: { dy: -18, dx: 20 },
   "Republic of the Congo": {
-    lines: ["Republic of", "the Congo"],
+    lines: ["Rep. of", "the Congo"],
     dy: -12,
     dx: 15,
   },
@@ -72,19 +70,19 @@ const countryLabelConfig = {
   "Ivory Coast": {
     lines: ["Côte", "D'Ivore"],
   },
-  "Benin": {
+  Benin: {
     dy: -6,
   },
-  "Ghana": {
+  Ghana: {
     dy: 6,
   },
-  "Liberia": {
+  Liberia: {
     dx: -22,
   },
-  "Zambia": {
+  Zambia: {
     dy: 10,
-    dx: -10
-  }
+    dx: -10,
+  },
 };
 // -- SVG setup --
 // Created once at module load time
@@ -127,10 +125,12 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   g = svg.append("g");
 
   g.selectAll("path")
-    .data(geoJSONData.features.filter((d) => {
-      const [cx, cy] = path.centroid(d);
-      return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
-    }))
+    .data(
+      geoJSONData.features.filter((d) => {
+        const [cx, cy] = path.centroid(d);
+        return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
+      }),
+    )
     .enter()
     .append("path")
     .attr("d", path)
@@ -149,10 +149,12 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   // pointer-events:none prevents labels intercepting mouse events on paths
   // Country labels with per-country position and line-break overrides
   g.selectAll("g.country-label")
-    .data(geoJSONData.features.filter((d) => {
-      const [cx, cy] = path.centroid(d);
-      return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
-    }))
+    .data(
+      geoJSONData.features.filter((d) => {
+        const [cx, cy] = path.centroid(d);
+        return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
+      }),
+    )
     .enter()
     .append("g")
     .attr("class", "country-label")
@@ -183,6 +185,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
             .append("tspan")
             .attr("x", 0)
             .attr("dy", i === 0 ? `0` : "10px")
+            .attr("line-height", "1.5")
             .text(line);
         });
       } else {
@@ -243,7 +246,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       // Visual feedback — highlight selected country, dim all countrie
       g.selectAll("path").attr("opacity", 0.15);
       labelGroups.selectAll("g.text").attr("opacity", 0.15);
-      d3.select(this).attr("opacity", 1)
+      d3.select(this).attr("opacity", 1);
       d3.select(this).attr("stroke", "#51596f").attr("stroke-width", 1.5);
 
       // populateCountryCard needs onPartnerSelect to wire the breadcrumb correctly.
@@ -322,39 +325,30 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     }
   });
 
-  // Trend arrow — only for partner countries
+  // --- Set trend arrows (for partner countries only) ---
+  function getTrendConfig(d) {
+    const partnerData = databases.reshapedBiData[selectedPartner]?.find(
+      (entry) => entry["African Country"] === d.properties.name,
+    );
+    return trendConfig[partnerData?.["Economic and Investment Trend"]] || null;
+  }
   labelGroups
-    .filter((d) => africanPartnersSet.has(d.properties.name))
-    .append("text")
-    .attr("dy", (d) => {
-    const config = countryLabelConfig[d.properties.name] || {};
-    const lines = config.lines?.length || 1;
-    return `${(lines - 1) * 10 + 10}px`;
-  })
-    .attr("text-anchor", "middle")
-    .attr("font-size", "18px")
-    .attr("font-weight", "bold")
-    .attr("font-family", "UncutRegular, sans-serif")
-    .attr("fill", (d) => {
-      const partnerData = databases.reshapedBiData[selectedPartner]?.find(
-        (entry) => entry["African Country"] === d.properties.name,
-      );
-      const trend = partnerData?.["Economic and Investment Trend"];
-      if (trend === "Increase") return "#ffffff"; 
-      if (trend === "Decrease") return "#ffffff"; 
-      if (trend === "Stable") return "#ffffff"; 
-      return "transparent";
+    .filter((d) => getTrendConfig(d) !== null)
+    .append("image")
+    .attr("class", "trend-arrow-icon")
+    .attr("width", 14)
+    .attr("height", 14)
+    .attr("x", (d) => {
+      const config = countryLabelConfig[d.properties.name] || {};
+      return -7 + (config.iconDx || 0);
+    }) // image x/y is top-left, so this centers it under the label
+    .attr("y", (d) => {
+      const config = countryLabelConfig[d.properties.name] || {};
+      const lines = config.lines?.length || 1;
+      return (lines - 1) * 10 + 2 + (config.iconDy || 0);
     })
-    .text((d) => {
-      const partnerData = databases.reshapedBiData[selectedPartner]?.find(
-        (entry) => entry["African Country"] === d.properties.name,
-      );
-      const trend = partnerData?.["Economic and Investment Trend"];
-      if (trend === "Increase") return "↑";
-      if (trend === "Decrease") return "↓";
-      if (trend === "Stable") return "—";
-      return "";
-    });
+    .attr("href", (d) => `/assets/img/icons/${getTrendConfig(d).src}`)
+    .style("filter", "brightness(0) invert(1)"); // forced white — see note below
 }
 
 // --- Public: label controls ---

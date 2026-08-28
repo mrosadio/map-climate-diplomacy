@@ -129,12 +129,6 @@ export function populatePartnerOverview(partnerName) {
   header.appendChild(hint);
  
   zone.appendChild(header);
- 
-  // Scrollable African partners list
-  const listZone = document.createElement("div");
-  listZone.classList.add("vis-panel__zone", "partners-list-zone");
-  listZone.appendChild(createAfricanPartnersList(partnerName));
-  zone.appendChild(listZone);
 }
 
 export function populateCountryCard(
@@ -266,31 +260,6 @@ function createNavigationSteps() {
   return section;
 }
 
-// function createAccordion(id, title, content) {
-
-// }
-// build the scannable list of African partners shown in the overview zone
-// read-only -> no click-handlers. the map is the navigation element
-function createAfricanPartnersList(partnerName) {
-  const container = document.createElement("div");
-  container.classList.add("partners-list");
- 
-  const data = databases.reshapedBiData[partnerName];
-  if (!data) return container;
- 
-  const label = document.createElement("p");
-  label.classList.add("vis-panel__zone-label");
-  label.textContent = `${data.length} African partners`;
-  container.appendChild(label);
- 
-  const scrollDiv = document.createElement("div");
-  scrollDiv.classList.add("customScroll");
-  data.forEach((entry) => scrollDiv.appendChild(createPartnershipMiniCard(entry)));
-  container.appendChild(scrollDiv);
- 
-  return container;
-}
-
 // Builds one mini-card per African partner country for the scannable list.
 // Shows: country name, trend indicator, cooperation tags, flagship count.
 // No click handler — clicking a country on the map triggers populateCountryCard.
@@ -306,11 +275,11 @@ function createPartnershipMiniCard(entry) {
   title.textContent = entry["African Country"];
   card.appendChild(title);
 
-  // if (entry["Economic and Investment Trend"] !== "No data") {
-  //   card.appendChild(
-  //     createTrendIndicator(entry["Economic and Investment Trend"]),
-  //   );
-  // }
+  if (entry["Economic and Investment Trend"] !== "No data") {
+    card.appendChild(
+      createTrendIndicator(entry["Economic and Investment Trend"]),
+    );
+  }
 
   if (entry["Areas of Cooperation - Categories"] !== "No data") {
     card.appendChild(createCooperationDiv(entry));
@@ -386,30 +355,30 @@ function createStatStrip(selectedPartner) {
   return div;
 }
 
-// function createTrendIndicator(trendValue) {
-//   const div = document.createElement("div");
-//   div.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
+function createTrendIndicator(trendValue) {
+  const div = document.createElement("div");
+  div.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
  
-//   const label = document.createElement("p");
-//   label.classList.add("trendLabel", "my-auto");
-//   label.textContent = "Investment trend:";
+  const label = document.createElement("p");
+  label.classList.add("trendLabel", "my-auto");
+  label.textContent = "Investment trend:";
  
-//   const icon = document.createElement("img");
-//   icon.style.cssText = "width:20px;height:20px;";
-//   icon.setAttribute("data-bs-toggle", "tooltip");
+  const icon = document.createElement("img");
+  icon.style.cssText = "width:20px;height:20px;";
+  icon.setAttribute("data-bs-toggle", "tooltip");
  
-//   const config = trendConfig[trendValue];
-//   if (config) {
-//     icon.src = `/assets/img/icons/${config.src}`;
-//     icon.setAttribute("title", config.title);
-//     icon.style.filter = config.filter;
-//     new bootstrap.Tooltip(icon);
-//   }
+  const config = trendConfig[trendValue];
+  if (config) {
+    icon.src = `/assets/img/icons/${config.src}`;
+    icon.setAttribute("title", config.title);
+    icon.style.filter = config.filter;
+    new bootstrap.Tooltip(icon);
+  }
  
-//   div.appendChild(label);
-//   div.appendChild(icon);
-//   return div;
-// }
+  div.appendChild(label);
+  div.appendChild(icon);
+  return div;
+}
 function createCooperationDiv(data, labelTag = "p") {
   const div = document.createElement("div");
   div.classList.add("card-text", "mb-1");
