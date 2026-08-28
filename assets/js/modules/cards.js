@@ -44,36 +44,9 @@ export function renderOverviewPanel() {
   // How to navigate
   card.appendChild(createNavigationSteps());
  
-  // Legend zone
-  const legendZone = document.createElement("div");
-  legendZone.classList.add("vis-panel__zone");
-  const legendLabel = document.createElement("p");
-  legendLabel.classList.add("vis-panel__zone-label");
-  legendLabel.textContent = "Map legend";
-  legendZone.appendChild(legendLabel);
-  const legendSub = document.createElement("p");
-  legendSub.classList.add("partner-subtitle", "vis-panel__zone-text");
-  legendSub.style.marginBottom = "10px";
-  legendSub.textContent = "Countries shaded by number of active partner relationships.";
-  legendZone.appendChild(legendSub);
- 
-  const connectivityList = document.createElement("div");
-  connectivityList.style.cssText = "display:flex;flex-direction:column;gap:6px;margin-bottom:12px;";
-  [
-    { color: "#d6cb62", label: "Low connectivity" },
-    { color: "#6fb56f", label: "Moderate connectivity" },
-    { color: "#1C4A20", label: "High connectivity" },
-  ].forEach(({ color, label }) => {
-    const row = document.createElement("div");
-    row.style.cssText = "display:flex;align-items:center;gap:8px;";
-    row.innerHTML = `<div style="width:14px;height:14px;border-radius:3px;background:${color};flex-shrink:0;"></div><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
-    connectivityList.appendChild(row);
-  });
-  legendZone.appendChild(connectivityList);
- 
   const trendLabelEl = document.createElement("p");
   trendLabelEl.classList.add("vis-panel__zone-label");
-  trendLabelEl.style.marginTop = "18px";
+  //trendLabelEl.style.marginTop = "18px";
   trendLabelEl.textContent = "Investment trend";
   legendZone.appendChild(trendLabelEl);
  

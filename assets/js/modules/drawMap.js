@@ -112,6 +112,7 @@ let g;
 
 // --- Public: drawing function ---
 export function drawOverviewMap(geoJSONData, reshapedBiData) {
+  document.getElementById("mapLegend").style.display = "flex";
   console.log("Data to draw:", geoJSONData);
   if (!geoJSONData || !geoJSONData.features) {
     console.error("drawOverviewMap: no valid geoJSONData received");
@@ -193,18 +194,11 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
 export function drawBilateralMap(mergedData, selectedPartner) {
   // Normalize selectedPartner into a Set for efficient lookups
   // If selectedParter is a bloc partner, populate set with corresponding array in global.js
+  document.getElementById("mapLegend").style.display = "flex";
   if (!mergedData || !mergedData.features) {
     console.error("drawBilateralMap: no valid mergedData received");
     return;
   }
-  //svg.attr("viewBox", getViewBox(el));
-  // const settings = mapDisplaySettings[selectedPartner];
-  // if (!settings) {
-  //   console.error(
-  //     `drawBilateralMap: no map settings found for "${selectedPartner}"`,
-  //   );
-  //   return;
-  // }
   projection = d3
     .geoMercator()
     .scale(600)
