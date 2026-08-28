@@ -74,40 +74,40 @@
         <div>
           <h1 class="vis-header__title">Africa's Green Transition</h1>
           <p class="vis-header__subtitle fw-lighter">
-            Mapping bilateral climate finance agreements between African countries,
-      China, the EU, and Gulf states.
+            Mapping bilateral climate finance agreements between African
+            countries, China, the EU, and Gulf states.
           </p>
         </div>
       </div>
       <!-- Controls move here from inside the map, so they sit in the header -->
-        <div style="display: flex; align-items: center; gap: 12px">
-          <button
-            id="africaButton"
-            style="
-              background: transparent;
-              border: 0.5px solid #3d5c41;
-              color: #a8c9ab;
-              border-radius: 6px;
-              padding: 5px 12px;
-              font-size: 9pt;
-              cursor: pointer;
-              font-family: &quot;UncutRegular&quot;, sans-serif;
-              position: absolute;
-              right: calc(25% + (var(--bs-gutter-x) / 2));
-              top: calc(13% + (var(--bs-gutter-y)));
-              z-index: 5;
-            "
-          >
-            Overview
-          </button>
-        </div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <button
+          id="africaButton"
+          style="
+            background: transparent;
+            border: 0.5px solid #3d5c41;
+            color: #a8c9ab;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 9pt;
+            cursor: pointer;
+            font-family: &quot;UncutRegular&quot;, sans-serif;
+            position: absolute;
+            right: calc(25% + (var(--bs-gutter-x) / 2));
+            top: calc(13% + (var(--bs-gutter-y)));
+            z-index: 5;
+          "
+        >
+          Overview
+        </button>
+      </div>
       <!-- Three-column body -->
       <div class="vis-body row">
         <!-- LEFT: Partner sidebar -->
         <!-- Keep .diplomacy-map-nav and .countrySelect/.map-menu-item classes
          so layout.js can still find them with document.querySelectorAll(".countrySelect") -->
-        
-         <!-- For mobile only: pill -->
+
+        <!-- For mobile only: pill -->
         <!-- For mobile only -->
         <div class="mobile-partner-bar" id="mobilePartnerBar">
           <button class="mobile-partner-pill countrySelect" data-slug="China">
@@ -129,12 +129,16 @@
             <span class="label">Gulf Countries</span>
           </button>
         </div>
-          <!-- For other ports -->
-         <aside
+        <!-- For other ports -->
+        <aside
           class="vis-sidebar diplomacy-map-nav col-xl-1 col-sm-2 col-12"
           aria-label="Partner selection"
         >
-          <p class="vis-sidebar__label d-flex justify-content-center vis-panel__zone-text">Partners</p>
+          <p
+            class="vis-sidebar__label d-flex justify-content-center vis-panel__zone-text"
+          >
+            Partners
+          </p>
           <ul class="map-menu js-mapMenu">
             <li class="countrySelect map-menu-item" data-slug="China">
               <div class="image d-flex justify-content-center">
@@ -187,38 +191,76 @@
           </ul>
         </aside>
         <!-- OVERVIEW BUTTON -->
-         <!-- <button id="africaButton2">
+        <!-- <button id="africaButton2">
             Overview
          </button> -->
         <!-- CENTER: Map -->
         <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
         <main
           id="map"
-          class="vis-map col-12"
+          class="vis-map col-12 position-relative"
           aria-label="Africa climate finance map"
         >
           <!-- Map legend — shown once a partner is selected -->
-          <div class="vis-map__legend" id="mapLegend" style="display: none">
-            <div class="vis-map__legend-item">
+          <div
+            class="vis-map__legend d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-5 p-2 bg-white rounded border"
+            id="mapLegend"
+            style="display: none"
+          >
+            <div class="d-flex align-items-center gap-1">
               <div
                 class="vis-map__legend-dot"
                 style="background: #d6cb62"
               ></div>
               <span class="vis-map__legend-label">Low connectivity</span>
             </div>
-            <div class="vis-map__legend-item">
+            <div class="d-flex align-items-center gap-1">
               <div
                 class="vis-map__legend-dot"
                 style="background: #6fb56f"
               ></div>
               <span class="vis-map__legend-label">Moderate</span>
             </div>
-            <div class="vis-map__legend-item">
+            <div class="d-flex align-items-center gap-1">
               <div
                 class="vis-map__legend-dot"
-                style="background: #1C4A20"
+                style="background: #1c4a20"
               ></div>
               <span class="vis-map__legend-label">High</span>
+            </div>
+            <hr class="w-100 my-1" />
+            <div class="d-flex align-items-center gap-1">
+              <img
+                src="assets/img/icons/arrow-up.svg"
+                class="vis-map__legend-icon"
+                style="
+                  filter: invert(48%) sepia(79%) saturate(476%)
+                    hue-rotate(86deg);
+                "
+                alt=""
+              />
+              <span class="vis-map__legend-label">Increasing</span>
+            </div>
+            <div class="d-flex align-items-center gap-1">
+              <img
+                src="assets/img/icons/arrow-down.svg"
+                class="vis-map__legend-icon"
+                style="
+                  filter: invert(27%) sepia(51%) saturate(2878%)
+                    hue-rotate(346deg);
+                "
+                alt=""
+              />
+              <span class="vis-map__legend-label">Decreasing</span>
+            </div>
+            <div class="d-flex align-items-center gap-1">
+              <img
+                src="assets/img/icons/minus.svg"
+                class="vis-map__legend-icon"
+                style="filter: invert(50%)"
+                alt=""
+              />
+              <span class="vis-map__legend-label">Stable</span>
             </div>
           </div>
 

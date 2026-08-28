@@ -157,8 +157,9 @@
 .vis-map {
   flex: 1;
   min-height: 0;
-  position: relative;
+  position:relative;
   overflow: hidden;
+  min-height: 420px;
 }
 
 /* ── Map controls overlay ── */
@@ -255,30 +256,16 @@
   height: 20px;
 }
 
-/* Map legend strip */
-.vis-map__legend {
-  position: absolute;
-  bottom: 12px;
-  right: 16px;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.88);
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: 0.5px solid #d3d1c7;
-}
-
-.vis-map__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .vis-map__legend-dot {
   width: 10px;
   height: 10px;
   border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.vis-map__legend-icon {
+  width: 10px;
+  height: 10px;
   flex-shrink: 0;
 }
 

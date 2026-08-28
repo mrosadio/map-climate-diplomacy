@@ -48,7 +48,7 @@ export function renderOverviewPanel() {
   trendLabelEl.classList.add("vis-panel__zone-label");
   //trendLabelEl.style.marginTop = "18px";
   trendLabelEl.textContent = "Investment trend";
-  legendZone.appendChild(trendLabelEl);
+  //legendZone.appendChild(trendLabelEl);
  
   const trendList = document.createElement("div");
   trendList.style.cssText = "display:flex;flex-direction:column;gap:5px;";
@@ -62,8 +62,8 @@ export function renderOverviewPanel() {
     row.innerHTML = `<img src="/assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
     trendList.appendChild(row);
   });
-  legendZone.appendChild(trendList);
-  card.appendChild(legendZone);
+  //legendZone.appendChild(trendList);
+  //card.appendChild(legendZone);
   // Sources zone
   const sourcesZone = document.createElement("div");
   sourcesZone.classList.add("vis-panel__zone");
