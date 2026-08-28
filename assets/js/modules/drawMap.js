@@ -434,17 +434,17 @@ function getViewBox(el) {
   const w = el.clientWidth;
   // Phone
   if (w < 576) {
-    svg.attr("preserveAspectRatio", "xMidYMin meet");
+    svg.attr("preserveAspectRatio", "xMidYMid meet");
     return "-200 -225 700 900";
   }
   // Laptop
   if (w < 1024) {
-    svg.attr("preserveAspectRatio", "xMidYMin meet");
+    svg.attr("preserveAspectRatio", "xMidYMid meet");
     //return "-150 150 775 1000";
-    return `-150 -25 925 600`;
+    return `-300 0 1350 600`;
   }
   //viewBox="-250 -125 1150 600"
-  svg.attr("preserveAspectRatio", "xMidYMin meet");
+  svg.attr("preserveAspectRatio", "xMidYMid meet");
   //return `0 0 ${el.clientWidth} ${el.clientHeight}`;
   // large screens
   return `-100 -105 1150 600`;
