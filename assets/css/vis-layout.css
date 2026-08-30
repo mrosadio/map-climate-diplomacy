@@ -2,25 +2,24 @@
    vis-layout.css
    Replaces: header.css + mainVisContainer.css (for the vis section)
    Keeps:    main.css (fonts), printContainer.css, mobileUtils.css
-   
-   Naming conventions used:
+   Naming conventions:
    - BEM-lite: block__element--modifier
    - Semantic over positional: .vis-sidebar not .first-col
    - No Bootstrap class mixing for layout
   ============================================================ */
 
-/* ── Page tagline (replaces #headerVis) ── */
+/* -- Page tagline (replaces #headerVis) -------------- */
 /* One sentence above the visualization, nothing more */
 .vis-tagline {
   font-family: "UncutRegular", sans-serif;
   font-size: 11pt;
-  color: #5f5e5a;
+  color: #3a3936;
   line-height: 1.6;
   margin: 0.75rem 60px 0.5rem 60px;
   padding: 0;
 }
 
-/* ── Visualization wrapper (replaces .mainVisDiv) ── */
+/* -- Visualization wrapper (replaces .mainVisDiv) -- */
 .vis-container {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 1rem;
@@ -37,7 +36,7 @@
   box-sizing: border-box;
 }
 
-/* ── Visualization header bar (dark, integrated title) ── */
+/* -- Visualization header bar (dark, integrated title) -- */
 .vis-header {
   background: #ffffff;
   border-bottom: 0.5px solid #e8e6df;
@@ -55,11 +54,11 @@
 .vis-header__subtitle {
   font-family: "UncutRegular", sans-serif;
   font-size: 14pt;
-  /* color: #8a8880; */
+  color: #3a3936;
   margin: 2px 0 0 0;
 }
 
-/* ── Three-column body ── */
+/* -- Three-column body -- */
 .vis-body {
   display: flex !important;
   flex-direction: row !important;
@@ -67,7 +66,7 @@
   min-height: 0;
 }
 
-/* ── Partner sidebar (replaces .first-col + .diplomacy-map-nav) ── */
+/* -- Partner sidebar (replaces .first-col + .diplomacy-map-nav) -- */
 .vis-sidebar {
   flex-shrink: 0;
   background: #ffffff;
@@ -78,14 +77,11 @@
   gap: 6px;
   overflow-y: auto;
 }
-/* ul.map-menu.js-mapMenu {
-  padding-right: 1.8rem;
-} */
 
 .vis-sidebar__label {
   font-family: "UncutMedium", sans-serif;
   font-size: 7.5pt;
-  /* color: #c8c5bb; */
+  color: #3a3936;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 10px 0px;
@@ -153,16 +149,16 @@
 .vis-sidebar .map-menu-item:hover .image img.default {
   display: none;
 }
-/* ── Map column (replaces #map.second-col) ── */
+/* -- Map column (replaces #map.second-col) -- */
 .vis-map {
   flex: 1;
   min-height: 0;
-  position:relative;
+  position: relative;
   overflow: hidden;
   min-height: 420px;
 }
 
-/* ── Map controls overlay ── */
+/* -- Map controls overlay -- */
 .vis-map__controls {
   position: absolute;
   top: 10px;
@@ -240,11 +236,11 @@
 
 .vis-map__legend-label {
   font-size: 8.5pt;
-  color: #5f5e5a;
+  color: #3a3936;
   font-family: "UncutRegular", sans-serif;
 }
 
-/* ── Right info panel (replaces .right.bilateral + .third-col) ── */
+/* -- Right info panel (replaces .right.bilateral + .third-col) -- */
 .vis-panel {
   /* width: 340px; */
   flex-shrink: 0;
@@ -299,7 +295,7 @@
   font-size: 9.5pt;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #5f5e5a;
+  color: #3a3936;
   margin: 0 0 5px 0;
   padding: 0 0 10px 0;
 }
@@ -317,7 +313,7 @@
 .accordion-button {
   /* font-family: "UncutRegular", sans-serif; */
   font-size: 9.5pt;
-  color: #5f5e5a;
+  color: #3a3936;
   background: transparent;
   padding: 10px 0;
   box-shadow: none !important;
@@ -369,7 +365,7 @@
 .vis-step__text {
   font-family: "UncutRegular", sans-serif;
   /* font-size: 9pt; */
-  color: #5f5e5a;
+  color: #3a3936;
   line-height: 1.5;
 }
 .partner-subtitle p {
@@ -404,7 +400,7 @@
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;
   /* font-size: 9.5pt; */
-  color: #5f5e5a;
+  color: #3a3936;
   line-height: 1.6;
   margin: 0 0 10px 0;
 }
@@ -424,8 +420,8 @@
 }
 .hint {
   font-family: "UncutRegular", sans-serif;
-  font-size: 8.5pt;
-  color: #b09a5a;
+  font-size: 9.5pt;
+  /* color: #b09a5a; */
   font-style: italic;
   margin: 4px 0 0 0;
   padding: 0;
@@ -490,7 +486,7 @@
 .acc-title {
   font-family: "UncutRegular", sans-serif;
   font-size: 10pt;
-  color: #5f5e5a;
+  color: #3a3936;
   transition: color 0.15s;
 }
 
@@ -508,7 +504,7 @@
 .acc-body {
   font-family: "UncutRegular", sans-serif;
   font-size: 9pt;
-  color: #5f5e5a;
+  color: #3a3936;
   line-height: 1.7;
   padding: 6px 0 4px 0;
 }
@@ -530,7 +526,7 @@
   color: #1c2b1e;
 }
 
-/* ── Card content styles (populateCountryCard output) ── */
+/* -- Card content styles (populateCountryCard output) -- */
 .breadcrumb-nav {
   padding: 0;
   margin: 0 0 8px 0;
@@ -591,6 +587,7 @@
   text-decoration: none;
   display: inline-block;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-bottom: 0.5px solid #3d6b42;
   padding-bottom: 1px;
 }
@@ -649,7 +646,7 @@
 }
 
 .tab-btn:hover:not(.active) {
-  color: #5f5e5a;
+  color: #3a3936;
 }
 .tab-content h5.card-title.partner-select {
   font-size: 9pt;
@@ -662,7 +659,7 @@
 .tab-content {
   font-size: 9pt;
   line-height: 1.65;
-  color: #5f5e5a;
+  color: #3a3936;
 }
 
 .tab-content.hidden {
@@ -681,7 +678,7 @@
   color: #b4b2a9;
 }
 
-/* ── Tooltip ── */
+/* -- Tooltip -- */
 
 .tooltipTitle {
   font-family: "UncutMedium", sans-serif;
@@ -692,12 +689,12 @@
 
 .tooltipText {
   font-size: 9pt;
-  color: #5f5e5a;
+  color: #3a3936;
   margin: 0;
   line-height: 1.5;
 }
 
-/* ── Print instruction bar (replaces .printDiv) ── */
+/* -- Print instruction bar (replaces .printDiv) -- */
 
 .vis-print-bar__btn:hover {
   background: #f5f4f0;
@@ -707,7 +704,7 @@
   height: 14px;
 }
 
-/* ── Scrollbars ── */
+/* -- Scrollbars -- */
 .vis-panel::-webkit-scrollbar,
 .customScroll::-webkit-scrollbar {
   width: 4px;
@@ -724,7 +721,7 @@
   background: transparent;
 }
 
-/* ── Utility ── */
+/* -- Utility --- */
 .customScroll {
   overflow-y: auto;
   overflow-x: hidden;
@@ -769,10 +766,6 @@
     min-height: 0 !important;
     flex: none !important;
   }
-  /* .vis-container {
-    height: auto !important;
-    overflow: visible !important;
-  } */
   .mobile-partner-bar {
     display: flex;
     flex-direction: row;
@@ -799,7 +792,7 @@
     background: #ffffff;
     font-family: "UncutRegular", sans-serif;
     font-size: 9pt;
-    color: #5f5e5a;
+    color: #3a3936;
     white-space: nowrap;
     cursor: pointer;
     flex-shrink: 0;
@@ -824,12 +817,20 @@
   }
 }
 
-/* @media (min-width: 1025px) {
-  .vis-sidebar {
-    width: 100px;
+@media (max-width: 991.98px) {
+  .vis-body {
+    flex-direction: column !important;
   }
-} */
-
+  .vis-container {
+    height: auto !important;
+  }
+  .vis-sidebar,
+  .vis-map,
+  .vis-panel {
+    flex: none;
+    width: 100%;
+  }
+}
 @media (max-width: 1024px) {
   /* Slim the outer container margins */
   .vis-container {

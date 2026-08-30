@@ -1,55 +1,27 @@
 import globals from "./globals.js";
 
-const {
-  partnerDivStyle,
-  databases,
-  cooperation,
-  keyDrivers,
-  overviewText,
-  statStrip,
-  partnerCountryText,
-  trendConfig,
-} = globals;
+const { partnerDivStyle, databases, cooperation, keyDrivers, overviewText, partnerSourceLinks, statStrip, partnerCountryText, trendConfig } = globals;
 
 export function renderOverviewPanel() {
   const card = document.querySelector(".card.partnership");
   if (!card) return;
   card.innerHTML = "";
- 
-  // About zone - Bootstrap accordion 
+
+  // About zone - Bootstrap accordion
   const accordionWrapper = document.createElement("div");
   accordionWrapper.classList.add("accordion", "accordion-flush", "vis-panel__zone");
   accordionWrapper.id = "overviewAccordion";
   const aboutText = `Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.`;
-  accordionWrapper.appendChild(
-    createBootstrapAccordion(
-      "about",
-      "About this visualization",
-      `<p class="partner-subtitle vis-panel__zone-text">${aboutText}</p>`
-    )
-  );  
+  accordionWrapper.appendChild(createBootstrapAccordion("about", "About this visualization", `<p class="partner-subtitle vis-panel__zone-text">${aboutText}</p>`));
   card.appendChild(accordionWrapper);
-  // const aboutZone = document.createElement("div");
-  // aboutZone.classList.add("vis-panel__zone");
-  // const aboutLabel = document.createElement("p");
-  // aboutLabel.classList.add("vis-panel__zone-label");
-  // aboutLabel.textContent = "About this visualization";
-  // aboutZone.appendChild(aboutLabel);
-  // const aboutText = document.createElement("p");
-  // aboutText.classList.add("partner-subtitle");
-  // aboutText.innerHTML = `Africa’s energy transition is at a critical crossroads, with financing as a central challenge. Three major actors, China, the European Union and the Gulf countries play leading but distinct roles. Our database maps trade, investment, and flagship green projects between African countries and these actors, using primary data and secondary sources including the International Monetary Fund, the World Bank, the Organisation for Economic Co-operation and Development, the Global Gateway, the China Global Investment Tracker, and the Gulf Renewable Projects Tracker. To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed funds, and add qualitative caveats.`;
-  // aboutZone.appendChild(aboutText);
-  // card.appendChild(aboutZone);
 
   // How to navigate
   card.appendChild(createNavigationSteps());
- 
+
   const trendLabelEl = document.createElement("p");
   trendLabelEl.classList.add("vis-panel__zone-label");
-  //trendLabelEl.style.marginTop = "18px";
   trendLabelEl.textContent = "Investment trend";
-  //legendZone.appendChild(trendLabelEl);
- 
+
   const trendList = document.createElement("div");
   trendList.style.cssText = "display:flex;flex-direction:column;gap:5px;";
   [
@@ -62,8 +34,7 @@ export function renderOverviewPanel() {
     row.innerHTML = `<img src="/assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
     trendList.appendChild(row);
   });
-  //legendZone.appendChild(trendList);
-  //card.appendChild(legendZone);
+
   // Sources zone
   const sourcesZone = document.createElement("div");
   sourcesZone.classList.add("vis-panel__zone");
@@ -78,26 +49,18 @@ export function renderOverviewPanel() {
     { label: "World Bank Database", url: "#" },
     { label: "China Global Investment Tracker", url: "#" },
     { label: "Gulf Renewable Projects Tracker", url: "#" },
-  ].map(({ label, url }) =>
-    `<a href="${url}" target="_blank" class="source-link vis-panel__zone-text">${label}</a>`
-  ).join("");
-  accordionWrapper.appendChild(
-    createBootstrapAccordion(
-      "sources",
-      "Data sources",
-      sourcesLinks
-    )
-  );
-//card.appendChild(accordionWrapper);
-  //card.appendChild(sourcesZone);
+  ]
+    .map(({ label, url }) => `<a href="${url}" target="_blank" class="source-link vis-panel__zone-text">${label}</a>`)
+    .join("");
+  accordionWrapper.appendChild(createBootstrapAccordion("sources", "Data sources", sourcesLinks));
 }
 
-// Called by layout.js → onPartnerSelect()
+// Called by layout.js -> onPartnerSelect()
 // Fills .partner-overview-zone with partner title, text, stats, and African partners list
 export function populatePartnerOverview(partnerName) {
   let zone = document.querySelector(".partner-overview-zone");
   if (!zone) {
-  // renderOverviewPanel wiped it - recreate it
+    // renderOverviewPanel wiped it - recreate it
     const card = document.querySelector(".card.partnership");
     if (!card) return;
     zone = document.createElement("div");
@@ -117,31 +80,42 @@ export function populatePartnerOverview(partnerName) {
   header.appendChild(title);
 
   header.appendChild(createStatStrip(partnerName));
- 
+
   const body = document.createElement("p");
   body.classList.add("partner-subtitle", "vis-panel__zone-text");
   body.innerHTML = overviewText[partnerName] || "No overview available.";
   header.appendChild(body);
- 
+
+  const link = partnerSourceLinks[partnerName];
+  if (link) {
+    const sourceLink = document.createElement("a");
+    sourceLink.href = link;
+    sourceLink.target = "_blank";
+    sourceLink.classList.add("cardLink", "d-inline-flex", "align-items-center", "gap-1");
+    sourceLink.innerHTML = `
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+    <span>View source</span>
+  `;
+    header.appendChild(sourceLink);
+  }
   const hint = document.createElement("p");
   hint.classList.add("hint");
   hint.textContent = "← Click a country on the map to see the bilateral detail";
   header.appendChild(hint);
- 
+
   zone.appendChild(header);
 }
 
-export function populateCountryCard(
-  countryName,
-  selectedPartner,
-  onPartnerSelect,
-) {
+export function populateCountryCard(countryName, selectedPartner, onPartnerSelect) {
   console.log("selected Partner", selectedPartner);
   console.log("country name", countryName);
-  // Write into the overview zone only — not the whole card.
+  // Write into the overview zone only, not the whole card
   // The navigation steps and accordions must stay intact so
   // populatePartnerOverview can find the zone again when the user
-  // clicks back to a non-African partner.
+  // clicks back to a non-African partner
   const zone = document.querySelector(".partner-overview-zone");
   if (!zone) {
     console.error("populateCountryCard: .partner-overview-zone not found");
@@ -149,16 +123,13 @@ export function populateCountryCard(
   }
   zone.innerHTML = "";
 
-  // Pass onPartnerSelect into createBreadCrumb so it can call back correctly.
-  // If onPartnerSelect is not provided (legacy call), falls back to populatePartnerCard.
-  const backFn =
-    onPartnerSelect || (() => populatePartnerOverview(selectedPartner));
+  // Pass onPartnerSelect into createBreadCrum so it can call back correctly
+  // If onPartnerSelect is not provided (legacy call), falls back to populatePartnerCard
+  const backFn = onPartnerSelect || (() => populatePartnerOverview(selectedPartner));
   zone.appendChild(createBreadCrumb(selectedPartner, backFn));
   zone.appendChild(createTitle(`${selectedPartner} - ${countryName}`));
 
-  const selectedCountryData = databases.reshapedBiData[selectedPartner]?.find(
-    (entry) => entry["African Country"] === countryName,
-  );
+  const selectedCountryData = databases.reshapedBiData[selectedPartner]?.find((entry) => entry["African Country"] === countryName);
   if (!selectedCountryData) {
     zone.appendChild(
       Object.assign(document.createElement("p"), {
@@ -168,30 +139,13 @@ export function populateCountryCard(
     return;
   }
   // Add text economic engagement
-  const engageText =
-    partnerCountryText[selectedPartner]["Engagement"][countryName];
-  const engagementDiv = createTextSection(
-    "Economic Engagement & Investment",
-    engageText,
-  );
-
-  // if (selectedCountryData["Economic and Investment Trend"] !== "No data") {
-  //   engagementDiv.appendChild(
-  //     createTrendIndicator(
-  //       selectedCountryData["Economic and Investment Trend"],
-  //     ),
-  //   );
-  // }
+  const engageText = partnerCountryText[selectedPartner]["Engagement"][countryName];
+  const engagementDiv = createTextSection("Economic Engagement & Investment", engageText);
   zone.appendChild(engagementDiv);
   // Investment section
-  const investmentText =
-    partnerCountryText[selectedPartner]["Investment"][countryName];
-  const investmentTextDiv = createTextSection(
-    "Green Investments",
-    investmentText,
-  );
+  const investmentText = partnerCountryText[selectedPartner]["Investment"][countryName];
+  const investmentTextDiv = createTextSection("Green Investments", investmentText);
   investmentTextDiv.appendChild(createCooperationDiv(selectedCountryData, "h5"));
-  investmentTextDiv.appendChild(createSourceLink(selectedCountryData));
   zone.appendChild(investmentTextDiv);
 
   initTooltips(zone);
@@ -221,7 +175,7 @@ function createBootstrapAccordion(id, title, contentHTML) {
     </div>
   `;
   return item;
-} 
+}
 
 // --- partner overview panel helper ---
 // Helper — also used by renderOverviewPanel
@@ -234,11 +188,7 @@ function createNavigationSteps() {
   label.textContent = "How to navigate";
   section.appendChild(label);
 
-  const steps = [
-    "Select a foreign actor from the sidebar",
-    "Click an African country on the map",
-    "Browse the bilateral detail sheet",
-  ];
+  const steps = ["Select a foreign actor from the sidebar", "Click an African country on the map", "Browse the bilateral detail sheet"];
 
   steps.forEach((text, i) => {
     const row = document.createElement("div");
@@ -260,15 +210,12 @@ function createNavigationSteps() {
   return section;
 }
 
-// Builds one mini-card per African partner country for the scannable list.
-// Shows: country name, trend indicator, cooperation tags, flagship count.
-// No click handler — clicking a country on the map triggers populateCountryCard.
+// Builds one mini-card per African partner country for the scannable list
+// Shows: country name, trend indicator, cooperation tags, flagship count
+// No click handler, clicking a country on the map triggers populateCountryCard
 function createPartnershipMiniCard(entry) {
   const card = document.createElement("div");
   card.classList.add("card-body", "partner");
-
-  //const header = document.createElement("div");
-  //header.classList.add("d-flex", "align-items-center", "gap-2", "mb-1");
 
   const title = document.createElement("h6");
   title.classList.add("card-title", "listPartners", "gap-2", "mb-1");
@@ -276,9 +223,7 @@ function createPartnershipMiniCard(entry) {
   card.appendChild(title);
 
   if (entry["Economic and Investment Trend"] !== "No data") {
-    card.appendChild(
-      createTrendIndicator(entry["Economic and Investment Trend"]),
-    );
+    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
   }
 
   if (entry["Areas of Cooperation - Categories"] !== "No data") {
@@ -291,11 +236,8 @@ function createPartnershipMiniCard(entry) {
     flagship.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
     card.appendChild(flagship);
   }
-
-  //card.appendChild(createSourceLink(entry));
   return card;
 }
-
 
 // --- populateCountryCard helpers ---
 function createBreadCrumb(selectedPartner, backFn) {
@@ -323,16 +265,6 @@ function createTextSection(title, text) {
   `;
   return container;
 }
-function createSourceLink(entryOrData) {
-  const link = document.createElement("a");
-  const href = entryOrData["Link to Agreement"] || entryOrData.linkAgreement;
-  const fallback = entryOrData["Source"] || entryOrData.sources;
-  link.href = href || fallback || "#";
-  link.target = "_blank";
-  link.classList.add("ms-2", "cardLink");
-  link.textContent = href ? "View agreement" : "View source";
-  return link;
-}
 
 // ---- shared helper function ----
 function createStatStrip(selectedPartner) {
@@ -358,15 +290,15 @@ function createStatStrip(selectedPartner) {
 function createTrendIndicator(trendValue) {
   const div = document.createElement("div");
   div.classList.add("d-flex", "align-items-center", "mb-1", "gap-2");
- 
+
   const label = document.createElement("p");
   label.classList.add("trendLabel", "my-auto");
   label.textContent = "Investment trend:";
- 
+
   const icon = document.createElement("img");
   icon.style.cssText = "width:20px;height:20px;";
   icon.setAttribute("data-bs-toggle", "tooltip");
- 
+
   const config = trendConfig[trendValue];
   if (config) {
     icon.src = `/assets/img/icons/${config.src}`;
@@ -374,7 +306,7 @@ function createTrendIndicator(trendValue) {
     icon.style.filter = config.filter;
     new bootstrap.Tooltip(icon);
   }
- 
+
   div.appendChild(label);
   div.appendChild(icon);
   return div;
@@ -386,22 +318,22 @@ function createCooperationDiv(data, labelTag = "p") {
   div.style.alignItems = partnerDivStyle.areasCoopAlignItems;
   div.style.flexWrap = partnerDivStyle.areasCoopFlexWrap;
   div.style.gap = partnerDivStyle.areasCoopGap;
- 
+
   if (data["Areas of Cooperation - Categories"] === "No data") return div;
- 
+
   const label = document.createElement(labelTag);
-  label.classList.add(["card-text", "mb-1", "areasCoop"]);
+  label.classList.add("card-title", "partner-select", "mb-1", "areasCoop");
   label.textContent = "Areas of cooperation:";
   div.appendChild(label);
   div.appendChild(createCooperationTags(data["Areas of Cooperation - Categories"]));
   return div;
 }
- 
+
 function createCooperationTags(areas) {
   const row = document.createElement("div");
   row.classList.add("iconsRow");
   row.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;";
- 
+
   areas.forEach((area) => {
     const tag = document.createElement("button");
     tag.classList.add("btn", "btn-outline-dark", "aresCoop", "ms-1");
@@ -410,21 +342,20 @@ function createCooperationTags(areas) {
     tag.setAttribute("data-bs-placement", "right");
     tag.setAttribute("title", area);
     tag.style.background = cooperation.color[area];
- 
+
     const iconPath = `/assets/img/icons/${area.toLowerCase().replace(/ /g, "-").replace(/\//g, "-")}.svg`;
     const icon = document.createElement("img");
     icon.src = iconPath;
     icon.alt = `${area} Icon`;
     icon.style.cssText = "width:16px;height:16px;";
     tag.appendChild(icon);
- 
+
     row.appendChild(tag);
     new bootstrap.Tooltip(tag);
   });
- 
+
   return row;
 }
 function initTooltips(container) {
-  [].slice.call(container.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    .forEach((el) => new bootstrap.Tooltip(el));
+  [].slice.call(container.querySelectorAll('[data-bs-toggle="tooltip"]')).forEach((el) => new bootstrap.Tooltip(el));
 }

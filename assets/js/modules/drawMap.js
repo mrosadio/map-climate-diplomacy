@@ -90,13 +90,7 @@ const mapEl = document.querySelector("#map");
 const W = mapEl?.clientWidth || 800;
 const H = mapEl?.clientHeight || 500;
 
-let svg = d3
-  .select("#map")
-  .append("svg")
-  .attr("viewBox", `0 0 ${W} ${H}`)
-  .attr("preserveAspectRatio", "xMidYMid meet")
-  .attr("height", "100%")
-  .attr("width", "100%");
+let svg = d3.select("#map").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet").attr("height", "100%").attr("width", "100%");
 
 // projection and path are module-level so updateProjection() can reassign them
 // and addCountryLabels() can read the current path for centroid calculations.
@@ -137,9 +131,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     .attr("fill", (d) => {
       // All countries on this map are African partners.
       const level = d.properties["connect_partners"];
-      return level
-        ? mapDisplaySettings.connectivityColor[level]
-        : mapDisplaySettings.colors.default;
+      return level ? mapDisplaySettings.connectivityColor[level] : mapDisplaySettings.colors.default;
     })
     .attr("stroke", "#a7acb6")
     .attr("stroke-width", 1)
@@ -171,13 +163,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
       const name = d.properties.name;
       const config = countryLabelConfig[name] || {};
 
-      const textEl = d3
-        .select(this)
-        .append("text")
-        .attr("text-anchor", "middle")
-        .attr("font-size", "13px")
-        .attr("font-family", "UncutRegular, sans-serif")
-        .attr("fill", "#444441");
+      const textEl = d3.select(this).append("text").attr("text-anchor", "middle").attr("font-size", "13px").attr("font-family", "UncutRegular, sans-serif").attr("fill", "#444441");
 
       if (config.lines) {
         config.lines.forEach((line, i) => {
@@ -214,8 +200,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
   g = svg.append("g");
 
   // Get the selected country and its partners
-  const africanPartnersSet =
-    databases.bilateralPartnerMap.get(selectedPartner) || new Set();
+  const africanPartnersSet = databases.bilateralPartnerMap.get(selectedPartner) || new Set();
   // ← add these two lines here, inside the function
   console.log("africanPartnersSet size:", africanPartnersSet.size);
   console.log("africanPartnersSet contents:", [...africanPartnersSet]);
@@ -228,14 +213,10 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("fill", (d) =>
-      getBilateralFill(d.properties.name, selectedPartner, africanPartnersSet),
-    )
+    .attr("fill", (d) => getBilateralFill(d.properties.name, selectedPartner, africanPartnersSet))
     .attr("stroke", "#a7acb6")
     .attr("stroke-width", 1)
-    .style("cursor", (d) =>
-      africanPartnersSet.has(d.properties.name) ? "pointer" : "default",
-    )
+    .style("cursor", (d) => (africanPartnersSet.has(d.properties.name) ? "pointer" : "default"))
     .on("click", function (event, d) {
       const countryName = d.properties.name;
 
@@ -303,14 +284,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     const name = d.properties.name;
     const config = countryLabelConfig[name] || {};
 
-    const textEl = d3
-      .select(this)
-      .append("text")
-      .attr("text-anchor", "middle")
-      .attr("font-weight", "bold")
-      .attr("font-size", "13px")
-      .attr("font-family", "UncutRegular, sans-serif")
-      .attr("fill", "#ffffff");
+    const textEl = d3.select(this).append("text").attr("text-anchor", "middle").attr("font-weight", "bold").attr("font-size", "13px").attr("font-family", "UncutRegular, sans-serif").attr("fill", "#ffffff");
 
     if (config.lines) {
       config.lines.forEach((line, i) => {
@@ -327,9 +301,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
   // --- Set trend arrows (for partner countries only) ---
   function getTrendConfig(d) {
-    const partnerData = databases.reshapedBiData[selectedPartner]?.find(
-      (entry) => entry["African Country"] === d.properties.name,
-    );
+    const partnerData = databases.reshapedBiData[selectedPartner]?.find((entry) => entry["African Country"] === d.properties.name);
     return trendConfig[partnerData?.["Economic and Investment Trend"]] || null;
   }
   labelGroups
@@ -353,9 +325,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
 // --- Public: label controls ---
 export function addCountryLabels(geoJSONData, labelGroup) {
-  const countriesWithData = geoJSONData.features.filter(
-    (feature) => feature.properties.connect_partners,
-  );
+  const countriesWithData = geoJSONData.features.filter((feature) => feature.properties.connect_partners);
   labelGroup.selectAll("text").remove();
 
   labelGroup
@@ -376,7 +346,7 @@ export function deleteCountryLabels() {
   d3.selectAll("text").transition().duration(500).style("opacity", 0);
 }
 
-// ── Public: tooltip + highlight events (overview map only) ──
+// -- Public: tooltip + highlight events (overview map only) --
 // Exported because navigation.js calls it after drawOverviewMap.
 // In the bilateral map, clicks are handled directly in drawBilateralMap above.
 export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
@@ -391,18 +361,14 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
   }
 
   function handleMouseOut() {
-    g.selectAll("path")
-      .attr("stroke", style.strokeDefaultColor)
-      .attr("stroke-width", style.strokeDefaultWidth);
+    g.selectAll("path").attr("stroke", style.strokeDefaultColor).attr("stroke-width", style.strokeDefaultWidth);
   }
 
   // Apply mouseover and mouseout logic to all countries
   g.selectAll("path")
     .on("mouseover", handleMouseOver)
     .on("mousemove", function (event) {
-      tooltip
-        .style("left", `${event.pageX + 10}px`)
-        .style("top", `${event.pageY + 10}px`);
+      tooltip.style("left", `${event.pageX + 10}px`).style("top", `${event.pageY + 10}px`);
     })
     .on("mouseout", handleMouseOut)
     .on("click", function (event, d) {
@@ -422,9 +388,7 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 
       // Reapply hover handlers because drawBilateralMap (called inside
       // onPartnerSelect) re-creates all path elements, wiping their listeners.
-      g.selectAll("path")
-        .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+      g.selectAll("path").on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
     });
 }
 
@@ -456,14 +420,9 @@ function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
     return mapDisplaySettings.colors.default;
   }
 
-  const partnerData = databases.reshapedBiData[selectedPartner]?.find(
-    (entry) => entry["African Country"] === countryName,
-  );
+  const partnerData = databases.reshapedBiData[selectedPartner]?.find((entry) => entry["African Country"] === countryName);
 
-  const connectivityLevel =
-    partnerData?.[
-      "Economic and Investment connectivity between African country and non-African partner"
-    ] ?? "default";
+  const connectivityLevel = partnerData?.["Economic and Investment connectivity between African country and non-African partner"] ?? "default";
 
   return connectivityColor[connectivityLevel] || connectivityColor.default;
 }
@@ -480,13 +439,8 @@ function applyHighlight(countryName, g) {
       .filter((d) => globals.GCCCountries.has(d.properties.name))
       .attr("stroke", style.strokeHighlightColor)
       .attr("stroke-width", style.strokeHighlightWidth);
-  } else if (
-    globals.africanPartners.has(countryName) ||
-    countryName === "China"
-  ) {
-    d3.select(`path[data-name="${countryName}"]`)
-      .attr("stroke", style.strokeHighlightColor)
-      .attr("stroke-width", style.strokeHighlightWidth);
+  } else if (globals.africanPartners.has(countryName) || countryName === "China") {
+    d3.select(`path[data-name="${countryName}"]`).attr("stroke", style.strokeHighlightColor).attr("stroke-width", style.strokeHighlightWidth);
   }
 }
 

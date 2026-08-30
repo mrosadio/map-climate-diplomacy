@@ -13,7 +13,6 @@ const { geoJSONUrl, bilateralDataUrl, databases } = globals;
 
 function refresh() {
   //if (/Mobi|Android/i.test(navigator.userAgent)) {
-  // El usuario está en un dispositivo móvil
   // simulateCountryClick(svg, filteredGeoJSON, "Chad");
   // showPickerAfrica();
   //button.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -34,7 +33,7 @@ export async function showAfricaOverview() {
 
     console.log("test database", databases.reshapedBiData);
     console.log("Merged world GeoJSON data", mergedWorldGeoJSON);
-    console.log("africaOverviewData", overviewData); // For now, this is no longer necessary since we want to render the world map on the overview page
+    console.log("africaOverviewData", overviewData); // For now this is no longer necessary since we want to render the world map on the overview page
 
     drawOverviewMap(mergedWorldGeoJSON, reshapedBiData);
     setupControls(mergedWorldGeoJSON);
