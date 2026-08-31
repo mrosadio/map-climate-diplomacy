@@ -1,8 +1,8 @@
 const globals = {
   geoJSONUrl: "https://raw.githubusercontent.com/Afripoli/D3-graph-gallery/refs/heads/master/DATA/world.geojson",
-  overviewDataUrl: "./assets/db/pie-climate-diplomacy.csv",
-  bilateralDataUrl: "./assets/db/green-cooperation.csv",
-  comparativeDataUrl: "./assets/db/comparative-advantage.csv",
+  overviewDataUrl: "assets/db/pie-climate-diplomacy.csv",
+  bilateralDataUrl: "assets/db/green-cooperation.csv",
+  comparativeDataUrl: "assets/db/comparative-advantage.csv",
   databases: {
     geoJSONData: null,
     africaGeoJSON: null,

@@ -31,7 +31,7 @@ export function renderOverviewPanel() {
   ].forEach(({ icon, filter, label }) => {
     const row = document.createElement("div");
     row.style.cssText = "display:flex;align-items:center;gap:8px;";
-    row.innerHTML = `<img src="/assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
+    row.innerHTML = `<img src="assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
     trendList.appendChild(row);
   });
 
@@ -343,7 +343,7 @@ function createCooperationTags(areas) {
     tag.setAttribute("title", area);
     tag.style.background = cooperation.color[area];
 
-    const iconPath = `/assets/img/icons/${area.toLowerCase().replace(/ /g, "-").replace(/\//g, "-")}.svg`;
+    const iconPath = `assets/img/icons/${area.toLowerCase().replace(/ /g, "-").replace(/\//g, "-")}.svg`;
     const icon = document.createElement("img");
     icon.src = iconPath;
     icon.alt = `${area} Icon`;
