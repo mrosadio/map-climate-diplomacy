@@ -22,7 +22,7 @@ const countryLabelConfig = {
   },
   Morocco: { dy: -18, dx: 20 },
   "Republic of the Congo": {
-    lines: ["Rep. of", "the Congo"],
+    lines: ["Rep. of the", "Congo"],
     dy: -12,
     dx: 15,
   },
@@ -170,8 +170,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
           textEl
             .append("tspan")
             .attr("x", 0)
-            .attr("dy", i === 0 ? `0` : "10px")
-            .attr("line-height", "1.5")
+            .attr("dy", i === 0 ? `0` : "1.1em")
             .text(line);
         });
       } else {
