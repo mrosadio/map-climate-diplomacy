@@ -3,11 +3,7 @@ import { renderOverviewPanel } from "./cards.js";
 import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
 
-import {
-  prepareAfricaOverviewData,
-  prepareBilateralData,
-  prepareComparativeData,
-} from "./dataManager.js";
+import { prepareAfricaOverviewData, prepareBilateralData, prepareComparativeData } from "./dataManager.js";
 
 const { geoJSONUrl, bilateralDataUrl, databases } = globals;
 
@@ -17,7 +13,7 @@ function refresh() {
   // showPickerAfrica();
   //button.scrollIntoView({ behavior: "smooth", block: "center" });
   //} else {
-  console.log("refreshing");
+  ////console.log("refreshing");
 
   window.location.href = window.location.href;
   //}
@@ -31,9 +27,9 @@ export async function showAfricaOverview() {
     await prepareBilateralData(); // reshaped Bidata is constructed here
     const reshapedBiData = databases.reshapedBiData;
 
-    console.log("test database", databases.reshapedBiData);
-    console.log("Merged world GeoJSON data", mergedWorldGeoJSON);
-    console.log("africaOverviewData", overviewData); // For now this is no longer necessary since we want to render the world map on the overview page
+    //console.log("test database", databases.reshapedBiData);
+    //console.log("Merged world GeoJSON data", mergedWorldGeoJSON);
+    //console.log("africaOverviewData", overviewData); // For now this is no longer necessary since we want to render the world map on the overview page
 
     drawOverviewMap(mergedWorldGeoJSON, reshapedBiData);
     setupControls(mergedWorldGeoJSON);
@@ -47,7 +43,7 @@ export async function showAfricaOverview() {
     const selectedBlock = document.getElementById("blockNameNowTemp");
     if (selectedBlock) {
       selectedBlock.innerText = "African countries overview";
-      console.log("African countries overview", selectedBlock);
+      ////console.log("African countries overview", selectedBlock);
     }
   } catch (error) {
     console.error("Error preparing Africa overview data:", error);

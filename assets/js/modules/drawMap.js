@@ -105,7 +105,7 @@ let g;
 // --- Public: drawing function ---
 export function drawOverviewMap(geoJSONData, reshapedBiData) {
   document.getElementById("mapLegend").style.display = "flex";
-  console.log("Data to draw:", geoJSONData);
+  //console.log("Data to draw:", geoJSONData);
   if (!geoJSONData || !geoJSONData.features) {
     console.error("drawOverviewMap: no valid geoJSONData received");
     return;
@@ -113,7 +113,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   const el = document.querySelector("#map");
   //svg.attr("preserveAspectRatio", "xMidYMin meet");
   svg.attr("viewBox", getViewBox(el));
-  console.log("console svg", el.clientWidth);
+  //console.log("console svg", el.clientWidth);
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
   g = svg.append("g");
@@ -201,10 +201,10 @@ export function drawBilateralMap(mergedData, selectedPartner) {
   // Get the selected country and its partners
   const africanPartnersSet = databases.bilateralPartnerMap.get(selectedPartner) || new Set();
   // ← add these two lines here, inside the function
-  console.log("africanPartnersSet size:", africanPartnersSet.size);
-  console.log("africanPartnersSet contents:", [...africanPartnersSet]);
-  console.log("first feature name:", mergedData.features[0]?.properties.name);
-  console.log("selectedPartner:", selectedPartner);
+  //console.log("africanPartnersSet size:", africanPartnersSet.size);
+  //console.log("africanPartnersSet contents:", [...africanPartnersSet]);
+  //console.log("first feature name:", mergedData.features[0]?.properties.name);
+  //console.log("selectedPartner:", selectedPartner);
 
   // Define a color scale for the connect_partners values
   g.selectAll("path")
@@ -221,7 +221,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
       // Only respond to clicks on African partner countries
       if (!africanPartnersSet.has(countryName)) return;
-      console.log("Clicked African country:", countryName);
+      //console.log("Clicked African country:", countryName);
 
       // Visual feedback — highlight selected country, dim all countrie
       g.selectAll("path").attr("opacity", 0.15);

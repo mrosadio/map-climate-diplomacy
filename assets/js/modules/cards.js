@@ -110,8 +110,8 @@ export function populatePartnerOverview(partnerName) {
 }
 
 export function populateCountryCard(countryName, selectedPartner, onPartnerSelect) {
-  console.log("selected Partner", selectedPartner);
-  console.log("country name", countryName);
+  //console.log("selected Partner", selectedPartner);
+  //console.log("country name", countryName);
   // Write into the overview zone only, not the whole card
   // The navigation steps and accordions must stay intact so
   // populatePartnerOverview can find the zone again when the user
