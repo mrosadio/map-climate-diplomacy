@@ -1,96 +1,84 @@
-# Africa's Energy Transition Financing Map
+# Africa's Green Transition — Climate Finance Diplomacy Map
 
-> Who is financing Africa's energy transition — and how much has actually been delivered?
+An interactive data visualization mapping bilateral climate finance relationships between African countries and three major foreign actors: **China**, the **European Union**, and the **Gulf Cooperation Council**. Built with D3.js and Bootstrap 5.
 
-
----
-
-## Research Context
-
-Africa's energy transition is at a critical crossroads, with financing as a 
-central challenge. Three major actors, China, the European Union, and Gulf 
-states, play leading but distinct roles. This database maps trade, investment, 
-and flagship green projects between African countries and these actors, using 
-primary and secondary sources including the IMF, World Bank, OECD, Global 
-Gateway, China Global Investment Tracker, and Gulf Renewable Projects Tracker. 
-To ensure accuracy, we cross-check datasets, distinguish pledged from disbursed 
-funds, and add qualitative caveats.
+**[View live demo →](https://mrosadio.github.io/map-climate-diplomacy/)**
 
 ---
 
-## Design Decisions
+## Overview
 
-- **Three-actor structure:** The tool allows users to filter by financing 
-actor (China, EU, Gulf states). African partner countries are colored by 
-connectivity level, not by actor, using a three-tier green scale 
-(Low / Moderate / High), showing the density of financing 
-relationships rather than actor identity.
+The visualization lets users explore how each of the three foreign partners engages with African countries on green transition financing: trade flows, foreign direct investment, flagship project counts, and directional investment trends (increasing / decreasing / stable), alongside a connectivity-level choropleth showing the depth of each bilateral relationship.
 
-- **Pledged vs. disbursed:** This distinction is documented in the 
-methodology text as a data quality caveat but is not currently 
-visualized. Implementing it as a toggle or visual encoding is a planned 
-extension.
+This project is part of a broader portfolio of interactive data visualizations exploring Africa's international green transition partnerships.
 
-- **Map projection:** Both the overview and bilateral maps use Mercator 
-(`d3.geoMercator()`), centered on Africa (`center: [20, 2]`, 
-`scale: 320`). An earlier version used Natural Earth 
-(`d3.geoNaturalEarth1()`) for the bilateral view, but this was removed 
-when the map was scoped to Africa only.
+## Features
 
-- **Color palette:** African partner countries are encoded using three 
-greens (`#c8dac0`, `#739e69`, `#3a653a`) representing Low, Moderate, 
-and High investment connectivity. Grey (`#d3d3d3`) is used for countries with no 
-data. The palette avoids colors associated with specific actors to keep 
-the encoding neutral.
+- **Interactive choropleth map**: country shading reflects level of bilateral connectivity (low / moderate / high)
+- **Partner switching**: toggle between China, the EU, and Gulf Countries to redraw the map and update all summary statistics
+- **Country-level detail panel**: click any African country to view its specific bilateral relationship data, and cooperation areas
+- **Investment trend indicators**: at-a-glance icons showing whether a relationship is intensifying, cooling, or holding steady
+- **Responsive layout**: built with a Bootstrap-first approach, adapted for desktop and tablet viewports
+- **Sourced throughout**: every partner-level relationship links back to its original data source
 
----
+## Data sources
 
-## Data Sources
+Data is compiled and cross-checked from primary and secondary sources, including:
 
-| Source | Link | Notes |
-|--------|----------|-------|
-| IMF | [link](https://data.imf.org/datasets/IMF.STA:IMTS) | ... |
-| World Bank | [link](https://data.worldbank.org/country/1W) | ... |
+- International Monetary Fund (IMF)
+- The World Bank
+- Organisation for Economic Co-operation and Development (OECD)
+- Global Gateway (European Union)
+- China Global Investment Tracker
+- Gulf Renewable Projects Tracker
 
-Last updated: April 2025
+## Tech stack
 
-## Known limitations: 
-- Selecting an African country without first selecting a partner actor 
-  does not trigger a response — this can confuse users and is a known 
-  UX gap
-- No mobile support (explicitly out of scope for the current version)
-- Trend direction indicators (`trendConfig`) are present in the data but 
-  their derivation methodology is not documented yet
+- [D3.js](https://d3js.org/) (v6) - geographic projection, data-driven map rendering, transitions
+- Vanilla JavaScript (ES Modules) - no framework
+- [Bootstrap 5.3](https://getbootstrap.com/) - layout grid and responsive utilities
+- GeoJSON - country boundary geometry
+- CSV - underlying relationship, trade, and investment data
 
----
+## Project structure
 
-## Run Locally
+```
+├── index.html
+├── assets/
+│   ├── css/          # main.css, vis-layout.css, printContainer.css
+│   ├── js/
+│   │   ├── index.js          # entry point
+│   │   └── modules/
+│   │       ├── dataManager.js     # orchestrates data loading + preparation
+│   │       ├── dataLoader.js      # CSV / GeoJSON fetch layer
+│   │       ├── dataTransform.js   # merges, filters, reshapes datasets
+│   │       ├── drawMap.js         # D3 map rendering (overview + bilateral)
+│   │       ├── cards.js           # right-panel info cards
+│   │       ├── navigation.js      # overview map orchestration
+│   │       ├── layout.js          # sidebar state + partner selection
+│   │       └── setUpControls.js   # zoom / label toggle controls
+│   ├── img/icons/     # partner icons, trend icons
+│   └── db/            # source CSV datasets
+```
 
-git clone https://github.com/username/repo-name
-cd repo-name
+## Running locally
+
+Because the app uses native ES modules, it needs to be served over HTTP rather than opened directly as a local file:
+
+```bash
+git clone https://github.com/mrosadio/map-climate-diplomacy.git
+cd map-climate-diplomacy
 python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-Then open http://localhost:8000
+Any local static server works equally well (e.g. `npx serve`, VS Code's Live Server extension).
 
----
+## Known limitations
 
-## Future improvements
-- **Code architecture:** `globals.js` currently mixes configuration, 
-runtime state, and data — these should be split into separate modules. 
-The bilateral data pipeline (`reshapedBiData`, `mergedBilateralData`) 
-is rebuilt on every page load, which would not scale to a larger dataset 
-and should be replaced with caching or a build step.
+- Mobile phone layout is not yet implemented (tablet and desktop are fully supported)
+- On very tall/narrow viewports, the map's aspect ratio doesn't yet dynamically adapt to available vertical space
 
-- **Error handling:** There is no fallback when 
-`partnerCountryText[partner][section][country]` is undefined — the tool 
-fails silently. Adding explicit error boundaries would improve 
-robustness.
+## Author
 
-
----
-
-## Credits
-
-Built for the Africa Policy Research Institute (APRI).
-Data collection: Marius Kretzschmar
-Visualization development: Micaela Rosadio
+Micaela Rosadio — [GitHub](https://github.com/mrosadio)
