@@ -318,7 +318,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       const lines = config.lines?.length || 1;
       return (lines - 1) * 10 + 2 + (config.iconDy || 0);
     })
-    .attr("href", (d) => `/assets/img/icons/${getTrendConfig(d).src}`)
+    .attr("href", (d) => `assets/img/icons/${getTrendConfig(d).src}`)
     .style("filter", "brightness(0) invert(1)"); // forced white — see note below
 }
 
