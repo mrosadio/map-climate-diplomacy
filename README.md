@@ -1,4 +1,4 @@
-# Africa's Green Transition — Climate Finance Diplomacy Map
+# Africa's Green Transition: Climate Finance Diplomacy Map
 
 An interactive data visualization mapping bilateral climate finance relationships between African countries and three major foreign actors: **China**, the **European Union**, and the **Gulf Cooperation Council**. Built with D3.js and Bootstrap 5.
 
