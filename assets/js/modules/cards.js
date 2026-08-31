@@ -301,7 +301,7 @@ function createTrendIndicator(trendValue) {
 
   const config = trendConfig[trendValue];
   if (config) {
-    icon.src = `/assets/img/icons/${config.src}`;
+    icon.src = `./assets/img/icons/${config.src}`;
     icon.setAttribute("title", config.title);
     icon.style.filter = config.filter;
     new bootstrap.Tooltip(icon);
