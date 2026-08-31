@@ -1,39 +1,39 @@
 
 @font-face {
     font-family: "UncutBold";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Bold.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-Bold.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutBoldOblique";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-BoldOblique.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-BoldOblique.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutMedium";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Medium.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-Medium.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutMediumOblique";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-MediumOblique.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-MediumOblique.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutRegular";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Regular.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-Regular.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutRegularOblique";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-RegularOblique.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-RegularOblique.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutSemibold";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-Semibold.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-Semibold.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutSemiboldOblique";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-SemiboldOblique.otf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-SemiboldOblique.otf") format("truetype");
 }
 @font-face {
     font-family: "UncutVF";
-    src: url("/assets/fonts/uncut-sans/Uncut-Sans-VF.ttf") format("truetype");
+    src: url("./assets/fonts/uncut-sans/Uncut-Sans-VF.ttf") format("truetype");
 }
 
 * {
