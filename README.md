@@ -55,17 +55,12 @@ the encoding neutral.
 Last updated: April 2025
 
 ## Known limitations: 
-- Coverage is limited to 6–7 African countries per partner, not all 54
-- The pledged vs. disbursed distinction exists in the data notes but is 
-  not yet visualized
-- The Low/Moderate/High connectivity thresholds driving the color scale 
-  are not documented in the codebase
 - Selecting an African country without first selecting a partner actor 
   does not trigger a response — this can confuse users and is a known 
   UX gap
 - No mobile support (explicitly out of scope for the current version)
 - Trend direction indicators (`trendConfig`) are present in the data but 
-  their derivation methodology is not documented
+  their derivation methodology is not documented yet
 
 ---
 
@@ -90,9 +85,6 @@ and should be replaced with caching or a build step.
 `partnerCountryText[partner][section][country]` is undefined — the tool 
 fails silently. Adding explicit error boundaries would improve 
 robustness.
-
-- **Pledged vs. disbursed toggle:** This is the most important missing 
-feature. This still needs to be implemented in the visualization.
 
 
 ---
