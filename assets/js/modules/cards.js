@@ -332,8 +332,7 @@ function createCooperationDiv(data, labelTag = "p") {
 
 function createCooperationTags(areas) {
   const row = document.createElement("div");
-  row.classList.add("iconsRow");
-  row.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;";
+  row.classList.add("d-flex", "flex-wrap", "gap-2");
 
   areas.forEach((area) => {
     const tag = document.createElement("button");

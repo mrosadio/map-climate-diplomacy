@@ -26,8 +26,6 @@
   display: flex;
   flex-direction: column;
   margin: 0 30px 2rem 30px;
-  /* border: 0.5px solid #d3d1c7; */
-  /* border-radius: 10px; */
   overflow: hidden;
   /* No fixed height — fills viewport naturally */
   height: calc(100vh - 60px);
@@ -45,7 +43,6 @@
 
 .vis-header__title {
   font-family: "UncutMedium", sans-serif;
-  /* font-size: 11pt; */
   color: #1c1c1a;
   margin: 0;
   letter-spacing: 0.01em;
@@ -70,7 +67,6 @@
 .vis-sidebar {
   flex-shrink: 0;
   background: #ffffff;
-  /* border-right: 0.5px solid #e8e6df; */
   display: flex;
   flex-direction: column;
   padding: 16px 8px 16px 20px; /* was 16px 8px — left bumped to match .vis-header's 20px */
@@ -113,7 +109,6 @@
   font-family: "UncutMedium", sans-serif;
   font-size: 9.5pt;
   color: #1c1c1a;
-  /* text-align: center; */
   line-height: 1.3;
 }
 
@@ -134,7 +129,6 @@
 /* On active: show active image, hide default */
 .vis-sidebar .map-menu-item.active .image img.active {
   display: block;
-  /*filter: brightness(0.2);*/
 }
 
 .vis-sidebar .map-menu-item.active .image img.default {
@@ -160,40 +154,6 @@
 .vis-map svg {
   position: absolute; /* fills the box the layout gives #map, never stretches it */
   inset: 0;
-}
-
-/* -- Map controls overlay -- */
-.vis-map__controls {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: flex-end;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.vis-map__controls > * {
-  pointer-events: auto;
-}
-
-.vis-map__toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 4px 10px 4px 12px;
-  border-radius: 6px;
-  border: 0.5px solid #d3d1c7;
-}
-
-.vis-map__toggle-label {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
-  color: #444441;
-  margin: 0;
 }
 
 .vis-map__overview-btn {
@@ -246,10 +206,8 @@
 
 /* -- Right info panel (replaces .right.bilateral + .third-col) -- */
 .vis-panel {
-  /* width: 340px; */
   flex-shrink: 0;
   background: white;
-  /* border-left: 1px solid #e8e6df; */
   display: flex;
   flex-direction: column;
   height: calc(100vh - 150px); /* WE NEED THIS TO ENABLE OVERSCROLL */
@@ -284,10 +242,7 @@
   font-size: 9.5pt;
 }
 
-/*.vis-panel__zone {
-  padding: 0 0 18px 0; 
-  border-bottom: 0.5px solid #f0eee8;
-}*/ /* only bottom padding — card handles left/right */
+/* only bottom padding — card handles left/right */
 
 .vis-panel__zone:last-child {
   border-bottom: none;
@@ -315,7 +270,6 @@
   background: transparent;
 }
 .accordion-button {
-  /* font-family: "UncutRegular", sans-serif; */
   font-size: 9.5pt;
   color: #3a3936;
   background: transparent;
@@ -336,9 +290,6 @@
   padding: 0 0 14px 0;
 }
 /* Remove the outer accordion zone padding conflict */
-/* .accordion.vis-panel__zone {
-  padding-bottom: 0;
-} */
 /* Navigation steps */
 .vis-step {
   display: flex;
@@ -368,7 +319,6 @@
 
 .vis-step__text {
   font-family: "UncutRegular", sans-serif;
-  /* font-size: 9pt; */
   color: #3a3936;
   line-height: 1.5;
 }
@@ -403,29 +353,14 @@
 }
 .partner-subtitle {
   font-family: "UncutRegular", sans-serif;
-  /* font-size: 9.5pt; */
   color: #3a3936;
   line-height: 1.6;
   margin: 0 0 10px 0;
 }
-.partners-list-zone {
-  flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-  padding: 0;
-}
-.partners-list-zone::-webkit-scrollbar {
-  width: 3px;
-}
 
-.partners-list-zone::-webkit-scrollbar-thumb {
-  background: #d3d1c7;
-  border-radius: 3px;
-}
 .hint {
   font-family: "UncutRegular", sans-serif;
   font-size: 9.5pt;
-  /* color: #b09a5a; */
   font-style: italic;
   margin: 4px 0 0 0;
   padding: 0;
@@ -466,60 +401,11 @@
   letter-spacing: 0.05em;
 }
 
-/* Empty state */
-.empty-state {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9.5pt;
-  color: #8a8880;
-  line-height: 1.6;
-}
-
-/* Accordions */
-.accordion-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-.accordion-row:first-child {
-  padding-top: 0;
-}
-
-.acc-title {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 10pt;
-  color: #3a3936;
-  transition: color 0.15s;
-}
-
-.accordion-row:hover .acc-title {
-  color: #1c2b1e;
-}
-
-.acc-icon {
-  font-size: 13pt;
-  color: #b4b2a9;
-  transition: transform 0.2s;
-  line-height: 1;
-}
-
-.acc-body {
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
-  color: #3a3936;
-  line-height: 1.7;
-  padding: 6px 0 4px 0;
-}
-
 .source-link {
   display: block;
   font-family: "UncutRegular", sans-serif;
-  /* font-size: 9pt; */
   color: #3d6b42;
   text-decoration: none;
-  /* padding: 3px 0; */
   transition: color 0.15s;
 }
 .source-link:last-child {
@@ -546,11 +432,6 @@
 
 .back-link:hover {
   color: #1c2b1e;
-}
-
-/* African partners list */
-.partners-list {
-  margin-top: 10px;
 }
 .card-body.partner {
   padding: 12px 0;
@@ -618,40 +499,6 @@
   font-size: 7.5pt;
   color: #b4b2a9;
 }
-
-/* Tab container (African partners tab) */
-.tabContainer {
-  width: 100%;
-}
-
-.tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #f0eee8;
-}
-
-.tab-btn {
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  padding: 5px 10px 5px 0;
-  cursor: pointer;
-  font-family: "UncutRegular", sans-serif;
-  font-size: 9pt;
-  color: #8a8880;
-  margin-bottom: -1px;
-  transition: color 0.15s;
-}
-
-.tab-btn.active {
-  color: #1c2b1e;
-  border-bottom-color: #1c2b1e;
-}
-
-.tab-btn:hover:not(.active) {
-  color: #3a3936;
-}
 .tab-content h5.card-title.partner-select {
   font-size: 9pt;
   font-family: "UncutMedium", sans-serif;
@@ -682,54 +529,20 @@
   color: #b4b2a9;
 }
 
-/* -- Tooltip -- */
-
-.tooltipTitle {
-  font-family: "UncutMedium", sans-serif;
-  font-size: 11pt;
-  color: #1c2b1e;
-  margin: 0 0 4px 0;
-}
-
-.tooltipText {
-  font-size: 9pt;
-  color: #3a3936;
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* -- Print instruction bar (replaces .printDiv) -- */
-
-.vis-print-bar__btn:hover {
-  background: #f5f4f0;
-}
-
-.vis-print-bar__btn img {
-  height: 14px;
-}
-
 /* -- Scrollbars -- */
-.vis-panel::-webkit-scrollbar,
-.customScroll::-webkit-scrollbar {
+.vis-panel::-webkit-scrollbar{
   width: 4px;
 }
 
-.vis-panel::-webkit-scrollbar-thumb,
-.customScroll::-webkit-scrollbar-thumb {
+.vis-panel::-webkit-scrollbar-thumb {
   background: #d3d1c7;
   border-radius: 4px;
 }
 
-.vis-panel::-webkit-scrollbar-track,
-.customScroll::-webkit-scrollbar-track {
+.vis-panel::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* -- Utility --- */
-.customScroll {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 
 /* ------------------------- */
 /* -- Web responsiveness --- */
@@ -742,9 +555,7 @@
 
 @media (max-width: 575px) {
   .vis-body {
-    /* flex-direction: column !important; */
     height: auto !important;
-    /* overflow: visible !important; */
   }
   /* Hide sidebar — replaced by the pill bar */
   .vis-sidebar {
@@ -854,9 +665,6 @@
   }
 
   /* Right panel — narrower */
-  /* .vis-panel {
-     width: 260px; 
-  } */
 
   /* Panel text slightly smaller */
   .partner-subtitle {

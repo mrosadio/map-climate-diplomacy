@@ -54,12 +54,6 @@ function renderSidebar() {
     const freshItem = item.cloneNode(true);
     item.parentNode.replaceChild(freshItem, item);
     freshItem.addEventListener("click", () => onPartnerSelect(partnerName));
-    freshItem.addEventListener("mouseover", function () {
-      this.classList.add("hovered");
-    });
-    freshItem.addEventListener("mouseout", function () {
-      this.classList.remove("hovered");
-    });
   });
 }
 // to build the right panel structure

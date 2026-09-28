@@ -1,6 +1,5 @@
 import { drawOverviewMap, drawBilateralMap } from "./drawMap.js";
 import { renderOverviewPanel } from "./cards.js";
-import { setupControls } from "./setUpControls.js";
 import globals from "./globals.js";
 
 import { prepareAfricaOverviewData, prepareBilateralData, prepareComparativeData } from "./dataManager.js";
@@ -32,9 +31,8 @@ export async function showAfricaOverview() {
     //console.log("africaOverviewData", overviewData); // For now this is no longer necessary since we want to render the world map on the overview page
 
     drawOverviewMap(mergedWorldGeoJSON, reshapedBiData);
-    setupControls(mergedWorldGeoJSON);
 
-    const selectedBlock = document.getElementById("blockNameNowTemp");
+    const selectedBlock = document.getElementById("");
     if (selectedBlock) {
       selectedBlock.innerText = "African countries overview";
       ////console.log("African countries overview", selectedBlock);
