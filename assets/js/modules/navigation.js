@@ -34,12 +34,6 @@ export async function showAfricaOverview() {
     drawOverviewMap(mergedWorldGeoJSON, reshapedBiData);
     setupControls(mergedWorldGeoJSON);
 
-    // Update the UI (e.g., scroll to the button, update the block name)
-    const buttonScroll = document.getElementById("africaButton");
-    if (buttonScroll) {
-      buttonScroll.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
     const selectedBlock = document.getElementById("blockNameNowTemp");
     if (selectedBlock) {
       selectedBlock.innerText = "African countries overview";
