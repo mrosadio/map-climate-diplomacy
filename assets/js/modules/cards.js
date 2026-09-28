@@ -91,6 +91,7 @@ export function populatePartnerOverview(partnerName) {
     const sourceLink = document.createElement("a");
     sourceLink.href = link;
     sourceLink.target = "_blank";
+    sourceLink.rel = "noopener noreferrer"; // since the focac link is plain http
     sourceLink.classList.add("cardLink", "d-inline-flex", "align-items-center", "gap-1");
     sourceLink.innerHTML = `
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
