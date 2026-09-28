@@ -157,6 +157,10 @@
   overflow: hidden;
   min-height: 420px;
 }
+.vis-map svg {
+  position: absolute; /* fills the box the layout gives #map, never stretches it */
+  inset: 0;
+}
 
 /* -- Map controls overlay -- */
 .vis-map__controls {
@@ -900,6 +904,7 @@
     overflow-y: visible !important;
   }
   .vis-map svg {
+    position: static; 
     max-height: 60vh;
   }
   .vis-body {
