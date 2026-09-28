@@ -18,20 +18,7 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
-      integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
     <script type="module" src="./assets/js/index.js"></script>
-
-    <!-- <link href="https://afripoli.org/assets/themes/magazine/css/style-2.3.min.css" rel="stylesheet"> -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="./assets/css/printContainer.css"
-    />
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/vis-layout.css" />
 
@@ -43,29 +30,6 @@
       Mapping bilateral climate finance agreements between African countries,
       China, the EU, and Gulf states.
     </p> -->
-
-    <!---**************** [MOBILE] START SCROLLBAR ****************--->
-    <div class="mobilePickerDiv">
-      <div class="mobilePickerDivContent" id="picker">
-        <div class="mobilePickerPanel">
-          <div class="mobilePickerChoose d-none d-xl-lg-block">
-            <span class="cancel" onclick="cancel()">Close</span>
-            <span class="confirm" onclick="confirmPicker()">Select</span>
-            <h1 class="pickerTitle"></h1>
-          </div>
-          <div class="mobilePickerText">
-            <div class="wheelWrapperDiv">
-              <div class="wheelScrollbar"></div>
-              <div class="wheel" id="wheelWrapper">
-                <ul class="wheel-scroll" id="wheelList"></ul>
-              </div>
-            </div>
-          </div>
-          <div class="mobilePickerFooter"></div>
-        </div>
-      </div>
-    </div>
-    <!---**************** [MOBILE] END SCROLLBAR ****************--->
 
     <!-- MAIN VISUALIZATION — replaces .mainVisDiv -->
     <div class="vis-container">
@@ -117,7 +81,7 @@
           >
             Partners
           </p>
-          <ul class="map-menu js-mapMenu">
+          <ul class="map-menu">
             <li class="countrySelect map-menu-item" data-slug="China">
               <div class="image d-flex justify-content-center">
                 <img
@@ -188,7 +152,7 @@
           <!-- Overview button  -->
           <!-- Map legend — shown once a partner is selected -->
           <div
-            class="vis-map__legend d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-3 m-lg-5 p-2 bg-white rounded border"
+            class="d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-3 m-lg-5 p-2 bg-white rounded border"
             id="mapLegend"
             style="display: none"
           >
@@ -253,21 +217,6 @@
             </div>
           </div>
 
-          <!-- Mobile touch overlay — keep as-is -->
-          <!-- <div
-            class="overlay col-12 pb-0 col-map-mobile d-sm-none d-block"
-            id="showScrollable"
-          >
-            <div class="overlay-text">
-              <img
-                class="hand"
-                src="./assets/img/icons/hand-touch.svg"
-                alt=""
-              />
-              <h1 class="titleBlur">Touch the screen</h1>
-              <h2 class="subtitleBlur">to start exploring the map</h2>
-            </div>
-          </div> -->
         </main>
 
         <!-- RIGHT: Info panel -->
@@ -282,14 +231,6 @@
           </div>
         </aside>
       </div>
-    </div>
-
-    <!-- Hidden state spans — keep exactly as-is, used by JS -->
-    <div class="hiddenDiv">
-      <span class="_picker-open" id="selectedText">African</span>
-      <span class="_picker-open" id="africanCountry">open</span>
-      <span class="_picker-open" id="blockNameNowTemp">open</span>
-      <span class="_picker-open" id="blockNameTemp">open</span>
     </div>
   </body>
 </html>
