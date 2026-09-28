@@ -86,9 +86,8 @@ const countryLabelConfig = {
 };
 // -- SVG setup --
 // Created once at module load time
-const mapEl = document.querySelector("#map");
-const W = mapEl?.clientWidth || 800;
-const H = mapEl?.clientHeight || 500;
+const W = 800;
+const H = 500;
 
 let svg = d3.select("#map").append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet").attr("height", "100%").attr("width", "100%");
 
@@ -400,13 +399,8 @@ function fitViewBox(features, pad = 12) {
 // --- Private: fill colour helpers ---
 // Adjust viewbox for different ports
 function getViewBox(el, features) {
-  const w = el.clientWidth;
-  svg.attr("preserveAspectRatio", "xMidYMid meet");
-  if (w < 576) return "-200 -225 700 900";                    
-  if (window.matchMedia(STACKED_QUERY).matches)
-    return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)))
-  if (w < 1024) return `-300 0 1350 600`;                   
-  return `-100 -105 1150 600`;                               
+  svg.attr("preserveAspectRatio", "xMidYMid meet");                
+  return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)))                             
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
