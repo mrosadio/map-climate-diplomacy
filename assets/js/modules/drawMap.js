@@ -390,6 +390,8 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
 const STACKED_QUERY =
   "(max-width: 991.98px), (max-width: 1199.98px) and (orientation: portrait)";
   // viewBox that hugs the drawn continent, so it is never cropped whatever the box size
+// Remote islands are drawn but left out of the fit, so the continent stays large
+const FAR_ISLANDS = new Set(["Mauritius", "Seychelles"]);
 function fitViewBox(features, pad = 12) {
   const [[x0, y0], [x1, y1]] = path.bounds({ type: "FeatureCollection", features });
   return `${x0 - pad} ${y0 - pad} ${x1 - x0 + 2 * pad} ${y1 - y0 + 2 * pad}`;
@@ -397,14 +399,14 @@ function fitViewBox(features, pad = 12) {
 
 // --- Private: fill colour helpers ---
 // Adjust viewbox for different ports
-// Adjust viewbox for different ports
 function getViewBox(el, features) {
   const w = el.clientWidth;
   svg.attr("preserveAspectRatio", "xMidYMid meet");
-  if (w < 576) return "-200 -225 700 900";                      // phone (unchanged)
-  if (window.matchMedia(STACKED_QUERY).matches) return fitViewBox(features); // stacked tablet
-  if (w < 1024) return `-300 0 1350 600`;                       // laptop (unchanged)
-  return `-100 -105 1150 600`;                                  // large screens (unchanged)
+  if (w < 576) return "-200 -225 700 900";                    
+  if (window.matchMedia(STACKED_QUERY).matches)
+    return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)))
+  if (w < 1024) return `-300 0 1350 600`;                   
+  return `-100 -105 1150 600`;                               
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
