@@ -816,21 +816,6 @@
     display: none !important;
   }
 }
-
-@media (max-width: 991.98px) {
-  .vis-body {
-    flex-direction: column !important;
-  }
-  .vis-container {
-    height: auto !important;
-  }
-  .vis-sidebar,
-  .vis-map,
-  .vis-panel {
-    flex: none;
-    width: 100%;
-  }
-}
 @media (max-width: 1024px) {
   /* Slim the outer container margins */
   .vis-container {
@@ -904,5 +889,74 @@
   #africaButton {
     padding: 3px 8px !important;
     font-size: 8pt !important;
+  }
+}
+/* Stacked layout: narrow screens, plus portrait tablets up to 1199px */
+@media (max-width: 991.98px), (max-width: 1199.98px) and (orientation: portrait) {
+  .vis-container {
+    height: auto !important;
+    max-height: none !important;
+    overflow-x: clip !important;   /* was: overflow: visible */
+    overflow-y: visible !important;
+  }
+  .vis-map svg {
+    max-height: 60vh;
+  }
+  .vis-body {
+    flex-direction: column !important;
+    --bs-gutter-x: 0;     /* no negative row margins: sections sit flush with the screen */
+    --stack-pad: 24px;    
+  }
+  .vis-sidebar,
+  .vis-map,
+  .vis-panel {
+    flex: none;
+    width: 100%;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+  .vis-sidebar {
+    border-right: none;
+    border-bottom: 0.5px solid #e8e6df;
+    padding: 8px var(--stack-pad) 12px;
+  }
+  .vis-sidebar .map-menu {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+  }
+  .vis-sidebar .map-menu-item {
+    width: auto;
+    padding-inline: 0;
+  }
+  .vis-sidebar .map-menu-item .image img {
+    width: 88px;
+    height: 88px;
+  }
+  .vis-sidebar .map-menu-item .label {
+    font-size: 8pt;
+  }
+  .vis-map {
+    height: auto;
+    min-height: 0;
+    padding-inline: 0;
+  }
+  .vis-panel {
+    padding-inline: var(--stack-pad);
+  }
+  .vis-panel,
+  .vis-panel .card.partnership,
+  .card.partnership.expanded {
+    height: auto;
+    overflow: visible !important;
+  }
+  #mapLegend {
+    margin: 0 0 16px var(--stack-pad) !important;
+  }
+  #africaButton {
+    margin: 16px var(--stack-pad) 0 0 !important;
+  }
+  .card.partnership.expanded {
+    padding-inline: 0;
   }
 }

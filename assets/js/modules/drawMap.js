@@ -111,20 +111,20 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
     return;
   }
   const el = document.querySelector("#map");
+  // Keep only features whose geometry projects to real numbers
+  const drawable = geoJSONData.features.filter((d) => {
+    const [cx, cy] = path.centroid(d);
+    return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
+  });
   //svg.attr("preserveAspectRatio", "xMidYMin meet");
-  svg.attr("viewBox", getViewBox(el));
+  svg.attr("viewBox", getViewBox(el, drawable));
   //console.log("console svg", el.clientWidth);
   svg.selectAll("path").remove();
   svg.selectAll("text").remove();
   g = svg.append("g");
 
   g.selectAll("path")
-    .data(
-      geoJSONData.features.filter((d) => {
-        const [cx, cy] = path.centroid(d);
-        return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
-      }),
-    )
+    .data(drawable)
     .enter()
     .append("path")
     .attr("d", path)
@@ -141,12 +141,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   // pointer-events:none prevents labels intercepting mouse events on paths
   // Country labels with per-country position and line-break overrides
   g.selectAll("g.country-label")
-    .data(
-      geoJSONData.features.filter((d) => {
-        const [cx, cy] = path.centroid(d);
-        return Number.isFinite(cx) && Number.isFinite(cy); // drop features with broken geometry
-      }),
-    )
+    .data(drawable)
     .enter()
     .append("g")
     .attr("class", "country-label")
@@ -391,26 +386,25 @@ export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
     });
 }
 
+// Same condition as the stacked-layout media query in vis-layout.css
+const STACKED_QUERY =
+  "(max-width: 991.98px), (max-width: 1199.98px) and (orientation: portrait)";
+  // viewBox that hugs the drawn continent, so it is never cropped whatever the box size
+function fitViewBox(features, pad = 12) {
+  const [[x0, y0], [x1, y1]] = path.bounds({ type: "FeatureCollection", features });
+  return `${x0 - pad} ${y0 - pad} ${x1 - x0 + 2 * pad} ${y1 - y0 + 2 * pad}`;
+}
+
 // --- Private: fill colour helpers ---
 // Adjust viewbox for different ports
-function getViewBox(el) {
+// Adjust viewbox for different ports
+function getViewBox(el, features) {
   const w = el.clientWidth;
-  // Phone
-  if (w < 576) {
-    svg.attr("preserveAspectRatio", "xMidYMid meet");
-    return "-200 -225 700 900";
-  }
-  // Laptop
-  if (w < 1024) {
-    svg.attr("preserveAspectRatio", "xMidYMid meet");
-    //return "-150 150 775 1000";
-    return `-300 0 1350 600`;
-  }
-  //viewBox="-250 -125 1150 600"
   svg.attr("preserveAspectRatio", "xMidYMid meet");
-  //return `0 0 ${el.clientWidth} ${el.clientHeight}`;
-  // large screens
-  return `-100 -105 1150 600`;
+  if (w < 576) return "-200 -225 700 900";                      // phone (unchanged)
+  if (window.matchMedia(STACKED_QUERY).matches) return fitViewBox(features); // stacked tablet
+  if (w < 1024) return `-300 0 1350 600`;                       // laptop (unchanged)
+  return `-100 -105 1150 600`;                                  // large screens (unchanged)
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
