@@ -31,14 +31,6 @@ export function onPartnerSelect(partnerName) {
   populatePartnerOverview(partnerName);
 }
 
-// so that drawMap.js can read selected partner
-// and to avoid coupled js script
-// drawMap.js calls this inside its click handler to know
-// which partner is active when a country is clicked
-export function getCurrentPartner() {
-  return currentPartner;
-}
-
 function renderSidebar() {
   const items = document.querySelectorAll(".countrySelect");
   if (!items.length) {
