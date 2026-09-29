@@ -176,7 +176,22 @@
   color: #252525;
   margin: 0;
 }
-
+.vis-map__legend-groups {
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+}
+.vis-map__legend-col {
+  display: flex;
+  flex-direction: column;
+  gap: inherit;
+}
+.vis-map__legend-divider {
+  width: 100%;
+  border: none;
+  border-top: 0.5px solid #d3d1c7;
+  margin: 2px 0;
+}
 .vis-map__legend-subtitle {
   font-family: "UncutMedium", sans-serif;
   font-size: 7.5pt;
@@ -509,7 +524,7 @@
 }
 
 /* -- Scrollbars -- */
-.vis-panel::-webkit-scrollbar{
+.vis-panel::-webkit-scrollbar {
   width: 4px;
 }
 .vis-panel::-webkit-scrollbar-thumb {
@@ -519,7 +534,6 @@
 .vis-panel::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 /* ------------------------- */
 /* -- Web responsiveness --- */
@@ -557,22 +571,47 @@
   .vis-map {
     display: flex;
     flex-direction: column;
-    height: auto !important;      /* overrides the 45vh cap so the map and legend aren't squeezed together */
+    height: auto !important; /* overrides the 45vh cap so the map and legend aren't squeezed together */
     min-height: 0 !important;
   }
   .vis-map svg {
     order: 1;
-    position: static;             /* back in normal flow so it takes real height */
+    position: static; /* back in normal flow so it takes real height */
     width: 100%;
-    height: 45vh;                 /* the map keeps a sensible height of its own */
+    height: 45vh; /* the map keeps a sensible height of its own */
     max-height: none;
   }
   #mapLegend {
-    order: 2;
-    position: static !important;  /* overrides the position-absolute utility class */
-    width: 100%;
-    max-width: none;
-    margin: 8px 0 0 !important;   /* overrides the m-2/m-lg-5 utility classes */
+    width: auto;
+    max-width: 150px;
+    padding: 6px !important;
+    gap: 4px !important;
+    margin: 0 0 8px 4px !important;
+  }
+  .vis-map__legend-groups {
+    flex-direction: row;
+    gap: 2px;
+  }
+  .vis-map__legend-divider {
+    width: auto;
+    align-self: stretch;
+    border-top: none;
+    border-left: 0.5px solid #d3d1c7;
+    margin: 0;
+  }
+  .vis-map__legend-title {
+    font-size: 8pt;
+  }
+  .vis-map__legend-subtitle {
+    font-size: 6.5pt;
+  }
+  .vis-map__legend-label {
+    font-size: 6.5pt;
+  }
+  .vis-map__legend-dot,
+  .vis-map__legend-icon {
+    width: 7px;
+    height: 7px;
   }
   .mobile-partner-bar {
     display: flex;
@@ -690,17 +729,17 @@
   .vis-container {
     height: auto !important;
     max-height: none !important;
-    overflow-x: clip !important;   /* was: overflow: visible */
+    overflow-x: clip !important; /* was: overflow: visible */
     overflow-y: visible !important;
   }
   .vis-map svg {
-    position: static; 
+    position: static;
     max-height: 60vh;
   }
   .vis-body {
     flex-direction: column !important;
-    --bs-gutter-x: 0;     /* no negative row margins: sections sit flush with the screen */
-    --stack-pad: 24px;    
+    --bs-gutter-x: 0; /* no negative row margins: sections sit flush with the screen */
+    --stack-pad: 24px;
   }
   .vis-sidebar,
   .vis-map,

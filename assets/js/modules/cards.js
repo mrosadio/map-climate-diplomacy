@@ -189,7 +189,7 @@ function createNavigationSteps() {
   label.textContent = "How to navigate";
   section.appendChild(label);
 
-  const steps = ["Select a foreign actor from the sidebar", "Click an African country on the map", "Browse the bilateral detail sheet"];
+  const steps = ["Select a foreign actor (China, the EU, or Gulf Countries)", "Click an African country on the map", "Browse the bilateral detail sheet"];
 
   steps.forEach((text, i) => {
     const row = document.createElement("div");
@@ -282,7 +282,7 @@ function createStatStrip(selectedPartner) {
     </div>
     <div class="stat">
       <span class="statValue">${statStrip.NProjects[selectedPartner]}</span>
-      <span class="statLabel">Flagship projects</span>
+      <span class="statLabel">Flagship <br> projects</span>
     </div>
   `;
   return div;
