@@ -3,21 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script type="module" src="./assets/js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
     <link rel="stylesheet" type="text/css" href="./assets/css/vis-layout.css" />
@@ -37,10 +26,7 @@
       <div class="vis-header">
         <div>
           <h1 class="vis-header__title">Africa's Green Transition</h1>
-          <p class="vis-header__subtitle fw-lighter">
-            Mapping bilateral climate finance agreements between African
-            countries, China, the EU, and Gulf states.
-          </p>
+          <p class="vis-header__subtitle fw-lighter">Mapping bilateral climate finance agreements between African countries, China, the EU, and Gulf states.</p>
         </div>
       </div>
       <!-- Three-column body -->
@@ -56,77 +42,37 @@
             <img src="assets/img/icons/China_2.svg" alt="China" />
             <span class="label">China</span>
           </button>
-          <button
-            class="mobile-partner-pill countrySelect"
-            data-slug="EuropeanUnion"
-          >
+          <button class="mobile-partner-pill countrySelect" data-slug="EuropeanUnion">
             <img src="assets/img/icons/EU.svg" alt="European Union" />
             <span class="label">European Union</span>
           </button>
-          <button
-            class="mobile-partner-pill countrySelect"
-            data-slug="GulfCooperationCouncil"
-          >
+          <button class="mobile-partner-pill countrySelect" data-slug="GulfCooperationCouncil">
             <img src="assets/img/icons/GCC.svg" alt="Gulf Countries" />
             <span class="label">Gulf Countries</span>
           </button>
         </div>
         <!-- For other ports -->
-        <aside
-          class="vis-sidebar diplomacy-map-nav col-xl-1 col-sm-2 col-12"
-          aria-label="Partner selection"
-        >
-          <p
-            class="vis-sidebar__label d-flex justify-content-center vis-panel__zone-text"
-          >
-            Partners
-          </p>
+        <aside class="vis-sidebar diplomacy-map-nav col-xl-1 col-sm-2 col-12" aria-label="Partner selection">
+          <p class="vis-sidebar__label d-flex justify-content-center vis-panel__zone-text">Partners</p>
           <ul class="map-menu">
             <li class="countrySelect map-menu-item" data-slug="China">
               <div class="image d-flex justify-content-center">
-                <img
-                  src="assets/img/icons/China_2.svg"
-                  alt="China"
-                  class="default"
-                />
-                <img
-                  src="assets/img/icons/China_active_2.svg"
-                  alt="China selected"
-                  class="active"
-                />
+                <img src="assets/img/icons/China_2.svg" alt="China" class="default" />
+                <img src="assets/img/icons/China_active_2.svg" alt="China selected" class="active" />
               </div>
               <div class="label text-center">China</div>
             </li>
             <li class="countrySelect map-menu-item" data-slug="EuropeanUnion">
               <div class="image d-flex justify-content-center">
-                <img
-                  src="assets/img/icons/EU.svg"
-                  alt="European Union"
-                  class="default"
-                />
-                <img
-                  src="assets/img/icons/EU_active.svg"
-                  alt="European Union selected"
-                  class="active"
-                />
+                <img src="assets/img/icons/EU.svg" alt="European Union" class="default" />
+                <img src="assets/img/icons/EU_active.svg" alt="European Union selected" class="active" />
               </div>
               <div class="label text-center">European Union</div>
             </li>
-            <li
-              class="countrySelect map-menu-item"
-              data-slug="GulfCooperationCouncil"
-            >
+            <li class="countrySelect map-menu-item" data-slug="GulfCooperationCouncil">
               <div class="image d-flex justify-content-center">
-                <img
-                  src="assets/img/icons/GCC.svg"
-                  alt="Gulf Countries"
-                  class="default"
-                />
-                <img
-                  src="assets/img/icons/GCC_active.svg"
-                  alt="Gulf Countries selected"
-                  class="active"
-                />
+                <img src="assets/img/icons/GCC.svg" alt="Gulf Countries" class="default" />
+                <img src="assets/img/icons/GCC_active.svg" alt="Gulf Countries selected" class="active" />
               </div>
               <div class="label text-center">Gulf Countries</div>
             </li>
@@ -138,94 +84,55 @@
          </button> -->
         <!-- CENTER: Map -->
         <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
-        <main
-          id="map"
-          class="vis-map col-12 position-relative"
-          aria-label="Africa climate finance map"
-        >
-          <button
-            id="africaButton"
-            class="vis-map__overview-btn position-absolute top-0 end-0 m-3"
-          >
-            Overview
-          </button>
+        <main id="map" class="vis-map col-12 position-relative" aria-label="Africa climate finance map">
+          <button id="africaButton" class="vis-map__overview-btn position-absolute top-0 end-0 m-3">Overview</button>
           <!-- Overview button  -->
           <!-- Map legend — shown once a partner is selected -->
-          <div
-            class="d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-3 m-lg-5 p-2 bg-white rounded border"
-            id="mapLegend"
-            style="display: none"
-          >
+          <div class="d-flex flex-column align-items-start gap-2 position-absolute bottom-0 start-0 m-3 m-lg-5 p-2 bg-white rounded border" id="mapLegend" style="display: none">
             <p class="vis-map__legend-title">Legend</p>
 
-            <p class="vis-map__legend-subtitle">Level of connectivity</p>
-            <div class="d-flex align-items-center gap-1">
-              <div
-                class="vis-map__legend-dot"
-                style="background: #d6cb62"
-              ></div>
-              <span class="vis-map__legend-label">Low</span>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-              <div
-                class="vis-map__legend-dot"
-                style="background: #6fb56f"
-              ></div>
-              <span class="vis-map__legend-label">Moderate</span>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-              <div
-                class="vis-map__legend-dot"
-                style="background: #1c4a20"
-              ></div>
-              <span class="vis-map__legend-label">High</span>
-            </div>
-            <hr class="w-100 my-1" />
-            <p class="vis-map__legend-subtitle">Investment trend</p>
-            <div class="d-flex align-items-center gap-1">
-              <img
-                src="./assets/img/icons/arrow-up.svg"
-                class="vis-map__legend-icon"
-                style="
-                  filter: invert(48%) sepia(79%) saturate(476%)
-                    hue-rotate(86deg);
-                "
-                alt=""
-              />
-              <span class="vis-map__legend-label">Increasing</span>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-              <img
-                src="./assets/img/icons/arrow-down.svg"
-                class="vis-map__legend-icon"
-                style="
-                  filter: invert(27%) sepia(51%) saturate(2878%)
-                    hue-rotate(346deg);
-                "
-                alt=""
-              />
-              <span class="vis-map__legend-label">Decreasing</span>
-            </div>
-            <div class="d-flex align-items-center gap-1">
-              <img
-                src="./assets/img/icons/minus.svg"
-                class="vis-map__legend-icon"
-                style="filter: invert(50%)"
-                alt=""
-              />
-              <span class="vis-map__legend-label">Stable</span>
+            <div class="vis-map__legend-groups">
+              <div class="vis-map__legend-col">
+                <p class="vis-map__legend-subtitle">Level of connectivity</p>
+                <div class="d-flex align-items-center gap-1">
+                  <div class="vis-map__legend-dot" style="background: #d6cb62"></div>
+                  <span class="vis-map__legend-label">Low</span>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <div class="vis-map__legend-dot" style="background: #6fb56f"></div>
+                  <span class="vis-map__legend-label">Moderate</span>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <div class="vis-map__legend-dot" style="background: #1c4a20"></div>
+                  <span class="vis-map__legend-label">High</span>
+                </div>
+              </div>
+
+              <hr class="vis-map__legend-divider" />
+
+              <div class="vis-map__legend-col">
+                <p class="vis-map__legend-subtitle">Investment trend</p>
+                <div class="d-flex align-items-center gap-1">
+                  <img src="./assets/img/icons/arrow-up.svg" class="vis-map__legend-icon" style="filter: invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg)" alt="" />
+                  <span class="vis-map__legend-label">Increasing</span>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <img src="./assets/img/icons/arrow-down.svg" class="vis-map__legend-icon" style="filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg)" alt="" />
+                  <span class="vis-map__legend-label">Decreasing</span>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <img src="./assets/img/icons/minus.svg" class="vis-map__legend-icon" style="filter: invert(50%)" alt="" />
+                  <span class="vis-map__legend-label">Stable</span>
+                </div>
+              </div>
             </div>
           </div>
-
         </main>
 
         <!-- RIGHT: Info panel -->
         <!-- Keep .card.partnership so populateCountryCard and populatePartnerOverview
          can find it with document.querySelector(".card") and ".partner-overview-zone" -->
-        <aside
-          class="vis-panel col-12 col-sm-3"
-          aria-label="Partner information"
-        >
+        <aside class="vis-panel col-12 col-sm-3" aria-label="Partner information">
           <div class="third-col">
             <div class="card partnership expanded"></div>
           </div>

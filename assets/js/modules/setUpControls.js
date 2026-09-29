@@ -39,13 +39,3 @@ export function setupControls(data) {
     }
   });
 }
-
-export function zoomIn() {
-  //console.log("Zooming In");
-  svg.transition().duration(500).call(zoom.scaleBy, 1.5); // Incrementa el nivel de zoom
-}
-
-// Función para hacer zoom out
-export function zoomOut() {
-  svg.transition().duration(500).call(zoom.scaleBy, 0.75); // Reduce el nivel de zoom
-}
