@@ -4,8 +4,6 @@
 //   drawOverviewMap    -> default world view, all partner countries same colour
 //                        + African country labels always visible
 //   drawBilateralMap   -> partner selected, African countries coloured by connectivity
-//   deleteCountryLabels
-//   highlightAndTooltipEvents
 
 import globals from "./globals.js";
 import { populateCountryCard } from "./cards.js";
@@ -194,12 +192,17 @@ export function drawBilateralMap(mergedData, selectedPartner) {
 
   // Get the selected country and its partners
   const africanPartnersSet = databases.bilateralPartnerMap.get(selectedPartner) || new Set();
-  // ← add these two lines here, inside the function
-  //console.log("africanPartnersSet size:", africanPartnersSet.size);
-  //console.log("africanPartnersSet contents:", [...africanPartnersSet]);
-  //console.log("first feature name:", mergedData.features[0]?.properties.name);
-  //console.log("selectedPartner:", selectedPartner);
 
+  // Named so click and keydown can share the exact same logic
+  function activateCountry(event, d) {
+    const countryName = d.properties.name;
+    if (!africanPartnersSet.has(countryName)) return;
+    g.selectAll("path").attr("opacity", 0.15);
+    labelGroups.selectAll("g.text").attr("opacity", 0.15);
+    d3.select(this).attr("opacity", 1);
+    d3.select(this).attr("stroke", "#51596f").attr("stroke-width", 1.5);
+    populateCountryCard(countryName, selectedPartner, onPartnerSelect);
+  }
   // Define a color scale for the connect_partners values
   g.selectAll("path")
     .data(mergedData.features)
@@ -210,45 +213,16 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("stroke", "#a7acb6")
     .attr("stroke-width", 1)
     .style("cursor", (d) => (africanPartnersSet.has(d.properties.name) ? "pointer" : "default"))
-    .on("click", function (event, d) {
-      const countryName = d.properties.name;
-
-      // Only respond to clicks on African partner countries
-      if (!africanPartnersSet.has(countryName)) return;
-      //console.log("Clicked African country:", countryName);
-
-      // Visual feedback — highlight selected country, dim all countrie
-      g.selectAll("path").attr("opacity", 0.15);
-      labelGroups.selectAll("g.text").attr("opacity", 0.15);
-      d3.select(this).attr("opacity", 1);
-      d3.select(this).attr("stroke", "#51596f").attr("stroke-width", 1.5);
-
-      // populateCountryCard needs onPartnerSelect to wire the breadcrumb correctly.
-      // We pass it here rather than importing it inside cards.js to avoid
-      // a circular import (cards.js ← layout.js ← drawMap.js ← cards.js)
-      populateCountryCard(countryName, selectedPartner, onPartnerSelect);
+    .attr("tabindex", (d) => (africanPartnersSet.has(d.properties.name) ? 0 : null))
+    .attr("role", (d) => (africanPartnersSet.has(d.properties.name) ? "button" : null))
+    .attr("aria-label", (d) => d.properties.name)
+    .on("click", activateCountry)
+    .on("keydown", function (event, d) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        activateCountry.call(this, event, d);
+      }
     });
-  // African country labels on bilateral map too
-  // g.selectAll("text")
-  //   .data(
-  //     mergedData.features.filter((f) =>
-  //       africanPartnersSet.has(f.properties.name),
-  //     ),
-  //   )
-  //   //.data(mergedData.features)
-  //   .enter()
-  //   .append("text")
-  //   .attr("transform", (d) => `translate(${path.centroid(d)})`)
-  //   .attr("dy", ".35em")
-  //   .attr("text-anchor", "middle")
-  //   .attr("font-size", "9px")
-  //   .attr("font-family", "UncutRegular, sans-serif")
-  //   //.attr("pointer-events", "mouse")
-  //   .attr("fill", (d) =>
-  //     africanPartnersSet.has(d.properties.name) ? "#ffffff" : "#888884",
-  //   )
-  //   .attr("pointer-events", "none")
-  //   .text((d) => d.properties.name);
   // Label + trend arrow group for each country
   const labelGroups = g
     .selectAll("g.country-label")
@@ -339,56 +313,9 @@ export function deleteCountryLabels() {
   d3.selectAll("text").transition().duration(500).style("opacity", 0);
 }
 
-// -- Public: tooltip + highlight events (overview map only) --
-// Exported because navigation.js calls it after drawOverviewMap.
-// In the bilateral map, clicks are handled directly in drawBilateralMap above.
-export function highlightAndTooltipEvents(reshapedBiData, g, tooltip) {
-  // currentAfricanPartnersData holds the African partners for whichever
-  // non-African partner was most recently clicked on the overview map.
-  // It's used by handleMouseOver to build rich tooltip content for African countries
-  let currentAfricanPartnersData = [];
-
-  function handleMouseOver(event, d) {
-    const countryName = d.properties.name;
-    applyHighlight(countryName, g);
-  }
-
-  function handleMouseOut() {
-    g.selectAll("path").attr("stroke", style.strokeDefaultColor).attr("stroke-width", style.strokeDefaultWidth);
-  }
-
-  // Apply mouseover and mouseout logic to all countries
-  g.selectAll("path")
-    .on("mouseover", handleMouseOver)
-    .on("mousemove", function (event) {
-      tooltip.style("left", `${event.pageX + 10}px`).style("top", `${event.pageY + 10}px`);
-    })
-    .on("mouseout", handleMouseOut)
-    .on("click", function (event, d) {
-      const countryName = d.properties.name;
-
-      // Resolve which partner was clicked (handling EU and GCC blocs).
-      const partnerKey = resolvePartnerKey(countryName);
-      if (!partnerKey) return; // click on non-partner country — do nothing
-
-      // Update currentAfricanPartnersData so tooltip content is correct
-      // for subsequent mouseovers after a partner is clicked.
-      currentAfricanPartnersData = reshapedBiData[partnerKey] || [];
-
-      // onPartnerSelect is the single entry point for partner selection:
-      // it updates sidebar state, redraws the bilateral map, and fills the panel.
-      onPartnerSelect(partnerKey);
-
-      // Reapply hover handlers because drawBilateralMap (called inside
-      // onPartnerSelect) re-creates all path elements, wiping their listeners.
-      g.selectAll("path").on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-    });
-}
-
 // Same condition as the stacked-layout media query in vis-layout.css
-const STACKED_QUERY =
-  "(max-width: 991.98px), (max-width: 1199.98px) and (orientation: portrait)";
-  // viewBox that hugs the drawn continent, so it is never cropped whatever the box size
+const STACKED_QUERY = "(max-width: 991.98px), (max-width: 1199.98px) and (orientation: portrait)";
+// viewBox that hugs the drawn continent, so it is never cropped whatever the box size
 // Remote islands are drawn but left out of the fit, so the continent stays large
 const FAR_ISLANDS = new Set(["Mauritius", "Seychelles"]);
 function fitViewBox(features, pad = 12) {
@@ -399,8 +326,8 @@ function fitViewBox(features, pad = 12) {
 // --- Private: fill colour helpers ---
 // Adjust viewbox for different ports
 function getViewBox(el, features) {
-  svg.attr("preserveAspectRatio", "xMidYMid meet");                
-  return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)))                             
+  svg.attr("preserveAspectRatio", "xMidYMid meet");
+  return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)));
 }
 
 // On the bilateral map, African partner countries are coloured by connectivity level.
@@ -408,39 +335,8 @@ function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
   if (!africanPartnersSet.has(countryName)) {
     return mapDisplaySettings.colors.default;
   }
-
   const partnerData = databases.reshapedBiData[selectedPartner]?.find((entry) => entry["African Country"] === countryName);
-
   const connectivityLevel = partnerData?.["Economic and Investment connectivity between African country and non-African partner"] ?? "default";
 
   return connectivityColor[connectivityLevel] || connectivityColor.default;
-}
-
-// --- Private: highlight helper ---
-function applyHighlight(countryName, g) {
-  if (globals.EUCountries.has(countryName)) {
-    g.selectAll("path")
-      .filter((d) => globals.EUCountries.has(d.properties.name))
-      .attr("stroke", style.strokeHighlightColor)
-      .attr("stroke-width", style.strokeHighlightWidth);
-  } else if (globals.GCCCountries.has(countryName)) {
-    g.selectAll("path")
-      .filter((d) => globals.GCCCountries.has(d.properties.name))
-      .attr("stroke", style.strokeHighlightColor)
-      .attr("stroke-width", style.strokeHighlightWidth);
-  } else if (globals.africanPartners.has(countryName) || countryName === "China") {
-    d3.select(`path[data-name="${countryName}"]`).attr("stroke", style.strokeHighlightColor).attr("stroke-width", style.strokeHighlightWidth);
-  }
-}
-
-// --- Private: partner resolution ---
-
-// Maps a clicked country name to the partner key used in reshapedBiData
-// EU and GCC are blocs — any member country click resolves to the bloc key
-// Returns null if the clicked country is not a partner
-function resolvePartnerKey(countryName) {
-  if (globals.EUCountries.has(countryName)) return "European Union";
-  if (globals.GCCCountries.has(countryName)) return "Gulf Countries";
-  if (countryName === "China") return "China";
-  return null;
 }

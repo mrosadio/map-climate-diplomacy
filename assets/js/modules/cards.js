@@ -244,10 +244,17 @@ function createPartnershipMiniCard(entry) {
 function createBreadCrumb(selectedPartner, backFn) {
   const breadcrumb = document.createElement("p");
   breadcrumb.classList.add("breadcrumb-nav");
-  breadcrumb.innerHTML = `<span class="back-link">← ${selectedPartner}</span>`;
+  breadcrumb.innerHTML = `<span class="back-link" role="button" tabindex="0">← ${selectedPartner}</span>`;
   const link = breadcrumb.querySelector(".back-link");
   link.style.cursor = "pointer";
-  link.addEventListener("click", () => backFn(selectedPartner));
+  const activate = () => backFn(selectedPartner);
+  link.addEventListener("click", activate);
+  link.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activate();
+    }
+  });
   return breadcrumb;
 }
 
