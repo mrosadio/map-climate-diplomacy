@@ -42,10 +42,16 @@ function renderSidebar() {
     if (!partnerName) return;
 
     // remove any existing eventlisteners that old code might
-    // have attached - by cloning
+    // have attached by cloning
     const freshItem = item.cloneNode(true);
     item.parentNode.replaceChild(freshItem, item);
     freshItem.addEventListener("click", () => onPartnerSelect(partnerName));
+    freshItem.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onPartnerSelect(partnerName);
+      }
+    });
   });
 }
 // to build the right panel structure
@@ -61,6 +67,7 @@ function renderPanel() {
 
   const zone = document.createElement("div");
   zone.classList.add("vis-panel__zone", "partner-overview-zone");
+  zone.setAttribute("aria-live", "polite");
   card.appendChild(zone);
 }
 export function resetPartnerSelection() {
