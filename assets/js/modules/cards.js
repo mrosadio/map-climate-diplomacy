@@ -18,23 +18,6 @@ export function renderOverviewPanel() {
   // How to navigate
   card.appendChild(createNavigationSteps());
 
-  const trendLabelEl = document.createElement("p");
-  trendLabelEl.classList.add("vis-panel__zone-label");
-  trendLabelEl.textContent = "Investment trend";
-
-  const trendList = document.createElement("div");
-  trendList.style.cssText = "display:flex;flex-direction:column;gap:5px;";
-  [
-    { icon: "arrow-up.svg", filter: "invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg)", label: "Increasing" },
-    { icon: "arrow-down.svg", filter: "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg)", label: "Decreasing" },
-    { icon: "minus.svg", filter: "invert(50%)", label: "Stable" },
-  ].forEach(({ icon, filter, label }) => {
-    const row = document.createElement("div");
-    row.style.cssText = "display:flex;align-items:center;gap:8px;";
-    row.innerHTML = `<img src="assets/img/icons/${icon}" style="width:14px;height:14px;filter:${filter};"><span class="vis-step__text vis-panel__zone-text">${label}</span>`;
-    trendList.appendChild(row);
-  });
-
   // Sources zone
   const sourcesZone = document.createElement("div");
   sourcesZone.classList.add("vis-panel__zone");
@@ -65,6 +48,7 @@ export function populatePartnerOverview(partnerName) {
     if (!card) return;
     zone = document.createElement("div");
     zone.classList.add("partner-overview-zone");
+    zone.setAttribute("aria-live", "polite");
     card.innerHTML = "";
     card.appendChild(zone);
   }

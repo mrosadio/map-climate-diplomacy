@@ -67,6 +67,7 @@ function renderPanel() {
 
   const zone = document.createElement("div");
   zone.classList.add("vis-panel__zone", "partner-overview-zone");
+  zone.setAttribute("aria-live", "polite");
   card.appendChild(zone);
 }
 export function resetPartnerSelection() {
