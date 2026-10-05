@@ -101,7 +101,7 @@ let g;
 
 // --- Public: drawing function ---
 export function drawOverviewMap(geoJSONData, reshapedBiData) {
-  document.getElementById("mapLegend").style.display = "flex";
+  document.getElementById("map").classList.add("is-overview");
   //console.log("Data to draw:", geoJSONData);
   if (!geoJSONData || !geoJSONData.features) {
     console.error("drawOverviewMap: no valid geoJSONData received");
@@ -115,9 +115,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
   });
   //svg.attr("preserveAspectRatio", "xMidYMin meet");
   svg.attr("viewBox", getViewBox(el, drawable));
-  //console.log("console svg", el.clientWidth);
-  svg.selectAll("path").remove();
-  svg.selectAll("text").remove();
+  svg.selectAll("g").remove(); // clears the old paths, labels and trend icons
   g = svg.append("g");
 
   g.selectAll("path")
@@ -130,7 +128,7 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
       const level = d.properties["connect_partners"];
       return level ? mapDisplaySettings.connectivityColor[level] : mapDisplaySettings.colors.default;
     })
-    .attr("stroke", "#a7acb6")
+    .attr("stroke", "#ffffff")
     .attr("stroke-width", 1)
     .style("cursor", "default");
 
@@ -155,7 +153,15 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
       const name = d.properties.name;
       const config = countryLabelConfig[name] || {};
 
-      const textEl = d3.select(this).append("text").attr("text-anchor", "middle").attr("font-size", "13px").attr("font-family", "UncutRegular, sans-serif").attr("fill", "#444441");
+      const textEl = d3.select(this).append("text")
+      .attr("text-anchor", "middle")
+      .attr("font-size", "13px")
+      .attr("font-family", "UncutRegular, sans-serif")
+      .attr("fill", "#444441")
+      .attr("stroke", mapDisplaySettings.colors.default)
+      .attr("stroke-width", 3)
+      .attr("stroke-linejoin", "round")
+      .style("paint-order", "stroke");
 
       if (config.lines) {
         config.lines.forEach((line, i) => {
@@ -174,7 +180,8 @@ export function drawOverviewMap(geoJSONData, reshapedBiData) {
 export function drawBilateralMap(mergedData, selectedPartner) {
   // Normalize selectedPartner into a Set for efficient lookups
   // If selectedParter is a bloc partner, populate set with corresponding array in global.js
-  document.getElementById("mapLegend").style.display = "flex";
+  document.getElementById("map").classList.remove("is-overview");
+  alignLegend();
   if (!mergedData || !mergedData.features) {
     console.error("drawBilateralMap: no valid mergedData received");
     return;
@@ -198,9 +205,10 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     const countryName = d.properties.name;
     if (!africanPartnersSet.has(countryName)) return;
     g.selectAll("path").attr("opacity", 0.15);
-    labelGroups.selectAll("g.text").attr("opacity", 0.15);
+    labelGroups.attr("opacity", 0.15);
     d3.select(this).attr("opacity", 1);
     d3.select(this).attr("stroke", "#51596f").attr("stroke-width", 1.5);
+    labelGroups.filter((l) => l.properties.name === countryName).attr("opacity", 1);
     populateCountryCard(countryName, selectedPartner, onPartnerSelect);
   }
   // Define a color scale for the connect_partners values
@@ -210,7 +218,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .append("path")
     .attr("d", path)
     .attr("fill", (d) => getBilateralFill(d.properties.name, selectedPartner, africanPartnersSet))
-    .attr("stroke", "#a7acb6")
+    .attr("stroke", "#ffffff")
     .attr("stroke-width", 1)
     .style("cursor", (d) => (africanPartnersSet.has(d.properties.name) ? "pointer" : "default"))
     .attr("tabindex", (d) => (africanPartnersSet.has(d.properties.name) ? 0 : null))
@@ -251,7 +259,12 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     const name = d.properties.name;
     const config = countryLabelConfig[name] || {};
 
-    const textEl = d3.select(this).append("text").attr("text-anchor", "middle").attr("font-weight", "bold").attr("font-size", "13px").attr("font-family", "UncutRegular, sans-serif").attr("fill", "#ffffff");
+    const textEl = d3.select(this).append("text")
+    .attr("text-anchor", "middle")
+    .attr("font-weight", "bold")
+    .attr("font-size", "13px")
+    .attr("font-family", "UncutRegular, sans-serif")
+    .attr("fill", isDarkFill(name, selectedPartner) ? "#ffffff" : "#1c2b1e")
 
     if (config.lines) {
       config.lines.forEach((line, i) => {
@@ -287,7 +300,7 @@ export function drawBilateralMap(mergedData, selectedPartner) {
       return (lines - 1) * 10 + 2 + (config.iconDy || 0);
     })
     .attr("href", (d) => `./assets/img/icons/${getTrendConfig(d).src}`)
-    .style("filter", "brightness(0) invert(1)"); // forced white — see note below
+    .style("filter", (d) => (isDarkFill(d.properties.name, selectedPartner) ? "brightness(0) invert(1)" : "brightness(0)"));
 }
 
 // --- Public: label controls ---
@@ -330,6 +343,47 @@ function getViewBox(el, features) {
   return fitViewBox(features.filter((d) => !FAR_ISLANDS.has(d.properties.name)));
 }
 
+// White only works on the dark High green (10:1). On Low (1.7:1) and Moderate (2.5:1)
+// it is hard to read, so those fills get dark ink.
+function isDarkFill(countryName, selectedPartner) {
+  const partnerData = databases.reshapedBiData[selectedPartner]?.find((entry) => entry["African Country"] === countryName);
+  return partnerData?.["Economic and Investment connectivity between African country and non-African partner"] === "High";
+}
+// Desktop / landscape tablet: sit the legend beside the partner list, with its title line and first
+// heading line level with the two lines of the "Gulf Countries" label. The legend is anchored to the
+// bottom and the label to the top, so this has to be measured; it re-runs on resize.
+const ROW_LAYOUT_QUERY = "(min-width: 1200px), (min-width: 992px) and (orientation: landscape)";
+function alignLegend() {
+  const legend = document.getElementById("mapLegend");
+  const map = document.getElementById("map");
+  const label = document.querySelector('.vis-sidebar [data-slug="GulfCooperationCouncil"] .label');
+  const title = legend?.querySelector(".vis-map__legend-title");
+  if (!legend || !map || !label || !title) return;
+
+  const floating = getComputedStyle(legend).position === "absolute" && window.matchMedia(ROW_LAYOUT_QUERY).matches;
+  if (!floating || getComputedStyle(legend).display === "none") {
+    legend.style.removeProperty("top");
+    legend.style.removeProperty("bottom");
+    return;
+  }
+  legend.style.setProperty("--pitch", getComputedStyle(label).lineHeight); // same line spacing as the label
+  const range = document.createRange();
+  range.selectNodeContents(label);
+  const firstLine = range.getClientRects()[0];
+  if (!firstLine) return;
+
+  legend.style.setProperty("bottom", "auto", "important");
+  legend.style.setProperty("top", "0px", "important"); // measure from a known position
+  const legendBox = legend.getBoundingClientRect();
+  const titleBox = title.getBoundingClientRect();
+  const titleOffset = (titleBox.top + titleBox.bottom) / 2 - legendBox.top; // card's top edge to the middle of its title
+  const lineCenter = (firstLine.top + firstLine.bottom) / 2;
+  const wanted = lineCenter - map.getBoundingClientRect().top - titleOffset;
+  const lowest = map.clientHeight - legendBox.height - 8; // never push the card past the bottom edge
+  legend.style.setProperty("top", `${Math.max(0, Math.min(wanted, lowest))}px`, "important");
+}
+window.addEventListener("resize", alignLegend);
+document.fonts?.ready.then(alignLegend); // the label's size can change once the font has loaded
 // On the bilateral map, African partner countries are coloured by connectivity level.
 function getBilateralFill(countryName, selectedPartner, africanPartnersSet) {
   if (!africanPartnersSet.has(countryName)) {

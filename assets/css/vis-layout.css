@@ -59,6 +59,7 @@
 .vis-body {
   display: flex !important;
   flex-direction: row !important;
+  flex-wrap: nowrap !important; /* columns share one line of the row's height; tall content scrolls inside its column */
   flex: 1;
   min-height: 0;
 }
@@ -190,7 +191,7 @@
 .vis-map__legend-col {
   display: flex;
   flex-direction: column;
-  gap: inherit;
+  gap: 5px;
 }
 .vis-map__legend-divider {
   width: 100%;
@@ -203,7 +204,7 @@
   font-size: 7.5pt;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #8a8880;
+  color: #6b6a65;
   margin: 2px 0 0 0;
 }
 .vis-map__legend-dot {
@@ -231,7 +232,7 @@
   background: white;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 150px); /* WE NEED THIS TO ENABLE OVERSCROLL */
+  height: auto; /* WE NEED THIS TO ENABLE OVERSCROLL */
   overflow-y: scroll !important;
 }
 .vis-panel .card.partnership {
@@ -406,7 +407,7 @@
 .statLabel {
   font-family: "UncutRegular", sans-serif;
   font-size: 7pt;
-  color: #8a8880;
+  color: #6b6a65;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -463,7 +464,7 @@
 /* Areas of cooperation label smaller */
 .card-text.areasCoop {
   font-size: 7.5pt;
-  color: #b4b2a9;
+  color: #77756f;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 8px 0 4px 0;
@@ -499,7 +500,7 @@
 /* Trend indicator */
 .trendLabel {
   font-size: 7.5pt;
-  color: #b4b2a9;
+  color: #77756f;
 }
 .tab-content h5.card-title.partner-select {
   font-size: 9pt;
@@ -522,11 +523,11 @@
 .flagshipProjects {
   font-family: "UncutRegular", sans-serif;
   font-size: 8pt;
-  color: #8a8880;
+  color: #6b6a65;
   margin: 4px 0 0 0;
 }
 .flagshipProjects span {
-  color: #b4b2a9;
+  color: #77756f;
 }
 
 /* -- Scrollbars -- */
@@ -802,12 +803,23 @@
     padding-inline: 0;
   }
 }
-/* Row layout only (desktop and landscape tablet): sit the legend flush with the
-   map's left edge. The stacked layout aligns it with the partner row instead. */
+/* Compact legend card, beside the partner list (desktop and landscape tablet) */
 @media (min-width: 1200px), (min-width: 992px) and (orientation: landscape) {
   #mapLegend {
-    margin-left: 0 !important;
+    width: auto;
+    max-width: none;
+    padding: 10px 16px !important;
+    gap: 0 !important;
+    margin: 0 0 16px 24px !important;
   }
+  .vis-map__legend-title,
+  .vis-map__legend-subtitle {
+    margin: 0 !important;
+    line-height: var(--pitch, 16.5px); /* same line spacing as the "Gulf Countries" label, so the lines can sit level with it */
+  }
+  .vis-map__legend-groups { flex-direction: row; gap: 18px; }
+  .vis-map__legend-col { gap: 6px !important; } /* spacing between Low / Moderate / High and the trend rows */
+  .vis-map__legend-divider { width: auto; align-self: stretch; border-top: none; border-left: 0.5px solid #d3d1c7; margin: 0; }
 }
 
 /* Soft fade when the map or the info panel is rebuilt, so switching partner or
@@ -880,4 +892,10 @@
 #map:has(#mapLoading) #mapLegend,
 #map:has(#mapLoading) #africaButton {
   visibility: hidden;
+}
+/* Overview is the starting point: nothing is coloured yet, so there is no legend to read
+   and nowhere to go back to. Both appear once a partner is selected. */
+#map.is-overview #mapLegend,
+#map.is-overview #africaButton {
+  display: none !important;
 }

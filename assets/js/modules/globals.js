@@ -107,7 +107,7 @@ const globals = {
     colors: {
       nonAfricaPartner: "#fec030",
       africaPartner: "#ffdc94",
-      default: "none",
+      default: "#e6e2d8",
     },
     connectivityColor: {
       Low: "#d6cb62",
@@ -264,9 +264,9 @@ const globals = {
     "Gulf Countries": "https://afripoli.org/projects/pie-mapping/theme/PieMapping/uploads/GCC_FDI_Strategy.pdf",
   },
   trendConfig: {
-    Increase: { src: "arrow-up.svg", title: "Increasing", filter: "invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg)" },
-    Decrease: { src: "arrow-down.svg", title: "Decreasing", filter: "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg)" },
-    Stable: { src: "minus.svg", title: "Stable", filter: "invert(50%)" },
+    Increase: { src: "arrow-up.svg", title: "Increasing", filter: "invert(48%) sepia(79%) saturate(476%) hue-rotate(86deg) brightness(0.75)" },
+    Decrease: { src: "arrow-down.svg", title: "Decreasing", filter: "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(0.75)" },
+    Stable: { src: "minus.svg", title: "Stable", filter: "invert(50%) brightness(0.75)" },
   },
 };
 
