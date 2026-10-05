@@ -1,4 +1,4 @@
-# Africa's Green Transition: Climate Finance Diplomacy Map
+![Africa's Green Transition: Climate Finance Diplomacy Map](docs/screenshots/hero.png)
 
 An interactive data visualization mapping bilateral climate finance relationships between African countries and three major foreign actors: **China**, the **European Union**, and the **Gulf Cooperation Council**. Built with D3.js and Bootstrap 5.
 
@@ -20,6 +20,16 @@ This project is part of a broader portfolio of interactive data visualizations e
 - **Investment trend indicators**: at-a-glance icons showing whether a relationship is intensifying, cooling, or holding steady
 - **Responsive layout**: built with a Bootstrap-first approach, adapted for desktop and tablet viewports
 - **Sourced throughout**: every partner-level relationship links back to its original data source
+
+## Screenshots
+![First view: nothing selected yet](docs/screenshots/overview.png)
+*First view: pick a partner to colour the map.*
+
+![Country detail: China and Nigeria](docs/screenshots/country-detail.png)
+*Click a country to see its bilateral detail.*
+
+![Tablet and phone layouts](docs/screenshots/responsive.png)
+*The layout adapts to tablet and phone.*
 
 ## Data sources
 
