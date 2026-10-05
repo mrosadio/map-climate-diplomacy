@@ -265,6 +265,9 @@ export function drawBilateralMap(mergedData, selectedPartner) {
     .attr("font-size", "13px")
     .attr("font-family", "UncutRegular, sans-serif")
     .attr("fill", isDarkFill(name, selectedPartner) ? "#ffffff" : "#1c2b1e")
+    .attr("stroke-width", 3)
+    .attr("stroke-linejoin", "round")
+    .style("paint-order", "stroke")
 
     if (config.lines) {
       config.lines.forEach((line, i) => {

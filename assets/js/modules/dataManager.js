@@ -79,21 +79,3 @@ export async function prepareBilateralData() {
 
   return { mergedData, bilateralData, bilateralPartners };
 }
-
-export async function prepareComparativeData() {
-  const geoJSONData = globals.databases.geoJSONData;
-  const csvData = globals.databases.comparativeData;
-
-  if (!geoJSONData || !csvData) {
-    console.error("GeoJSON or CSV data is missing. Ensure data is loaded before calling this function.");
-    return null;
-  }
-
-  // Merge filtered GeoJSON with CSV data
-  const mergedData = mergeGeoJSONWithData(geoJSONData, csvData);
-
-  // Optionally save the merged data in globals for reuse
-  globals.databases.mergedComparativeData = mergedData;
-
-  return mergedData;
-}

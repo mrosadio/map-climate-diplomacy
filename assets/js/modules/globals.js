@@ -2,7 +2,6 @@ const globals = {
   geoJSONUrl: "assets/db/africa.geojson",
   overviewDataUrl: "assets/db/pie-climate-diplomacy.csv",
   bilateralDataUrl: "assets/db/green-cooperation.csv",
-  comparativeDataUrl: "assets/db/comparative-advantage.csv",
   databases: {
     geoJSONData: null,
     africaGeoJSON: null,
@@ -72,13 +71,7 @@ const globals = {
     "Zambia",
     "Zimbabwe",
   ]),
-  EUCountries: new Set(["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden"]),
-  GCCCountries: new Set(["Oman", "Qatar", "Saudi Arabia", "United Arab Emirates"]),
   africanPartners: null, //ideally, this set is automatically populated from the data
-  mainViewBox: "-500 0 2000 400",
-  svgWidth: 900,
-  svgHeight: 600,
-  svgViewBox: "100 0 900 600",
   legend: {
     textAlign: "left",
     margin: "10px 0",
@@ -137,12 +130,6 @@ const globals = {
     areasCoopPaddinBottom: "0px",
     areasCoopMarginBottom: "0px",
     areasCoopMarginRight: "10px",
-  },
-  customDivStyle: {
-    maxHeight: "100%",
-    overflowY: "auto",
-    marginTop: "0px",
-    display: "block",
   },
   overviewText: {
     China:

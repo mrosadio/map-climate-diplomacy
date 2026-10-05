@@ -185,35 +185,6 @@ function createNavigationSteps() {
   return section;
 }
 
-// Builds one mini-card per African partner country for the scannable list
-// Shows: country name, trend indicator, cooperation tags, flagship count
-// No click handler, clicking a country on the map triggers populateCountryCard
-function createPartnershipMiniCard(entry) {
-  const card = document.createElement("div");
-  card.classList.add("card-body", "partner");
-
-  const title = document.createElement("h6");
-  title.classList.add("card-title", "listPartners", "gap-2", "mb-1");
-  title.textContent = entry["African Country"];
-  card.appendChild(title);
-
-  if (entry["Economic and Investment Trend"] !== "No data") {
-    card.appendChild(createTrendIndicator(entry["Economic and Investment Trend"]));
-  }
-
-  if (entry["Areas of Cooperation - Categories"] !== "No data") {
-    card.appendChild(createCooperationDiv(entry));
-  }
-
-  if (entry["Number of Flagship Green Projects"] !== "No data") {
-    const flagship = document.createElement("p");
-    flagship.classList.add("card-text", "mb-1", "flagshipProjects");
-    flagship.innerHTML = `<span>No. Flagship Green Projects:</span> ${entry["Number of Flagship Green Projects"]}`;
-    card.appendChild(flagship);
-  }
-  return card;
-}
-
 // --- populateCountryCard helpers ---
 function createBreadCrumb(selectedPartner, backFn) {
   const breadcrumb = document.createElement("p");
