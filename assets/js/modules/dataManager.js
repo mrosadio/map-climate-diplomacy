@@ -3,21 +3,21 @@ import { loadCSVData, loadJSONData } from "./dataLoader.js";
 import { filterGeoJSON, getPartners, groupByNonAfrican, mergeBilateralData, mergeGeoJSONWithData } from "./dataTransform.js";
 
 const { databases, africanCountries } = globals;
+// Wraps the callback-style CSV loader so the files can be requested in parallel
+const loadCSV = (url) => new Promise((resolve) => loadCSVData(url, resolve));
 
 export async function initializeDatabases() {
   try {
-    // Load GeoJSON data
-    const geoJSONdata = await loadJSONData();
+    // Request all files at once: the wait is network round trips, not file size
+    const [geoJSONdata, overviewData, bilateralData] = await Promise.all([
+      loadJSONData(),
+      loadCSV(globals.overviewDataUrl),
+      loadCSV(globals.bilateralDataUrl),
+    ]);
     if (!geoJSONdata) throw new Error("Failed to load GeoJSON data");
     databases.geoJSONData = geoJSONdata;
-
-    // Load climate diplomacy CSV data for overview page
-    const overviewData = await new Promise((resolve, reject) => {
-      loadCSVData(globals.overviewDataUrl, (data) => {
-        resolve(data);
-      });
-    });
     databases.overviewData = overviewData;
+    databases.bilateralData = bilateralData;
 
     // Dynamically populate the africanPartners set
     const africanPartnersSet = new Set();
@@ -27,24 +27,6 @@ export async function initializeDatabases() {
       }
     });
     globals.africanPartners = africanPartnersSet; // Update the global set
-
-    // Load bilateral green cooperation CSV data
-    const bilateralData = await new Promise((resolve, reject) => {
-      loadCSVData(globals.bilateralDataUrl, (data) => {
-        resolve(data);
-      });
-    });
-    databases.bilateralData = bilateralData;
-
-    // Load comparative advantage CSV data
-    const comparativeData = await new Promise((resolve, reject) => {
-      loadCSVData(globals.comparativeDataUrl, (data) => {
-        resolve(data);
-      });
-    });
-    databases.comparativeData = comparativeData;
-
-    //console.log("Databases initialized:", databases);
   } catch (error) {
     console.error("Error initializing databases:", error);
   }

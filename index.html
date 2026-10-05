@@ -85,6 +85,10 @@
         <!-- CENTER: Map -->
         <!-- Keep id="map" so D3 can find it with d3.select("#map") -->
         <main id="map" class="vis-map col-12 position-relative" aria-label="Africa climate finance map">
+          <div id="mapLoading" class="vis-map__loading" role="status">
+            <span class="vis-map__loading-text">Loading data…</span>
+            <span class="vis-map__loading-slow">Taking longer than expected. Please check your connection and reload.</span>
+          </div>
           <button id="africaButton" class="vis-map__overview-btn position-absolute top-0 end-0 m-3">Overview</button>
           <!-- Overview button  -->
           <!-- Map legend — shown once a partner is selected -->

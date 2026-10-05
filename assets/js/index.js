@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     await initializeDatabases();
     await showAfricaOverview();
+    document.getElementById("mapLoading")?.remove(); // loading state is over: the map is drawn
     initLayout(); // <- must come first .sets up the zone structure
     renderOverviewPanel(); // <- must come after. fills it with content
 

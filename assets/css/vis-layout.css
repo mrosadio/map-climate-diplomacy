@@ -780,7 +780,7 @@
   }
   .vis-map {
     height: auto;
-    min-height: 0;
+    min-height: min(100vw, 60vh);
     padding-inline: 0;
   }
   .vis-panel {
@@ -828,4 +828,56 @@
   .partner-overview-zone > * {
     animation: none;
   }
+}
+/* Loading state: shown from the first paint with no JavaScript needed, but only
+   fades in if the wait lasts longer than ~0.8 s, so fast connections never see
+   a flash of it. index.js removes it once the map is drawn. */
+.vis-map__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 24px;
+  text-align: center;
+  pointer-events: none;
+  font-family: "UncutMedium", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #5f5e5a;
+}
+.vis-map__loading-text,
+.vis-map__loading-slow {
+  opacity: 0;
+  animation: loadingIn 300ms ease-out forwards;
+}
+.vis-map__loading-text {
+  font-size: 9.5pt;
+  animation-delay: 800ms;
+}
+.vis-map__loading-slow {
+  font-size: 8pt;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  animation-delay: 15s; /* only if the map still hasn't appeared after 15 s */
+}
+@keyframes loadingIn {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vis-map__loading-text {
+    animation: loadingIn 300ms ease-out 300ms forwards, loadingPulse 1.6s ease-in-out 1100ms infinite alternate;
+  }
+}
+@keyframes loadingPulse {
+  from { opacity: 1; }
+  to { opacity: 0.6; }
+}
+
+/* No legend or Overview button until there is a map for them to explain. */
+#map:has(#mapLoading) #mapLegend,
+#map:has(#mapLoading) #africaButton {
+  visibility: hidden;
 }
