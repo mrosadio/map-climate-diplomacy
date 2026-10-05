@@ -18,20 +18,10 @@ export function renderOverviewPanel() {
   // How to navigate
   card.appendChild(createNavigationSteps());
 
-  // Sources zone
-  const sourcesZone = document.createElement("div");
-  sourcesZone.classList.add("vis-panel__zone");
-  const sourcesLabel = document.createElement("p");
-  sourcesLabel.classList.add("vis-panel__zone-label");
-  sourcesLabel.textContent = "Data sources";
-  sourcesLabel.style.marginTop = "18px";
-  sourcesZone.appendChild(sourcesLabel);
   // Sources accordion item
   const sourcesLinks = [
-    { label: "IMF Database", url: "#" },
-    { label: "World Bank Database", url: "#" },
-    { label: "China Global Investment Tracker", url: "#" },
-    { label: "Gulf Renewable Projects Tracker", url: "#" },
+    { label: "IMF Database", url: "https://data.imf.org/datasets/IMF.STA:IMTS" },
+    { label: "World Bank Database", url: "https://data.worldbank.org/country/1W/" },
   ]
     .map(({ label, url }) => `<a href="${url}" target="_blank" class="source-link vis-panel__zone-text">${label}</a>`)
     .join("");

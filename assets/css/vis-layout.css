@@ -155,7 +155,13 @@
   position: absolute; /* fills the box the layout gives #map, never stretches it */
   inset: 0;
 }
-
+#map path:focus {
+  outline: none;
+}
+#map path:focus-visible {
+  stroke: #2b6cb0;
+  stroke-width: 3px;
+}
 .vis-map__overview-btn {
   background: transparent;
   border: 0.5px solid #3d5c41;
@@ -581,12 +587,14 @@
     height: 45vh; /* the map keeps a sensible height of its own */
     max-height: none;
   }
+
   #mapLegend {
     width: auto;
     max-width: 150px;
     padding: 6px !important;
     gap: 4px !important;
     margin: 0 0 8px 4px !important;
+    margin-left: 0 !important;
   }
   .vis-map__legend-groups {
     flex-direction: row;
@@ -792,5 +800,32 @@
   }
   .card.partnership.expanded {
     padding-inline: 0;
+  }
+}
+/* Row layout only (desktop and landscape tablet): sit the legend flush with the
+   map's left edge. The stacked layout aligns it with the partner row instead. */
+@media (min-width: 1200px), (min-width: 992px) and (orientation: landscape) {
+  #mapLegend {
+    margin-left: 0 !important;
+  }
+}
+
+/* Soft fade when the map or the info panel is rebuilt, so switching partner or
+   returning to the overview doesn't snap. Pure CSS: newly inserted elements
+   start the animation when they are first rendered. */
+@keyframes contentFadeIn {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+#map svg > g,
+.card.partnership > :not(.partner-overview-zone),
+.partner-overview-zone > * {
+  animation: contentFadeIn 350ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  #map svg > g,
+  .card.partnership > :not(.partner-overview-zone),
+  .partner-overview-zone > * {
+    animation: none;
   }
 }
