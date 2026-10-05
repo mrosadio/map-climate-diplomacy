@@ -33,14 +33,11 @@ This project is part of a broader portfolio of interactive data visualizations e
 
 ## Data sources
 
-Data is compiled and cross-checked from primary and secondary sources, including:
+Data is compiled from the following secondary sources:
 
 - International Monetary Fund (IMF)
 - The World Bank
-- Organisation for Economic Co-operation and Development (OECD)
-- Global Gateway (European Union)
-- China Global Investment Tracker
-- Gulf Renewable Projects Tracker
+
 
 ## Tech stack
 
@@ -55,7 +52,7 @@ Data is compiled and cross-checked from primary and secondary sources, including
 ```
 ├── index.html
 ├── assets/
-│   ├── css/          # main.css, vis-layout.css, printContainer.css
+│   ├── css/          # main.css, vis-layout.css
 │   ├── js/
 │   │   ├── index.js          # entry point
 │   │   └── modules/
@@ -65,8 +62,7 @@ Data is compiled and cross-checked from primary and secondary sources, including
 │   │       ├── drawMap.js         # D3 map rendering (overview + bilateral)
 │   │       ├── cards.js           # right-panel info cards
 │   │       ├── navigation.js      # overview map orchestration
-│   │       ├── layout.js          # sidebar state + partner selection
-│   │       └── setUpControls.js   # zoom / label toggle controls
+│   │       └── layout.js          # sidebar state + partner selection
 │   ├── img/icons/     # partner icons, trend icons
 │   └── db/            # source CSV datasets
 ```
@@ -84,11 +80,10 @@ python3 -m http.server 8000
 
 Any local static server works equally well (e.g. `npx serve`, VS Code's Live Server extension).
 
-## Known limitations
-
-- Mobile phone layout is not yet implemented (tablet and desktop are fully supported)
-- On very tall/narrow viewports, the map's aspect ratio doesn't yet dynamically adapt to available vertical space
-
 ## Author
 
 Micaela Rosadio — [GitHub](https://github.com/mrosadio)
+
+## License
+
+Code: [MIT](LICENSE). The data and descriptive text belong to APRI and are not covered by that licence; see [NOTICE.md](NOTICE.md).
