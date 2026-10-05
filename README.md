@@ -1,3 +1,5 @@
+## Africa's Green Transition
+
 ![Africa's Green Transition: Climate Finance Diplomacy Map](docs/screenshots/hero.png)
 
 An interactive data visualization mapping bilateral climate finance relationships between African countries and three major foreign actors: **China**, the **European Union**, and the **Gulf Cooperation Council**. Built with D3.js and Bootstrap 5.
@@ -69,16 +71,9 @@ Data is compiled from the following secondary sources:
 
 ## Running locally
 
-Because the app uses native ES modules, it needs to be served over HTTP rather than opened directly as a local file:
+No build step. Serve the folder over HTTP, because ES modules don't load from `file://`:
 
-```bash
-git clone https://github.com/mrosadio/map-climate-diplomacy.git
-cd map-climate-diplomacy
-python3 -m http.server 8000
-# then open http://localhost:8000
-```
-
-Any local static server works equally well (e.g. `npx serve`, VS Code's Live Server extension).
+    python3 -m http.server 8000   # then open http://localhost:8000
 
 ## Author
 
